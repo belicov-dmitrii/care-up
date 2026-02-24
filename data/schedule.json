@@ -1,0 +1,81 @@
+ [
+    {
+      "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+      "type": "every day",
+      "time": {
+        "hours": 8,
+        "minutes": 30
+      },
+      "startDate": "2026-02-01",
+      "quantity": 30,
+      "expirationDate": "2026-03-01",
+      "restriction": [
+        {
+          "type": "Food & Drink Timing",
+          "note": "Avoid coffee before intake",
+          "before": 120,
+          "after": null,
+          "enabled": true
+        },
+        {
+          "type": "Posture / Immediate Behavior",
+          "note": "Do not lie down immediately after intake",
+          "before": null,
+          "after": 30,
+          "enabled": true
+        }
+      ],
+      "recomendation": {
+        "category": "Activity Restrictions",
+        "text": "Avoid driving if dizziness occurs"
+      }
+    },
+    {
+      "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+      "type": "every other day",
+      "time": {
+        "hours": 21,
+        "minutes": 0
+      },
+      "startDate": "2026-02-10",
+      "quantity": 15,
+      "expirationDate": "2026-03-15",
+      "restriction": [
+        {
+          "type": "Supplement / Mineral Separation",
+          "note": "Separate from magnesium",
+          "before": null,
+          "after": 180,
+          "enabled": true
+        }
+      ],
+      "recomendation": {
+        "category": "Administration Method",
+        "text": "Take with food"
+      }
+    },
+    {
+      "medId": "f3c8b1a9-2d55-41ab-9f77-6e2d4c9d0033",
+      "type": "specific date",
+      "time": {
+        "hours": 14,
+        "minutes": 15
+      },
+      "startDate": "2026-03-05",
+      "quantity": 1,
+      "expirationDate": "2026-03-05",
+      "restriction": [
+        {
+          "type": "Activity (Time-Limited)",
+          "note": "Avoid intense physical activity",
+          "before": 60,
+          "after": 120,
+          "enabled": true
+        }
+      ],
+      "recomendation": {
+        "category": "Food & Diet",
+        "text": "Do not take on empty stomach"
+      }
+    }
+  ]

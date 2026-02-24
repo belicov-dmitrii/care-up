@@ -1,10 +1,16 @@
 import { promises as fs } from 'fs';
+import { NextResponse } from 'next/server';
 import path from 'path';
 
 const dataPath = (...p: string[]) => path.join(process.cwd(), 'data', ...p);
 
-export async function GET() {
-    const buf = await fs.readFile(dataPath('meds.json'));
+export async function POST() {
+    try {
+        const file = await fs.readFile(dataPath('meds.json'), 'utf-8');
+        const meds = JSON.parse(file);
 
-    return buf.toString();
+        return NextResponse.json(meds);
+    } catch (_) {
+        return NextResponse.json({ error: 'Failed to read meds' }, { status: 500 });
+    }
 }

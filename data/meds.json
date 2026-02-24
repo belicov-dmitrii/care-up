@@ -1,3 +1,52 @@
-[{
-    "name": "Drugs"
-}]
+[
+    {
+      "id": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+      "name": "Paracetamol",
+      "form": "Tablets",
+      "strenght": 500,
+      "unit": "mg",
+      "dose": 1,
+      "inventoryNumber": 12345,
+      "remaining": 18
+    },
+    {
+      "id": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+      "name": "Vitamin D3",
+      "form": "Capsules",
+      "strenght": 1000,
+      "unit": "IU",
+      "dose": 1,
+      "inventoryNumber": 22346,
+      "remaining": 60
+    },
+    {
+      "id": "f3c8b1a9-2d55-41ab-9f77-6e2d4c9d0033",
+      "name": "Ibuprofen",
+      "form": "Film-coated tablets",
+      "strenght": 400,
+      "unit": "mg",
+      "dose": 1,
+      "inventoryNumber": 32347,
+      "remaining": 25
+    },
+    {
+      "id": "d9e1c4b7-7a66-4f33-b8e4-3c7d1a5e0044",
+      "name": "Magnesium",
+      "form": "Powders",
+      "strenght": 300,
+      "unit": "mg",
+      "dose": 1,
+      "inventoryNumber": 42348,
+      "remaining": 10
+    },
+    {
+      "id": "b4a6e2d8-3c77-4e99-9a55-2b8f6d0c0055",
+      "name": "Iron Supplement",
+      "form": "Syrups",
+      "strenght": 10,
+      "unit": "mL",
+      "dose": 5,
+      "inventoryNumber": 52349,
+      "remaining": 120
+    }
+]

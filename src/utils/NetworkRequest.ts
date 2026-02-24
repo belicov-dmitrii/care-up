@@ -9,6 +9,8 @@ export const NetworkRequest = async <T>(
     reqBody: Record<string, unknown>,
     params: Parameters<typeof fetch>[1] = BASE_PARAMS
 ) => {
+    const isServerLink = url.startsWith('http://') || url.startsWith('https://');
+
     try {
         const finalParams = { ...(params || {}) };
 
@@ -16,7 +18,7 @@ export const NetworkRequest = async <T>(
             finalParams.body = JSON.stringify(reqBody);
         }
 
-        const res = await fetch(`/api/${url}`, finalParams);
+        const res = await fetch(isServerLink ? url : `/api/${url}`, finalParams);
 
         const body = await res.json();
 

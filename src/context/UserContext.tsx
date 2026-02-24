@@ -1,8 +1,8 @@
 'use client';
 
 import { ILoginResponse } from '@/components/LoginForm/utils/types';
-import { NetworkRequest } from '@/utils.ts/NetworkRequest';
-import { noop } from '@/utils.ts/noop';
+import { NetworkRequest } from '@/utils/NetworkRequest';
+import { noop } from '@/utils/noop';
 import { redirect } from 'next/navigation';
 import {
     createContext,

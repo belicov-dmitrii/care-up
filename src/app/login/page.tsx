@@ -1,12 +1,4 @@
-/* eslint-disable prettier/prettier */
-import {
-    Box,
-    Paper,
-    Typography,
-    Stack,
-    Avatar,
-    Container,
-} from '@mui/material';
+import { Box, Paper, Typography, Stack, Avatar, Container } from '@mui/material';
 
 import Image from 'next/image';
 import { Spa } from '@mui/icons-material';
@@ -14,29 +6,29 @@ import { LoginForm } from '@/components/LoginForm/LoginForm';
 
 export default function AuthLoginPage() {
     return (
-      <Container 
-        sx={{
-            bgcolor: 'background.default',
-            px: 2,
-            py: 3,
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            gap: 3,
-        }}
-      >
+        <Container
+            sx={{
+                bgcolor: 'background.default',
+                px: 2,
+                py: 3,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-around',
+                alignItems: 'center',
+                gap: 3,
+            }}
+        >
             <Box
                 sx={{
-                  position: 'relative', width: '90%',
-                  mx: 'auto',
-                  height: { xs: 300, sm: 350 },
-                  borderRadius: 6,
-                  bgcolor: 'rgba(15, 23, 42, 0.04)',
-                  boxShadow:
-                  '0px 1px 2px rgba(15, 23, 42, 0.06), 0px 10px 24px rgba(15, 23, 42, 0.06)',
-                  overflow: 'hidden',
-                  objectFit: 'center'
+                    position: 'relative',
+                    width: '90%',
+                    mx: 'auto',
+                    height: { xs: 300, sm: 350 },
+                    borderRadius: 6,
+                    bgcolor: 'rgba(15, 23, 42, 0.04)',
+                    boxShadow:
+                        '0px 1px 2px rgba(15, 23, 42, 0.06), 0px 10px 24px rgba(15, 23, 42, 0.06)',
+                    overflow: 'hidden',
                 }}
             >
                 <Image src="/care-logo.png" alt="logo" fill />

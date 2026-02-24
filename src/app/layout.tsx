@@ -5,9 +5,9 @@ import { Box, Typography } from '@mui/material';
 import type { Metadata } from 'next';
 import { Domine, Marck_Script } from 'next/font/google';
 import { cookies } from 'next/headers';
-import '@/styles/globals.scss';
 import { UserContextProvider } from '@/context/UserContext';
 import { Header } from '@/components/Header/Header';
+import '@/styles/globals.scss';
 
 const domine = Domine({
     variable: '--font-domine',

@@ -12,8 +12,8 @@ import {
 } from '@mui/material';
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { logError } from '@/utils.ts/logError';
-import { NetworkRequest } from '@/utils.ts/NetworkRequest';
+import { logError } from '@/utils/logError';
+import { NetworkRequest } from '@/utils/NetworkRequest';
 import { ILoginResponse } from './utils/types';
 import { useUserContext } from '@/context/UserContext';
 import { useRouter } from 'next/navigation';
@@ -107,11 +107,7 @@ export const LoginForm = memo(() => {
                 color="primary"
                 fullWidth
                 disabled={!email || !password}
-                sx={{
-                    mt: 1,
-                    minHeight: 56,
-                    fontSize: 16,
-                }}
+                sx={{ mt: 2 }}
                 onClick={submit}
             >
                 Continue
