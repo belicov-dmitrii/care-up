@@ -1,13 +1,13 @@
 import { getServerT } from '@/i18n';
 import { Box, Paper } from '@mui/material';
-import '@/styles/dashboard.module.scss';
 import { getMeds } from '@/utils/dashboard/getMeds';
+import { getSchedule } from '@/utils/dashboard/getSchedule';
+import '@/styles/dashboard.module.scss';
 
 export default async function Dashboards() {
     const t = await getServerT();
     const meds = await getMeds();
-
-    console.log('🚀 ~ Dashboards ~ meds:', meds);
+    const schedule = await getSchedule();
 
     return (
         <Box>

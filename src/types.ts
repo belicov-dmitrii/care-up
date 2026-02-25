@@ -1,0 +1,110 @@
+// ===== Enums: Meds =====
+
+export enum MedForm {
+    Tablets = 'Tablets',
+    FilmCoatedTablets = 'Film-coated tablets',
+    EntericCoatedTablets = 'Enteric-coated tablets',
+    ChewableTablets = 'Chewable tablets',
+    OrallyDisintegratingTabletsODT = 'Orally disintegrating tablets (ODT)',
+    SublingualTabletsUnderTongue = 'Sublingual tablets (under tongue)',
+    Capsules = 'Capsules',
+    Caplets = 'Caplets',
+    Powders = 'Powders',
+    Granules = 'Granules',
+    MedicinalChewingGum = 'Medicinal chewing gum',
+    Pastilles = 'pastilles',
+    Solutions = 'Solutions',
+    Syrups = 'Syrups',
+    Suspensions = 'Suspensions',
+    Emulsions = 'Emulsions',
+    Elixirs = 'Elixirs',
+    OralDrops = 'Oral drops',
+}
+
+export enum MedUnit {
+    Mg = 'mg',
+    Mcg = 'mcg',
+    G = 'g',
+    MEq = 'mEq',
+    Mmol = 'mmol',
+    Units = 'units',
+    IU = 'IU',
+    Drops = 'drops',
+    Teaspoon = 'teaspoon',
+    Tablespoon = 'tablespoon',
+    Ml = 'mL',
+    L = 'L',
+}
+
+export type Med = {
+    id: string; // uniq
+    name: string;
+    form: MedForm;
+    strength: number;
+    unit: MedUnit;
+    dose: number;
+    inventoryNumber: number;
+    remaining: number;
+};
+
+export type MedsPayload = {
+    Meds: Med[];
+};
+
+// ===== Enums: Schedule =====
+
+export enum ScheduleType {
+    EveryDay = 'every day',
+    EveryOtherDay = 'every other day',
+    EveryWeek = 'every week',
+    EveryMonth = 'every month',
+    SpecificDate = 'specific date',
+}
+
+export enum RestrictionType {
+    FoodDrinkTiming = 'Food & Drink Timing',
+    SupplementMineralSeparation = 'Supplement / Mineral Separation',
+    OtherMedicationSpacing = 'Other Medication Spacing',
+    PostureImmediateBehavior = 'Posture / Immediate Behavior',
+    ActivityTimeLimited = 'Activity (Time-Limited)',
+}
+
+export enum RecommendationCategory {
+    ActivityRestrictions = 'Activity Restrictions',
+    SubstanceRestrictions = 'Substance Restrictions',
+    FoodDiet = 'Food & Diet',
+    AdministrationMethod = 'Administration Method',
+    HealthConditionWarnings = 'Health Condition Warnings',
+    StorageInstructions = 'Storage Instructions',
+}
+
+// ===== Types: Schedule =====
+
+export type ScheduleTime = {
+    hours: number; // < 24
+    minutes: number; // < 61
+};
+
+export type ScheduleRestriction = {
+    type: RestrictionType;
+    note: string;
+    before: number | null; // minutes
+    after: number | null; // minutes
+    enabled: boolean;
+};
+
+export type ScheduleRecommendation = {
+    category: RecommendationCategory;
+    text: string;
+};
+
+export type ScheduleItem = {
+    medId: string; // FK -> Med.id
+    type: ScheduleType;
+    time: ScheduleTime;
+    startDate: string; // date (ISO: YYYY-MM-DD)
+    quantity: number;
+    expirationDate: string; // date (ISO: YYYY-MM-DD)
+    restriction: ScheduleRestriction[];
+    recommendation: ScheduleRecommendation;
+};
