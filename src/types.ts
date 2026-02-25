@@ -12,7 +12,7 @@ export enum MedForm {
     Powders = 'Powders',
     Granules = 'Granules',
     MedicinalChewingGum = 'Medicinal chewing gum',
-    Pastilles = 'pastilles',
+    Pastilles = 'Pastilles',
     Solutions = 'Solutions',
     Syrups = 'Syrups',
     Suspensions = 'Suspensions',
@@ -43,8 +43,8 @@ export type Med = {
     strength: number;
     unit: MedUnit;
     dose: number;
-    inventoryNumber: number;
     remaining: number;
+    quantity: number;
 };
 
 export type MedsPayload = {
@@ -81,6 +81,7 @@ export enum RecommendationCategory {
 // ===== Types: Schedule =====
 
 export type ScheduleTime = {
+    id: string;
     hours: number; // < 24
     minutes: number; // < 61
 };
@@ -101,10 +102,10 @@ export type ScheduleRecommendation = {
 export type ScheduleItem = {
     medId: string; // FK -> Med.id
     type: ScheduleType;
-    time: ScheduleTime;
+    time: Array<ScheduleTime>;
     startDate: string; // date (ISO: YYYY-MM-DD)
-    quantity: number;
-    expirationDate: string; // date (ISO: YYYY-MM-DD)
+    dose: Record<string, number>; // key FK -> ScheduleTime.id
+    endDate: string; // date (ISO: YYYY-MM-DD)
     restriction: ScheduleRestriction[];
     recommendation: ScheduleRecommendation;
 };
