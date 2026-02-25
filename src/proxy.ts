@@ -3,8 +3,9 @@ import type { NextRequest } from 'next/server';
 
 const PUBLIC_PATHS = ['/login', '/api/login'];
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
     const { pathname } = req.nextUrl;
+    console.log('🚀 ~ proxy ~ pathname:', pathname);
 
     if (PUBLIC_PATHS.includes(pathname)) return NextResponse.next();
 
@@ -21,12 +22,10 @@ export function middleware(req: NextRequest) {
     const token = req.cookies.get('auth_token')?.value;
 
     if (!token) {
-        // ✅ API: не редиректим, а возвращаем 401 JSON
         if (pathname.startsWith('/api/')) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
-        // ✅ Pages: редирект на login
         const url = req.nextUrl.clone();
         url.pathname = '/login';
         url.searchParams.set('next', pathname);

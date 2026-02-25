@@ -11,6 +11,7 @@ import {
     PropsWithChildren,
     useCallback,
     useContext,
+    useEffect,
     useMemo,
     useState,
 } from 'react';
@@ -31,6 +32,19 @@ const UserContext = createContext<IUserContext>(defaultValue);
 
 export const UserContextProvider: FC<PropsWithChildren> = memo(({ children }) => {
     const [userData, setUserData] = useState<ILoginResponse | null>(null);
+    console.log('🚀 ~ userData:', userData);
+
+    useEffect(() => {
+        (async () => {
+            const { data, ok } = await NetworkRequest<ILoginResponse>('/token');
+
+            if (!ok) {
+                return;
+            }
+
+            setUserData(data);
+        })();
+    }, []);
 
     const changeUserData = useCallback((userData: ILoginResponse | null) => {
         setUserData(userData);

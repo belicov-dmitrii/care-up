@@ -4,6 +4,14 @@ import { NextResponse } from 'next/server';
 const MOCK_LOGIN = 'test@test.com';
 const MOCK_PASSWORD = '123123';
 
+export const AUTH_COOKIE_NAME = 'auth_token';
+
+export const MOCK_USER_DATA = {
+    id: '1',
+    name: 'Demo User',
+    email: MOCK_LOGIN,
+};
+
 export async function POST(req: Request) {
     try {
         const body = await req.json();
@@ -22,14 +30,12 @@ export async function POST(req: Request) {
             const token = crypto.randomUUID();
 
             const response = NextResponse.json({
-                id: '1',
-                name: 'Demo User',
-                email: MOCK_LOGIN,
+                ...MOCK_USER_DATA,
                 token,
             });
 
             response.cookies.set({
-                name: 'auth_token',
+                name: AUTH_COOKIE_NAME,
                 value: token,
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
