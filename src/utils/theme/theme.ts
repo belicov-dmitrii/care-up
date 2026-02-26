@@ -46,7 +46,7 @@ export const theme = createTheme({
     },
 
     typography: {
-        fontFamily: 'var(--font-domine), "Roboto", "Helvetica", "Arial", sans-serif',
+        fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
         h1: { fontSize: 36, fontWeight: 700, letterSpacing: -0.6 },
         h2: { fontSize: 30, fontWeight: 700, letterSpacing: -0.4 },
         h3: { fontSize: 24, fontWeight: 700 },
