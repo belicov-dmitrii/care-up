@@ -1,3 +1,4 @@
 {
-    "test": "Message on English"
+    "test": "Message on English",
+    "Today you have {count} things.": "Today you have {count} things."
 }

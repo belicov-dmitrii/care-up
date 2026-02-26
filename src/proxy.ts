@@ -5,7 +5,6 @@ const PUBLIC_PATHS = ['/login', '/api/login'];
 
 export function proxy(req: NextRequest) {
     const { pathname } = req.nextUrl;
-    console.log('🚀 ~ proxy ~ pathname:', pathname);
 
     if (PUBLIC_PATHS.includes(pathname)) return NextResponse.next();
 

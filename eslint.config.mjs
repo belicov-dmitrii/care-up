@@ -24,6 +24,7 @@ export default defineConfig([
                 },
             ],
             'react/display-name': 'off',
+            'react-hooks/set-state-in-effect': 'off',
         },
     },
     prettierConfig,
