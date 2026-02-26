@@ -1,0 +1,21 @@
+.checkbox {
+    color: var(--brand-teal);
+}
+
+.input {
+    display: none;
+}
+
+.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--brand-teal);
+    border-radius: 50%;
+}
+
+.input:disabled + .circle {
+    opacity: 0.6;
+}
