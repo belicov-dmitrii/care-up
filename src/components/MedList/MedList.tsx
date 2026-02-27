@@ -8,11 +8,11 @@ import { DOT } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
 
-interface Props {
+interface IProps {
     meds: Med[] | undefined;
 }
 
-export const MedList: FC<Props> = memo(({ meds }) => {
+export const MedList: FC<IProps> = memo(({ meds }) => {
     const { t } = useI18n();
     const [checkedIds, setCheckedIds] = useState<Array<string>>([]);
 

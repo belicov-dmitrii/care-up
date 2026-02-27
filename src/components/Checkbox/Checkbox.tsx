@@ -2,13 +2,13 @@ import { FC, memo } from 'react';
 import styles from '@/styles/checkbox.module.scss';
 import CheckIcon from '@mui/icons-material/Check';
 
-interface CheckboxProps {
+export interface ICheckboxProps {
     id: string;
     checked: boolean;
     onChange: (id: string, checked: boolean) => void;
 }
 
-export const Checkbox: FC<CheckboxProps> = memo(({ id, checked, onChange }) => {
+export const Checkbox: FC<ICheckboxProps> = memo(({ id, checked, onChange }) => {
     const handleChange = () => {
         onChange(id, !checked);
     };
