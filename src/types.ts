@@ -46,11 +46,6 @@ export type Med = {
     remaining: number;
     quantity: number;
 };
-
-export type MedsPayload = {
-    Meds: Med[];
-};
-
 // ===== Enums: Schedule =====
 
 export enum ScheduleType {
@@ -100,6 +95,7 @@ export type ScheduleRecommendation = {
 };
 
 export type ScheduleItem = {
+    id: string;
     medId: string; // FK -> Med.id
     type: ScheduleType;
     time: Array<ScheduleTime>;
