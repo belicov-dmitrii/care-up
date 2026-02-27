@@ -1,9 +1,9 @@
-import { Med } from '@/types';
+import { type Med } from '@/types';
 import { addTrailingZero } from '@/utils/addTrailingZero';
 import { CheckBox } from '@mui/icons-material';
 import { Box, IconButton, Paper, Typography } from '@mui/material';
-import { FC } from 'react';
-import { DayMedsSchedule } from './ScheduleTabs';
+import { type FC } from 'react';
+import { type DayMedsSchedule } from './ScheduleTabs';
 import { useI18n } from '../I18nProvider';
 import { DATE_FORMAT, DOT } from '@/utils/consts';
 import moment from 'moment';

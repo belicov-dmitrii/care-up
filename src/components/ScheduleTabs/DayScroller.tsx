@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react';
-import { EmblaCarouselType, EmblaOptionsType, EngineType } from 'embla-carousel';
-import moment from 'moment';
-import { Box, Typography } from '@mui/material';
-import { PALETTE } from '@/utils/theme/colors';
-import { createBaseSlides, createSlides, IDay, IWeek, SLIDE_COUNT } from './utils/slides';
-import { DATE_FORMAT } from '@/utils/consts';
+import { type FC, memo, useCallback, useEffect, useRef, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { type EmblaCarouselType, type EmblaOptionsType, type EngineType } from "embla-carousel";
+import moment from "moment";
+import { Box, Typography } from "@mui/material";
+import { PALETTE } from "@/utils/theme/colors";
+import { createBaseSlides, createSlides, IDay, IWeek, SLIDE_COUNT } from "./utils/slides";
+import { DATE_FORMAT } from "@/utils/consts";
 
 interface IDayScrollerProps {
-    type: 'days' | 'weeks';
+    type: "days" | "weeks";
     changeDate: (val: string) => void;
     selectedDate: string;
 }
 
 const OPTIONS: EmblaOptionsType | Record<string, string | boolean | number> = {
     dragFree: true,
-    containScroll: 'keepSnaps',
+    containScroll: "keepSnaps",
     slideChanges: true,
     resize: false,
     startSnap: 0,
@@ -58,11 +58,11 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
             emblaApi.reInit();
             const newEngine = emblaApi.internalEngine();
             const copyEngineModules: (keyof EngineType)[] = [
-                'scrollBody',
-                'location',
-                'offsetLocation',
-                'previousLocation',
-                'target',
+                "scrollBody",
+                "location",
+                "offsetLocation",
+                "previousLocation",
+                "target",
             ];
 
             copyEngineModules.forEach((engineModule) => {
@@ -78,7 +78,7 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
         };
 
         const reloadAfterPointerUp = (): void => {
-            emblaApi.off('pointerup', reloadAfterPointerUp);
+            emblaApi.off("pointerup", reloadAfterPointerUp);
             reloadEmbla();
         };
 
@@ -87,7 +87,7 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
         if (hasMoreToLoadRef.current && engine.dragHandler.pointerDown()) {
             const boundsActive = engine.limit.pastMaxBound(engine.target);
             engine.scrollBounds.toggleActive(boundsActive);
-            emblaApi.on('pointerup', reloadAfterPointerUp);
+            emblaApi.on("pointerup", reloadAfterPointerUp);
         } else {
             reloadEmbla();
         }
@@ -120,18 +120,18 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
 
         isLoadingRef.current = true;
 
-        const method = nearEnd ? 'forward' : 'backward';
+        const method = nearEnd ? "forward" : "backward";
 
         setSlides((prevSlides) => {
-            const anchor = prevSlides.at(method === 'backward' ? 0 : -1);
+            const anchor = prevSlides.at(method === "backward" ? 0 : -1);
             const newSlides = createSlides(anchor?.momentObj, method, CHUNK, type);
 
-            return method === 'backward'
+            return method === "backward"
                 ? [...newSlides, ...prevSlides]
                 : [...prevSlides, ...newSlides];
         });
 
-        if (method === 'backward') {
+        if (method === "backward") {
             // компенсируем prepend, чтобы не залипать у начала
             emblaApi.goTo(snap + CHUNK - 2, true);
         }
@@ -141,11 +141,9 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
 
     const addScrollListener = useCallback(
         (emblaApi: EmblaCarouselType) => {
-            console.log('type inside AddScroll', type);
-
-            emblaApi.off('scroll', scrollListenerRef.current);
+            emblaApi.off("scroll", scrollListenerRef.current);
             scrollListenerRef.current = onScroll;
-            emblaApi.on('scroll', scrollListenerRef.current);
+            emblaApi.on("scroll", scrollListenerRef.current);
         },
         [onScroll, type]
     );
@@ -155,12 +153,12 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
         addScrollListener(emblaApi);
 
         const onResize = () => emblaApi.reInit();
-        window.addEventListener('resize', onResize);
-        emblaApi.on('destroy', () => window.removeEventListener('resize', onResize));
-        emblaApi.on('slideschanged', onSlideChanges);
+        window.addEventListener("resize", onResize);
+        emblaApi.on("destroy", () => window.removeEventListener("resize", onResize));
+        emblaApi.on("slideschanged", onSlideChanges);
     }, [emblaApi, addScrollListener, onSlideChanges, type]);
 
-    const todayObj = (type === 'weeks' ? moment().startOf('isoWeek') : moment()).format(
+    const todayObj = (type === "weeks" ? moment().startOf("isoWeek") : moment()).format(
         DATE_FORMAT
     );
 
@@ -169,7 +167,7 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
             <div className="embla__viewport" ref={emblaRef}>
                 <div
                     className="embla__container"
-                    style={{ opacity: prefLoading ? 0 : 1, transition: 'opacity .4s ease-in-out' }}
+                    style={{ opacity: prefLoading ? 0 : 1, transition: "opacity .4s ease-in-out" }}
                 >
                     {slides.map((date) => {
                         const isToday = date.id === todayObj;
@@ -182,30 +180,30 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
                             <div className="embla__slide" key={date.id}>
                                 <Box
                                     sx={{
-                                        background: isActive ? PALETTE.BRAND_TEAL : 'transparent',
-                                        border: `1px solid ${isToday ? PALETTE.BRAND_TEAL : 'transparent'}`,
-                                        height: 'var(--slide-height)',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        flexDirection: 'column',
-                                        transition: 'all .2s ease-in-out',
-                                        color: isActive ? '#FFF' : 'inherit',
-                                        borderRadius: '20px',
+                                        background: isActive ? PALETTE.BRAND_TEAL : "transparent",
+                                        border: `1px solid ${isToday ? PALETTE.BRAND_TEAL : "transparent"}`,
+                                        height: "var(--slide-height)",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        flexDirection: "column",
+                                        transition: "all .2s ease-in-out",
+                                        color: isActive ? "#FFF" : "inherit",
+                                        borderRadius: "20px",
                                     }}
                                     onClick={onClick}
                                 >
                                     <Typography
                                         sx={{
                                             color: isActive
-                                                ? 'rgba(255, 255, 255, 0.8)'
-                                                : 'inherit',
+                                                ? "rgba(255, 255, 255, 0.8)"
+                                                : "inherit",
                                         }}
                                     >
                                         {isAWeekDay ? date.weekStart : date.weekDay}
                                     </Typography>
                                     {isAWeekDay && (
-                                        <Typography sx={{ lineHeight: '0.6' }}>-</Typography>
+                                        <Typography sx={{ lineHeight: "0.6" }}>-</Typography>
                                     )}
                                     <Typography>{isAWeekDay ? date.weekEnd : date.date}</Typography>
                                 </Box>
@@ -219,5 +217,5 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
 });
 
 const isItWeekDate = (date: IWeek | IDay): date is IWeek => {
-    return Object.prototype.hasOwnProperty.call(date, 'weekStart');
+    return Object.prototype.hasOwnProperty.call(date, "weekStart");
 };
