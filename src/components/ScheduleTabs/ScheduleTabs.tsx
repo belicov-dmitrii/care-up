@@ -2,13 +2,13 @@
 
 import { typedObjectKeys } from '@/utils/typedObjectKeys';
 import { Box, Typography } from '@mui/material';
-import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { type FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { classNames } from '@/utils/classNames';
 import classes from '@/styles/tabs.module.scss';
-import { Med, ScheduleItem } from '@/types';
+import { type Med, type ScheduleItem } from '@/types';
 import { DayScroller } from './DayScroller';
 import moment from 'moment';
-import { DashboardItemType, getEventsForSelectedDate } from '@/utils/getEventsForSelectedDate';
+import { type DashboardItemType, getEventsForSelectedDate } from '@/utils/getEventsForSelectedDate';
 import { ScheduleList } from './ScheduleList';
 import { DATE_FORMAT } from '@/utils/consts';
 

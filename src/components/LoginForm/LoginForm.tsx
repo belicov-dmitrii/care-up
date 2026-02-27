@@ -14,7 +14,7 @@ import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { logError } from '@/utils/logError';
 import { NetworkRequest } from '@/utils/NetworkRequest';
-import { ILoginResponse } from './utils/types';
+import { type ILoginResponse } from './utils/types';
 import { useUserContext } from '@/context/UserContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 

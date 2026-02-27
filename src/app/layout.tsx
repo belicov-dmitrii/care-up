@@ -1,6 +1,6 @@
 import { I18nProvider } from '@/components/I18nProvider';
 import ThemeRegistry from '@/components/ThemeRegistry';
-import { defaultLocale, getDict, Locale, locales } from '@/i18n';
+import { defaultLocale, getDict, type Locale, locales } from '@/i18n';
 import { Box, Typography } from '@mui/material';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
