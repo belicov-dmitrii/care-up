@@ -1,6 +1,6 @@
-import { ScheduleItem } from '@/types';
+import { type ScheduleItem } from '@/types';
 import moment from 'moment';
-import { DATE_FORMAT } from './consts';
+import { DATE_FORMAT, YEAR_FIRST_DATE_FORMAT } from './consts';
 
 export enum ScheduleType {
     EveryDay = 'every day',
@@ -17,11 +17,11 @@ const isValidHM = (h: number, m: number) =>
     Number.isInteger(h) && Number.isInteger(m) && h >= 0 && h <= 23 && m >= 0 && m <= 59;
 
 function scheduleOccursOnDate(schedule: ScheduleItem, selected: moment.Moment): boolean {
-    const start = moment(schedule.startDate, 'YYYY-MM-DD', true).startOf('day');
+    const start = moment(schedule.startDate, YEAR_FIRST_DATE_FORMAT, true).startOf('day');
     if (!start.isValid()) return false;
 
     const end = schedule.endDate
-        ? moment(schedule.endDate, 'YYYY-MM-DD', true).startOf('day')
+        ? moment(schedule.endDate, YEAR_FIRST_DATE_FORMAT, true).startOf('day')
         : null;
 
     if (end && !end.isValid()) return false;
