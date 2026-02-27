@@ -1,4 +1,6 @@
 {
-    "test": "Message on English",
-    "Today you have {count} things.": "Today you have {count} things."
+    "good-afternoon": "Good afternoon",
+    "next-intake": "Next intake",
+    "today-things": "Today you have {count} things.",
+    "nothing-today": "Nothing for today"
 }

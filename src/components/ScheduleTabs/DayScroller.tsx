@@ -5,7 +5,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { type EmblaCarouselType, type EmblaOptionsType, type EngineType } from 'embla-carousel';
 import moment from 'moment';
 import { Box, Typography } from '@mui/material';
-import { BRAND_TEAL } from '@/utils/theme/colors';
+import { PALETTE } from '@/utils/theme/colors';
 import { createBaseSlides, createSlides, type IDay, type IWeek, SLIDE_COUNT } from './utils/slides';
 import { DATE_FORMAT } from '@/utils/consts';
 
@@ -180,8 +180,8 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
                             <div className="embla__slide" key={date.id}>
                                 <Box
                                     sx={{
-                                        background: isActive ? BRAND_TEAL : 'transparent',
-                                        border: `1px solid ${isToday ? BRAND_TEAL : 'transparent'}`,
+                                        background: isActive ? PALETTE.BRAND_TEAL : 'transparent',
+                                        border: `1px solid ${isToday ? PALETTE.BRAND_TEAL : 'transparent'}`,
                                         height: 'var(--slide-height)',
                                         display: 'flex',
                                         alignItems: 'center',

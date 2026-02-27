@@ -1,11 +1,17 @@
 {
-    "test": "test ru",
-    "title": "заголовок",
+    "good-afternoon": "Добрый день",
+    "next-intake": "Следующий приём",
+    "Today": "Сегодня",
     "Mon": "Пн",
     "Tue": "Вт",
     "Wed": "Ср",
     "Thu": "Чт",
     "Fri": "Пт",
     "Sat": "Сб",
-    "Sun": "Вс"
+    "Sun": "Вс",
+    "today-things": "Сегодня у вас {count} задачи.",
+    "nothing-today": "На сегодня ничего",
+    "Mark as taken": "Пометить как принятое",
+    "With food": "Во время еды",
+    "Refill": "Восполнить"
 }
