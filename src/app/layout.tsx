@@ -1,22 +1,17 @@
 import { I18nProvider } from '@/components/I18nProvider';
 import ThemeRegistry from '@/components/ThemeRegistry';
-import { defaultLocale, getDict, Locale, locales } from '@/i18n';
+import { defaultLocale, getDict, type Locale, locales } from '@/i18n';
 import { Box, Typography } from '@mui/material';
 import type { Metadata } from 'next';
-import { Domine, Marck_Script } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { UserContextProvider } from '@/context/UserContext';
 import { Header } from '@/components/Header/Header';
 import '@/styles/globals.scss';
+import '@/styles/embla.css';
 
-const domine = Domine({
-    variable: '--font-domine',
-    subsets: ['latin-ext'],
-});
-
-const marcks = Marck_Script({
-    variable: '--font-marcks',
-    weight: '400',
+const inter = Inter({
+    variable: '--font-inter',
     subsets: ['latin-ext', 'cyrillic'],
 });
 
@@ -43,7 +38,7 @@ export default async function RootLayout({
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                 <link rel="manifest" href="/site.webmanifest"></link>
             </head>
-            <body className={`${domine.variable} ${marcks.variable}`}>
+            <body className={`${inter.className}`}>
                 <ThemeRegistry>
                     <UserContextProvider>
                         <I18nProvider dict={dict} lang={lang}>
