@@ -1,47 +1,37 @@
 import { createTheme, alpha } from '@mui/material/styles';
-import {
-    BRAND_TEAL,
-    BRAND_TEAL_DARK,
-    BRAND_WHITE,
-    BG_PAGE,
-    BG_SURFACE,
-    TEXT_PRIMARY,
-    TEXT_SECONDARY,
-    NEUTRAL_SLATE_400,
-    SHADOW_BASE_RGB,
-} from './colors';
-import { type Shadows } from '@mui/material/styles';
+import { PALETTE } from './colors';
+import { Shadows } from '@mui/material/styles';
 
 export const theme = createTheme({
     palette: {
         mode: 'light',
 
         primary: {
-            main: BRAND_TEAL,
-            dark: BRAND_TEAL_DARK,
-            contrastText: BRAND_WHITE,
+            main: PALETTE.BRAND_TEAL,
+            dark: PALETTE.BRAND_TEAL_DARK,
+            contrastText: PALETTE.BRAND_WHITE,
         },
 
         secondary: {
-            main: NEUTRAL_SLATE_400,
+            main: PALETTE.NEUTRAL_SLATE_400,
         },
 
         background: {
-            default: BG_PAGE,
-            paper: BG_SURFACE,
+            default: PALETTE.BG_PAGE,
+            paper: PALETTE.BG_SURFACE,
         },
 
         text: {
-            primary: TEXT_PRIMARY,
-            secondary: TEXT_SECONDARY,
+            primary: PALETTE.TEXT_PRIMARY,
+            secondary: PALETTE.TEXT_SECONDARY,
         },
 
-        divider: alpha(TEXT_PRIMARY, 0.08),
+        divider: alpha(PALETTE.TEXT_PRIMARY, 0.08),
 
         action: {
-            hover: alpha(BRAND_TEAL, 0.08),
-            selected: alpha(BRAND_TEAL, 0.12),
-            focus: alpha(BRAND_TEAL, 0.18),
+            hover: alpha(PALETTE.BRAND_TEAL, 0.08),
+            selected: alpha(PALETTE.BRAND_TEAL, 0.12),
+            focus: alpha(PALETTE.BRAND_TEAL, 0.18),
         },
     },
 
@@ -60,11 +50,11 @@ export const theme = createTheme({
 
     shadows: [
         'none',
-        `0px 1px 2px rgba(${SHADOW_BASE_RGB}, 0.06),
-     0px 6px 18px rgba(${SHADOW_BASE_RGB}, 0.06)`,
+        `0px 1px 2px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06),
+     0px 6px 18px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06)`,
 
-        `0px 2px 6px rgba(${SHADOW_BASE_RGB}, 0.08),
-     0px 10px 24px rgba(${SHADOW_BASE_RGB}, 0.08)`,
+        `0px 2px 6px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.08),
+     0px 10px 24px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.08)`,
 
         ...Array(22).fill('none'),
     ] as Shadows,
@@ -73,7 +63,7 @@ export const theme = createTheme({
         MuiCssBaseline: {
             styleOverrides: {
                 body: {
-                    backgroundColor: BG_PAGE,
+                    backgroundColor: PALETTE.BG_PAGE,
                 },
             },
         },
@@ -91,8 +81,8 @@ export const theme = createTheme({
                     borderRadius: 6,
                     backgroundImage: 'none',
                     boxShadow: `
-            0px 1px 2px rgba(${SHADOW_BASE_RGB}, 0.06),
-            0px 10px 24px rgba(${SHADOW_BASE_RGB}, 0.06)
+            0px 1px 2px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06),
+            0px 10px 24px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06)
           `,
                 },
             },
@@ -103,8 +93,8 @@ export const theme = createTheme({
                 root: {
                     borderRadius: 24,
                     boxShadow: `
-            0px 1px 2px rgba(${SHADOW_BASE_RGB}, 0.06),
-            0px 10px 24px rgba(${SHADOW_BASE_RGB}, 0.06)
+            0px 1px 2px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06),
+            0px 10px 24px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06)
           `,
                 },
             },
@@ -123,24 +113,24 @@ export const theme = createTheme({
                 },
 
                 containedPrimary: {
-                    backgroundColor: BRAND_TEAL,
+                    backgroundColor: PALETTE.BRAND_TEAL,
                     '&:hover': {
-                        backgroundColor: BRAND_TEAL_DARK,
+                        backgroundColor: PALETTE.BRAND_TEAL_DARK,
                     },
                 },
 
                 outlined: {
                     borderWidth: 1,
-                    borderColor: alpha(TEXT_PRIMARY, 0.12),
-                    color: TEXT_PRIMARY,
+                    borderColor: alpha(PALETTE.TEXT_PRIMARY, 0.12),
+                    color: PALETTE.TEXT_PRIMARY,
                     '&:hover': {
-                        borderColor: alpha(BRAND_TEAL, 0.25),
-                        backgroundColor: alpha(BRAND_TEAL, 0.06),
+                        borderColor: alpha(PALETTE.BRAND_TEAL, 0.25),
+                        backgroundColor: alpha(PALETTE.BRAND_TEAL, 0.06),
                     },
                 },
 
                 text: {
-                    color: BRAND_TEAL,
+                    color: PALETTE.BRAND_TEAL,
                 },
             },
         },
@@ -166,20 +156,20 @@ export const theme = createTheme({
                 root: {
                     alignItems: 'center',
                     borderRadius: 16,
-                    backgroundColor: alpha(TEXT_PRIMARY, 0.04),
-                    border: `1px solid ${alpha(TEXT_PRIMARY, 0.06)}`,
+                    backgroundColor: alpha(PALETTE.TEXT_PRIMARY, 0.04),
+                    border: `1px solid ${alpha(PALETTE.TEXT_PRIMARY, 0.06)}`,
                     transition:
                         'border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease',
 
                     '&:hover': {
-                        backgroundColor: alpha(TEXT_PRIMARY, 0.05),
-                        borderColor: alpha(TEXT_PRIMARY, 0.1),
+                        backgroundColor: alpha(PALETTE.TEXT_PRIMARY, 0.05),
+                        borderColor: alpha(PALETTE.TEXT_PRIMARY, 0.1),
                     },
 
                     '&.Mui-focused': {
-                        backgroundColor: BG_SURFACE,
-                        borderColor: alpha(BRAND_TEAL, 0.55),
-                        boxShadow: `0 0 0 4px ${alpha(BRAND_TEAL, 0.12)}`,
+                        backgroundColor: PALETTE.BG_SURFACE,
+                        borderColor: alpha(PALETTE.BRAND_TEAL, 0.55),
+                        boxShadow: `0 0 0 4px ${alpha(PALETTE.BRAND_TEAL, 0.12)}`,
                     },
                 },
 
@@ -201,9 +191,9 @@ export const theme = createTheme({
         MuiInputLabel: {
             styleOverrides: {
                 root: {
-                    color: alpha(TEXT_PRIMARY, 0.55),
+                    color: alpha(PALETTE.TEXT_PRIMARY, 0.55),
                     '&.Mui-focused': {
-                        color: BRAND_TEAL,
+                        color: PALETTE.BRAND_TEAL,
                     },
                 },
             },
@@ -215,8 +205,8 @@ export const theme = createTheme({
                     borderRadius: 999,
                     height: 32,
                     fontWeight: 600,
-                    backgroundColor: alpha(BRAND_TEAL, 0.1),
-                    color: BRAND_TEAL_DARK,
+                    backgroundColor: alpha(PALETTE.BRAND_TEAL, 0.1),
+                    color: PALETTE.BRAND_TEAL_DARK,
                 },
             },
         },
@@ -224,7 +214,7 @@ export const theme = createTheme({
         MuiDivider: {
             styleOverrides: {
                 root: {
-                    borderColor: alpha(TEXT_PRIMARY, 0.08),
+                    borderColor: alpha(PALETTE.TEXT_PRIMARY, 0.08),
                 },
             },
         },
@@ -232,6 +222,14 @@ export const theme = createTheme({
         MuiListItemButton: {
             styleOverrides: {
                 root: { borderRadius: 16 },
+            },
+        },
+
+        MuiIcon: {
+            styleOverrides: {
+                root: {
+                    color: 'inherit',
+                },
             },
         },
     },
