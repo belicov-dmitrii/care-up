@@ -141,8 +141,6 @@ export const DayScroller: FC<IDayScrollerProps> = memo(({ type, selectedDate, ch
 
     const addScrollListener = useCallback(
         (emblaApi: EmblaCarouselType) => {
-            console.log('type inside AddScroll', type);
-
             emblaApi.off('scroll', scrollListenerRef.current);
             scrollListenerRef.current = onScroll;
             emblaApi.on('scroll', scrollListenerRef.current);
