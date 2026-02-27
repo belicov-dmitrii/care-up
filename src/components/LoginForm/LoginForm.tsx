@@ -14,12 +14,13 @@ import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { logError } from '@/utils/logError';
 import { NetworkRequest } from '@/utils/NetworkRequest';
-import { ILoginResponse } from './utils/types';
+import { type ILoginResponse } from './utils/types';
 import { useUserContext } from '@/context/UserContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export const LoginForm = memo(() => {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -51,13 +52,13 @@ export const LoginForm = memo(() => {
             }
 
             changeUserData(data);
-            router.replace('/dashboard');
+            router.replace(searchParams.get('next') ?? '/dashboard');
         } catch (error) {
             logError(error);
         } finally {
             setIsSubmitting(false);
         }
-    }, [changeUserData, email, password, router]);
+    }, [changeUserData, email, password, router, searchParams]);
 
     return (
         <Box position="relative">

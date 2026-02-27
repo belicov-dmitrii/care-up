@@ -1,4 +1,4 @@
-export const BRAND_TEAL = '#2F6B66';
+export const BRAND_TEAL = '#2F6A6C';
 export const BRAND_TEAL_DARK = '#245652';
 export const BRAND_WHITE = '#FFFFFF';
 
