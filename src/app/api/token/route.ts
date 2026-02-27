@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { AUTH_COOKIE_NAME, MOCK_USER_DATA } from '../login/route';
 
 export async function GET(req: NextRequest) {

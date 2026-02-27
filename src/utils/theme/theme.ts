@@ -10,7 +10,7 @@ import {
     NEUTRAL_SLATE_400,
     SHADOW_BASE_RGB,
 } from './colors';
-import { Shadows } from '@mui/material/styles';
+import { type Shadows } from '@mui/material/styles';
 
 export const theme = createTheme({
     palette: {

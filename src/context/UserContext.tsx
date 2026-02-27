@@ -1,14 +1,14 @@
 'use client';
 
-import { ILoginResponse } from '@/components/LoginForm/utils/types';
+import { type ILoginResponse } from '@/components/LoginForm/utils/types';
 import { NetworkRequest } from '@/utils/NetworkRequest';
 import { noop } from '@/utils/noop';
 import { redirect } from 'next/navigation';
 import {
     createContext,
-    FC,
+    type FC,
     memo,
-    PropsWithChildren,
+    type PropsWithChildren,
     useCallback,
     useContext,
     useEffect,

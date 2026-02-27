@@ -1,12 +1,12 @@
 'use client';
 
-import { FC, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { type FC, memo, useCallback, useEffect, useRef, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { EmblaCarouselType, EmblaOptionsType, EngineType } from 'embla-carousel';
+import { type EmblaCarouselType, type EmblaOptionsType, type EngineType } from 'embla-carousel';
 import moment from 'moment';
-import { Box, debounce, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { BRAND_TEAL } from '@/utils/theme/colors';
-import { createBaseSlides, createSlides, IDay, IWeek, SLIDE_COUNT } from './utils/slides';
+import { createBaseSlides, createSlides, type IDay, type IWeek, SLIDE_COUNT } from './utils/slides';
 import { DATE_FORMAT } from '@/utils/consts';
 
 interface IDayScrollerProps {
