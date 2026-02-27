@@ -8,11 +8,11 @@ import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useI18n } from '../I18nProvider';
 
-interface Props {
+interface IProps {
     med: Med;
 }
 
-export const NextIntake: FC<Props> = memo(({ med }) => {
+export const NextIntake: FC<IProps> = memo(({ med }) => {
     const { t } = useI18n();
 
     return (

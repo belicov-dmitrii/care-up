@@ -8,7 +8,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import { PALETTE } from '@/utils/theme/colors';
 import { NextIntake } from '@/components/NextIntake/NextIntake';
 import { MedList } from '@/components/MedList/MedList';
-import { Med, ScheduleItem, ScheduleType } from '@/types';
+import { type Med, type ScheduleItem, ScheduleType } from '@/types';
 
 const getTodaysMeds = (meds: Array<Med>, schedules: Array<ScheduleItem>) => {
     return meds?.filter((med) => {
