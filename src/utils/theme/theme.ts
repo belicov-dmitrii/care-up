@@ -1,10 +1,10 @@
-import { createTheme, alpha } from "@mui/material/styles";
-import { PALETTE } from "./colors";
-import { Shadows } from "@mui/material/styles";
+import { createTheme, alpha } from '@mui/material/styles';
+import { PALETTE } from './colors';
+import { Shadows } from '@mui/material/styles';
 
 export const theme = createTheme({
     palette: {
-        mode: "light",
+        mode: 'light',
 
         primary: {
             main: PALETTE.BRAND_TEAL,
@@ -43,20 +43,20 @@ export const theme = createTheme({
         h4: { fontSize: 20, fontWeight: 700 },
         body1: { fontSize: 16, lineHeight: 1.45 },
         body2: { fontSize: 14, lineHeight: 1.45 },
-        button: { textTransform: "none", fontWeight: 700, fontSize: 16 },
+        button: { textTransform: 'none', fontWeight: 700, fontSize: 16 },
     },
 
     shape: { borderRadius: 4 },
 
     shadows: [
-        "none",
+        'none',
         `0px 1px 2px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06),
      0px 6px 18px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06)`,
 
         `0px 2px 6px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.08),
      0px 10px 24px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.08)`,
 
-        ...Array(22).fill("none"),
+        ...Array(22).fill('none'),
     ] as Shadows,
 
     components: {
@@ -70,7 +70,7 @@ export const theme = createTheme({
 
         MuiContainer: {
             defaultProps: {
-                maxWidth: "sm",
+                maxWidth: 'sm',
             },
         },
 
@@ -79,7 +79,7 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: 6,
-                    backgroundImage: "none",
+                    backgroundImage: 'none',
                     boxShadow: `
             0px 1px 2px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06),
             0px 10px 24px rgba(${PALETTE.SHADOW_BASE_RGB}, 0.06)
@@ -108,13 +108,13 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: 999,
-                    padding: "14px 18px",
+                    padding: '14px 18px',
                     minHeight: 52,
                 },
 
                 containedPrimary: {
                     backgroundColor: PALETTE.BRAND_TEAL,
-                    "&:hover": {
+                    '&:hover': {
                         backgroundColor: PALETTE.BRAND_TEAL_DARK,
                     },
                 },
@@ -123,7 +123,7 @@ export const theme = createTheme({
                     borderWidth: 1,
                     borderColor: alpha(PALETTE.TEXT_PRIMARY, 0.12),
                     color: PALETTE.TEXT_PRIMARY,
-                    "&:hover": {
+                    '&:hover': {
                         borderColor: alpha(PALETTE.BRAND_TEAL, 0.25),
                         backgroundColor: alpha(PALETTE.BRAND_TEAL, 0.06),
                     },
@@ -143,7 +143,7 @@ export const theme = createTheme({
 
         MuiTextField: {
             defaultProps: {
-                variant: "filled",
+                variant: 'filled',
                 fullWidth: true,
             },
         },
@@ -154,19 +154,19 @@ export const theme = createTheme({
             },
             styleOverrides: {
                 root: {
-                    alignItems: "center",
+                    alignItems: 'center',
                     borderRadius: 16,
                     backgroundColor: alpha(PALETTE.TEXT_PRIMARY, 0.04),
                     border: `1px solid ${alpha(PALETTE.TEXT_PRIMARY, 0.06)}`,
                     transition:
-                        "border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease",
+                        'border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease',
 
-                    "&:hover": {
+                    '&:hover': {
                         backgroundColor: alpha(PALETTE.TEXT_PRIMARY, 0.05),
                         borderColor: alpha(PALETTE.TEXT_PRIMARY, 0.1),
                     },
 
-                    "&.Mui-focused": {
+                    '&.Mui-focused': {
                         backgroundColor: PALETTE.BG_SURFACE,
                         borderColor: alpha(PALETTE.BRAND_TEAL, 0.55),
                         boxShadow: `0 0 0 4px ${alpha(PALETTE.BRAND_TEAL, 0.12)}`,
@@ -183,7 +183,7 @@ export const theme = createTheme({
         MuiInputAdornment: {
             styleOverrides: {
                 positionStart: {
-                    marginTop: "0 !important",
+                    marginTop: '0 !important',
                 },
             },
         },
@@ -192,7 +192,7 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     color: alpha(PALETTE.TEXT_PRIMARY, 0.55),
-                    "&.Mui-focused": {
+                    '&.Mui-focused': {
                         color: PALETTE.BRAND_TEAL,
                     },
                 },
@@ -228,7 +228,7 @@ export const theme = createTheme({
         MuiIcon: {
             styleOverrides: {
                 root: {
-                    color: "inherit",
+                    color: 'inherit',
                 },
             },
         },
