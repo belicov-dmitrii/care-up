@@ -1,5 +1,6 @@
 {
     "good-afternoon": "Good afternoon",
     "next-intake": "Next intake",
-    "Today you have {count} things.": "Today you have {count} things."
+    "today-things": "Today you have {count} things.",
+    "nothing-today": "Nothing for today"
 }

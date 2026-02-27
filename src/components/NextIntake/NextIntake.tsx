@@ -1,16 +1,20 @@
+'use client';
+
 import { FC, memo } from 'react';
 import { Paper, Stack, Chip, Typography, Button, IconButton } from '@mui/material';
-import { Med } from '@/types';
+import { type Med } from '@/types';
 import { PALETTE } from '@/utils/theme/colors';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useI18n } from '../I18nProvider';
 
 interface Props {
     med: Med;
-    dictionary: (word: string) => string;
 }
 
-export const NextIntake: FC<Props> = memo(({ med, dictionary }) => {
+export const NextIntake: FC<Props> = memo(({ med }) => {
+    const { t } = useI18n();
+
     return (
         <Paper
             sx={{
@@ -24,7 +28,7 @@ export const NextIntake: FC<Props> = memo(({ med, dictionary }) => {
             }}
         >
             <Stack direction="row" alignItems="center" justifyContent="space-between">
-                <Chip label={dictionary('next-intake')} size="small" />
+                <Chip label={t('next-intake')} size="small" />
                 <Typography variant="body2" sx={{ color: PALETTE.BRAND_GREY }}>
                     14:00
                 </Typography>
@@ -38,12 +42,12 @@ export const NextIntake: FC<Props> = memo(({ med, dictionary }) => {
             <Chip
                 sx={{ alignSelf: 'flex-start' }}
                 icon={<RestaurantIcon />}
-                label="With Food"
+                label={t('With food')}
                 size="small"
             />
             <Stack direction="row" gap={1}>
                 <Button variant="contained" fullWidth sx={{ padding: 0, maxHeight: '48px' }}>
-                    Mark as taken
+                    {t('Mark as taken')}
                 </Button>
                 <IconButton
                     size="small"
@@ -63,6 +67,5 @@ export const NextIntake: FC<Props> = memo(({ med, dictionary }) => {
 });
 
 const getNextDose = (med: Med) => {
-    if (!med) return;
     return `${med.strength} ${med.unit} - ${med.dose} ${med.form.slice(0, -1)}`;
 };

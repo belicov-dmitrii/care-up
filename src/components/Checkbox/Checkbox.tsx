@@ -1,6 +1,4 @@
-'use client';
-
-import { FC, memo, useState } from 'react';
+import { FC, memo } from 'react';
 import styles from '@/styles/checkbox.module.scss';
 import CheckIcon from '@mui/icons-material/Check';
 

@@ -36,12 +36,12 @@ export default async function Dashboards() {
                         {t('good-afternoon')} <SpaIcon />
                     </Typography>
                     <Typography variant="body1" color={PALETTE.BRAND_GREY}>
-                        Today you have 2 things.
+                        {t('today-things')}
                     </Typography>
                 </Stack>
                 <Avatar src="/care-logo.png" sx={{ width: 56, height: 56 }} />
             </Box>
-            <NextIntake med={meds[0]} dictionary={t} />
+            <NextIntake med={meds[0]} />
             {hasAlerts && (
                 <Alert
                     sx={{
