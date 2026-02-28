@@ -1,6 +1,7 @@
 export const PALETTE = {
     BRAND_TEAL: '#2F6B66',
     BRAND_TEAL_DARK: '#245652',
+    BRAND_TEAL_PALE: '#9AA6A6',
     BRAND_WHITE: '#FFFFFF',
     BRAND_BLACK: '#1c1f1f',
     BRAND_GREY: '#5F6a6a',
