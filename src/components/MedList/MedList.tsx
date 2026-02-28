@@ -1,18 +1,20 @@
 'use client';
 
-import { type Med } from '@/types';
+import { type FC, memo, useState } from 'react';
 import { List, ListItem, ListItemText, Typography } from '@mui/material';
-import { FC, memo, useState } from 'react';
+import { type Med } from '@/types';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { DOT } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
+import { DashboardItemWithMedType } from '@/utils/sortAndFilterMeds';
+import { formatTime } from '@/utils/addTrailingZero';
 
 interface IProps {
-    meds: Med[] | undefined;
+    schedules: DashboardItemWithMedType[];
 }
 
-export const MedList: FC<IProps> = memo(({ meds }) => {
+export const MedList: FC<IProps> = memo(({ schedules }) => {
     const { t } = useI18n();
     const [checkedIds, setCheckedIds] = useState<Array<string>>([]);
 
@@ -26,7 +28,7 @@ export const MedList: FC<IProps> = memo(({ meds }) => {
         });
     };
 
-    if (!meds?.length) {
+    if (!schedules?.length) {
         return (
             <Typography
                 variant="h5"
@@ -45,31 +47,40 @@ export const MedList: FC<IProps> = memo(({ meds }) => {
 
     return (
         <List>
-            {meds.map((med) => (
-                <ListItem
-                    key={med.id}
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 2,
-                    }}
-                >
-                    <Typography variant="body2">14:00</Typography>
-                    <Checkbox
-                        id={med?.id}
-                        checked={checkedIds.includes(med?.id)}
-                        onChange={handleUpdateMedCheckbox}
-                    />
-                    <ListItemText
-                        primary={med.name}
-                        secondary={getSecondaryListItemText(med, checkedIds)}
-                    />
-                </ListItem>
-            ))}
+            {schedules.map(({ id, med, hours, minutes }) => {
+                const isMarkedAsTaken = checkedIds.includes(id);
+
+                return (
+                    <ListItem
+                        key={id}
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 2,
+                            opacity: isMarkedAsTaken ? '0.5' : '',
+                            color: PALETTE.BRAND_GREY,
+                        }}
+                    >
+                        <Typography variant="body2">{formatTime(hours, minutes)}</Typography>
+                        <Checkbox
+                            id={id}
+                            checked={isMarkedAsTaken}
+                            onChange={handleUpdateMedCheckbox}
+                        />
+                        <ListItemText
+                            primary={med.name}
+                            secondary={getSecondaryListItemText(med, isMarkedAsTaken)}
+                            slotProps={{
+                                primary: { fontWeight: 600, color: PALETTE.BRAND_BLACK },
+                            }}
+                        />
+                    </ListItem>
+                );
+            })}
         </List>
     );
 });
 
-const getSecondaryListItemText = (med: Med, checkedIds: string[]) => {
-    return `${med.strength} ${med.unit} ${checkedIds.includes(med.id) ? ` ${DOT} Taken` : ''}`;
+const getSecondaryListItemText = (med: Med, isMarkedAsTaken: boolean) => {
+    return `${med.strength} ${med.unit} ${isMarkedAsTaken ? ` ${DOT} Taken` : ''}`;
 };

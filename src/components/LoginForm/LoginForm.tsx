@@ -109,6 +109,7 @@ export const LoginForm = memo(() => {
                 fullWidth
                 disabled={!email || !password}
                 sx={{ mt: 2 }}
+                size="large"
                 onClick={submit}
             >
                 Continue

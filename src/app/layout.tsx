@@ -9,6 +9,7 @@ import { UserContextProvider } from '@/context/UserContext';
 import { Header } from '@/components/Header/Header';
 import '@/styles/globals.scss';
 import '@/styles/embla.css';
+import { MenuBar } from '@/components/MenuBar/MenuBar';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -51,6 +52,7 @@ export default async function RootLayout({
                                     © {new Date().getFullYear()} Care Up
                                 </Typography>
                             </Box>
+                            <MenuBar />
                         </I18nProvider>
                     </UserContextProvider>
                 </ThemeRegistry>
