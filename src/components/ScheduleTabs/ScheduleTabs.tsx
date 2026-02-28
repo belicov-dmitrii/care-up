@@ -8,9 +8,10 @@ import classes from '@/styles/tabs.module.scss';
 import { type Med, type ScheduleItem } from '@/types';
 import { DayScroller } from './DayScroller';
 import moment from 'moment';
-import { type DashboardItemType, getEventsForSelectedDate } from '@/utils/getEventsForSelectedDate';
 import { ScheduleList } from './ScheduleList';
 import { DATE_FORMAT } from '@/utils/consts';
+import { getEventsForSelectedDate } from '@/utils/getEventsForSelectedDate';
+import { sortByTimeOfDay, addMedsToSchedule } from '@/utils/sortAndFilterMeds';
 
 interface IScheduleTabsProps {
     schedule: Array<ScheduleItem>;
@@ -110,26 +111,3 @@ export const ScheduleTabs: FC<IScheduleTabsProps> = memo(({ schedule, meds }) =>
         </Box>
     );
 });
-
-const addMedsToSchedule = (schedule: DashboardItemType[], meds: Med[]) => {
-    const findMedById = (id: string) => {
-        return meds.find((med) => med.id === id);
-    };
-
-    return schedule.map((schedule) => {
-        return {
-            ...schedule,
-            med: findMedById(schedule.medId),
-        };
-    });
-};
-
-const sortByTimeOfDay = (schedule: ReturnType<typeof addMedsToSchedule>, date: string) => {
-    return {
-        id: crypto.randomUUID(),
-        date: date,
-        morning: schedule.filter(({ hours }) => hours < 12),
-        afternoon: schedule.filter(({ hours }) => hours < 18 && hours > 12),
-        evening: schedule.filter(({ hours }) => hours > 18),
-    };
-};

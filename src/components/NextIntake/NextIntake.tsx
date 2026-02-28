@@ -1,19 +1,23 @@
 'use client';
 
-import { FC, memo } from 'react';
+import { type FC, memo } from 'react';
 import { Paper, Stack, Chip, Typography, Button, IconButton } from '@mui/material';
-import { type Med } from '@/types';
-import { PALETTE } from '@/utils/theme/colors';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { formatTime } from '@/utils/addTrailingZero';
+import { DOT } from '@/utils/consts';
+import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
+import { type Med } from '@/types';
+import { type DashboardItemWithMedType } from '@/utils/sortAndFilterMeds';
 
-interface IProps {
-    med: Med;
+interface INextIntakeProps {
+    schedule: DashboardItemWithMedType;
 }
 
-export const NextIntake: FC<IProps> = memo(({ med }) => {
+export const NextIntake: FC<INextIntakeProps> = memo(({ schedule }) => {
     const { t } = useI18n();
+    const { med, hours, minutes } = schedule;
 
     return (
         <Paper
@@ -24,20 +28,22 @@ export const NextIntake: FC<IProps> = memo(({ med }) => {
                 borderRadius: '12px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 3,
+                gap: 2,
+                color: PALETTE.BRAND_GREY,
             }}
         >
             <Stack direction="row" alignItems="center" justifyContent="space-between">
                 <Chip label={t('next-intake')} size="small" />
-                <Typography variant="body2" sx={{ color: PALETTE.BRAND_GREY }}>
-                    14:00
-                </Typography>
+                <Typography variant="body2">{formatTime(hours, minutes)}</Typography>
             </Stack>
             <Stack gap={1}>
-                <Typography variant="h4">{med.name}</Typography>
-                <Typography variant="body2" sx={{ color: PALETTE.BRAND_GREY }}>
-                    {getNextDose(med)}
+                <Typography
+                    variant="h3"
+                    sx={{ color: PALETTE.BRAND_BLACK, fontSize: 24, fontWeight: 600 }}
+                >
+                    {med.name}
                 </Typography>
+                <Typography variant="body2">{getNextDose(med)}</Typography>
             </Stack>
             <Chip
                 sx={{ alignSelf: 'flex-start' }}
@@ -45,16 +51,15 @@ export const NextIntake: FC<IProps> = memo(({ med }) => {
                 label={t('With food')}
                 size="small"
             />
-            <Stack direction="row" gap={1}>
-                <Button variant="contained" fullWidth sx={{ padding: 0, maxHeight: '48px' }}>
+            <Stack direction="row" gap={1} marginTop={2}>
+                <Button variant="contained" fullWidth>
                     {t('Mark as taken')}
                 </Button>
                 <IconButton
                     size="small"
                     sx={{
-                        width: '48px',
-                        height: '48px',
-                        borderRadius: '20px',
+                        width: 48,
+                        height: 48,
                         backgroundColor: PALETTE.BRAND_WHITE,
                         color: PALETTE.BRAND_BLACK,
                     }}
@@ -67,5 +72,5 @@ export const NextIntake: FC<IProps> = memo(({ med }) => {
 });
 
 const getNextDose = (med: Med) => {
-    return `${med.strength} ${med.unit} - ${med.dose} ${med.form.slice(0, -1)}`;
+    return `${med.strength} ${med.unit} ${DOT} ${med.dose} ${med.form.slice(0, -1)}`;
 };

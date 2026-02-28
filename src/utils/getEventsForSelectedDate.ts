@@ -79,6 +79,7 @@ export function getEventsForSelectedDate(
 
             events.push({
                 ...scheduleToCopy,
+                id: scheduleToCopy.id + t.id,
                 timeId: t.id,
                 hours: t.hours,
                 minutes: t.minutes,

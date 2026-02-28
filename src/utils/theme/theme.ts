@@ -107,9 +107,22 @@ export const theme = createTheme({
             },
             styleOverrides: {
                 root: {
-                    borderRadius: 999,
-                    padding: '14px 18px',
+                    borderRadius: '20px',
                     minHeight: 52,
+                    fontWeight: 500,
+                    fontSize: 16,
+                },
+
+                sizeSmall: {
+                    fontSize: 14,
+                    minHeight: 36,
+                },
+                sizeMedium: {
+                    minHeight: 48,
+                },
+                sizeLarge: {
+                    padding: '14px 18px',
+                    minHeight: 56,
                 },
 
                 containedPrimary: {
@@ -137,7 +150,7 @@ export const theme = createTheme({
 
         MuiIconButton: {
             styleOverrides: {
-                root: { borderRadius: 14 },
+                root: { borderRadius: '20px' },
             },
         },
 
@@ -204,9 +217,18 @@ export const theme = createTheme({
                 root: {
                     borderRadius: 999,
                     height: 32,
-                    fontWeight: 600,
+                    fontWeight: 500,
+                    fontSize: 12,
                     backgroundColor: alpha(PALETTE.BRAND_TEAL, 0.1),
                     color: PALETTE.BRAND_TEAL_DARK,
+                    maxHeight: 26,
+                },
+                icon: {
+                    color: 'inherit',
+                    fontSize: 14,
+                },
+                label: {
+                    padding: '0 10px',
                 },
             },
         },
