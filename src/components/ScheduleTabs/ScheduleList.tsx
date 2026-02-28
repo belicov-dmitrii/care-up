@@ -7,6 +7,7 @@ import { type DayMedsSchedule } from './ScheduleTabs';
 import { useI18n } from '../I18nProvider';
 import { DATE_FORMAT, DOT } from '@/utils/consts';
 import moment from 'moment';
+import { PALETTE } from '@/utils/theme/colors';
 
 export interface IScheduleList {
     schedule: Array<DayMedsSchedule>;
@@ -37,7 +38,7 @@ const MULTIPLE_DAYS_TITLE_STYLES = {
     fontSize: '12px',
     letterSpacing: '0.5px',
     fontWeight: 600,
-    color: '#9AA6A6',
+    color: PALETTE.BRAND_TEAL_PALE,
 };
 
 export const ScheduleList: FC<IScheduleList> = ({ schedule }) => {
