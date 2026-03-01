@@ -32,6 +32,7 @@ const UserContext = createContext<IUserContext>(defaultValue);
 
 export const UserContextProvider: FC<PropsWithChildren> = memo(({ children }) => {
     const [userData, setUserData] = useState<ILoginResponse | null>(null);
+    console.log('checks');
 
     useEffect(() => {
         (async () => {
