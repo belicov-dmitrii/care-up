@@ -31,6 +31,8 @@ export default async function RootLayout({
     const lang = locales.includes(cookieLang as Locale) ? (cookieLang as Locale) : defaultLocale;
     const { dict } = await getDict(lang);
 
+    console.log('Mirror');
+
     return (
         <html lang="en">
             <head>
