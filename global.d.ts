@@ -7,3 +7,5 @@ declare module '*.module.scss' {
 // для глобальных импорта вида `import "./globals.scss"`
 declare module '*.scss';
 declare module '*.css';
+
+declare module 'check';
