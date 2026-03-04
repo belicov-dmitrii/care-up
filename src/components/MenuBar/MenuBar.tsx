@@ -69,7 +69,7 @@ export const MenuBar = memo(() => {
                                 color:
                                     active === action.label
                                         ? PALETTE.BRAND_TEAL
-                                        : PALETTE.BRAND_TEAL_PALE,
+                                        : PALETTE.BRAND_TEAL_DARK_PALE,
                                 fontSize: 12,
                                 fontWeight: 500,
                             }}
