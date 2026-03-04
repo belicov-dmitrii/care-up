@@ -16,10 +16,7 @@ export const DashboardHeader: FC<IDashboardHeaderProps> = memo(({ schedulesCount
     return (
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <Stack gap={1}>
-                <Typography
-                    variant="h1"
-                    sx={{ fontSize: 28, fontWeight: 600, color: PALETTE.BRAND_BLACK }}
-                >
+                <Typography variant="h1" sx={{ fontSize: 28, fontWeight: 600 }}>
                     {t('good-afternoon')} <SpaIcon />
                 </Typography>
                 <Typography variant="body1" sx={{ fontSize: 14, color: PALETTE.BRAND_GREY }}>

@@ -11,7 +11,7 @@ export enum ScheduleType {
 }
 
 export type DashboardItemType = Omit<ScheduleItem, 'time'> &
-    Record<'hours' | 'minutes', number> & { timeId: string };
+    Record<'hours' | 'minutes', number> & { timeId: string; scheduleByTimeId: string };
 
 const isValidHM = (h: number, m: number) =>
     Number.isInteger(h) && Number.isInteger(m) && h >= 0 && h <= 23 && m >= 0 && m <= 59;
@@ -58,6 +58,26 @@ function scheduleOccursOnDate(schedule: ScheduleItem, selected: moment.Moment): 
     }
 }
 
+export const splitScheduleByTime = (schedule: ScheduleItem): DashboardItemType[] => {
+    const events = [];
+    const { time, ...scheduleToCopy } = schedule;
+
+    for (const t of time) {
+        if (!t || !isValidHM(t.hours, t.minutes)) continue;
+
+        events.push({
+            ...scheduleToCopy,
+            id: scheduleToCopy.id,
+            timeId: t.id,
+            scheduleByTimeId: scheduleToCopy.id + t.id,
+            hours: t.hours,
+            minutes: t.minutes,
+        });
+    }
+
+    return events;
+};
+
 export function getEventsForSelectedDate(
     schedules: ScheduleItem[],
     dateStr: string
@@ -65,26 +85,14 @@ export function getEventsForSelectedDate(
     const selected = moment(dateStr, DATE_FORMAT, true).startOf('day');
     if (!selected.isValid()) return [];
 
-    const events: DashboardItemType[] = [];
+    let events: DashboardItemType[] = [];
 
     for (const schedule of schedules || []) {
         if (!schedule || !Array.isArray(schedule.time)) continue;
 
         if (!scheduleOccursOnDate(schedule, selected)) continue;
 
-        const { time, ...scheduleToCopy } = schedule;
-
-        for (const t of time) {
-            if (!t || !isValidHM(t.hours, t.minutes)) continue;
-
-            events.push({
-                ...scheduleToCopy,
-                id: scheduleToCopy.id + t.id,
-                timeId: t.id,
-                hours: t.hours,
-                minutes: t.minutes,
-            });
-        }
+        events = splitScheduleByTime(schedule);
     }
 
     // sort by time, then by medId for stable ordering
