@@ -1,7 +1,7 @@
 import { formatMedDose, formatTime } from '@/utils/formatData';
-import { getMeds } from '@/utils/dashboard/getMeds';
-import { getSchedule } from '@/utils/dashboard/getSchedule';
-import { getTodaySchedule } from '@/utils/sortAndFilterMeds';
+import { getMeds } from '@/utils/requests/getMeds';
+import { getSchedule } from '@/utils/requests/getSchedule';
+import { getMedScheduleById } from '@/utils/sortAndFilterMeds';
 import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { getServerT } from '@/i18n';
@@ -19,11 +19,15 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
     const t = await getServerT();
     const meds = await getMeds();
     const schedules = await getSchedule();
-    const { med, hours, minutes } = getTodaySchedule(meds, schedules)[0];
+    const medSchedule = getMedScheduleById(id, meds, schedules);
+
+    if (!medSchedule) return <p>Something went wrong!</p>;
+
+    const { med, hours, minutes, recommendations } = medSchedule;
 
     return (
-        <Container sx={{ textAlign: 'center' }}>
-            <Box mb={4}>
+        <Container sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <Box>
                 <Typography variant="h1" mb={2}>
                     {med.name}
                 </Typography>
@@ -54,7 +58,16 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
                 </Typography>
             </Box>
             <Box>
-                <InfoBox />
+                {recommendations?.map((recommendation) => {
+                    return (
+                        <InfoBox
+                            key={recommendation.id}
+                            title={recommendation.title}
+                            note={recommendation.note}
+                            category={recommendation.category}
+                        />
+                    );
+                })}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 2 }}>
                 <Button variant="contained" size="large">

@@ -90,8 +90,10 @@ export type ScheduleRestriction = {
 };
 
 export type ScheduleRecommendation = {
+    id: string;
     category: RecommendationCategory;
-    text: string;
+    title: string;
+    note: string;
 };
 
 export type ScheduleItem = {
@@ -103,5 +105,5 @@ export type ScheduleItem = {
     dose: Record<string, number>; // key FK -> ScheduleTime.id
     endDate: string; // date (ISO: YYYY-MM-DD)
     restriction: ScheduleRestriction[];
-    recommendation: ScheduleRecommendation;
+    recommendations: ScheduleRecommendation[];
 };
