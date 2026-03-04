@@ -8,7 +8,8 @@ import { DOT } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
 import { DashboardItemWithMedType } from '@/utils/sortAndFilterMeds';
-import { formatTime } from '@/utils/addTrailingZero';
+import { formatTime } from '@/utils/formatData';
+import { useRouter } from 'next/navigation';
 
 interface IProps {
     schedules: DashboardItemWithMedType[];
@@ -17,6 +18,7 @@ interface IProps {
 export const MedList: FC<IProps> = memo(({ schedules }) => {
     const { t } = useI18n();
     const [checkedIds, setCheckedIds] = useState<Array<string>>([]);
+    const router = useRouter();
 
     const handleUpdateMedCheckbox = (medId: string, checked: boolean) => {
         setCheckedIds((prev) => {
@@ -26,6 +28,10 @@ export const MedList: FC<IProps> = memo(({ schedules }) => {
 
             return [...prev, medId];
         });
+    };
+
+    const handleMedItemClick = (id: string) => {
+        router.replace(`/med-schedule/${id}`);
     };
 
     if (!schedules?.length) {
@@ -47,12 +53,12 @@ export const MedList: FC<IProps> = memo(({ schedules }) => {
 
     return (
         <List>
-            {schedules.map(({ id, med, hours, minutes }) => {
-                const isMarkedAsTaken = checkedIds.includes(id);
+            {schedules.map(({ scheduleByTimeId, med, hours, minutes }) => {
+                const isMarkedAsTaken = checkedIds.includes(scheduleByTimeId);
 
                 return (
                     <ListItem
-                        key={id}
+                        key={scheduleByTimeId}
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
@@ -63,7 +69,7 @@ export const MedList: FC<IProps> = memo(({ schedules }) => {
                     >
                         <Typography variant="body2">{formatTime(hours, minutes)}</Typography>
                         <Checkbox
-                            id={id}
+                            id={scheduleByTimeId}
                             checked={isMarkedAsTaken}
                             onChange={handleUpdateMedCheckbox}
                         />
@@ -73,6 +79,7 @@ export const MedList: FC<IProps> = memo(({ schedules }) => {
                             slotProps={{
                                 primary: { fontWeight: 600, color: PALETTE.BRAND_BLACK },
                             }}
+                            onClick={() => handleMedItemClick(scheduleByTimeId)}
                         />
                     </ListItem>
                 );

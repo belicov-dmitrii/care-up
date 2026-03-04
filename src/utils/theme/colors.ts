@@ -1,7 +1,8 @@
 export const PALETTE = {
     BRAND_TEAL: '#2F6B66',
     BRAND_TEAL_DARK: '#245652',
-    BRAND_TEAL_PALE: '#9AA6A6',
+    BRAND_TEAL_LIGHT: '#eaefef',
+    BRAND_TEAL_DARK_PALE: '#9AA6A6',
     BRAND_WHITE: '#FFFFFF',
     BRAND_BLACK: '#1c1f1f',
     BRAND_GREY: '#5F6a6a',
@@ -9,11 +10,10 @@ export const PALETTE = {
     BG_PAGE: '#F5F7F6',
     BG_SURFACE: '#FFFFFF',
 
-    TEXT_PRIMARY: '#0F172A',
-    TEXT_SECONDARY: '#64748B',
+    TEXT_PRIMARY: '#1c1f1f',
+    TEXT_SECONDARY: '#5F6a6a',
 
     NEUTRAL_SLATE_400: '#94A3B8',
-    PALE_CYAN_GRAY: '#eaefef',
     WARM_WHITE: '#f2f1ea',
 
     BROWN: '#5C4A26',

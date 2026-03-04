@@ -1,5 +1,5 @@
 import { type Med } from '@/types';
-import { addTrailingZero } from '@/utils/addTrailingZero';
+import { addTrailingZero } from '@/utils/formatData';
 import { CheckBox } from '@mui/icons-material';
 import { Box, IconButton, Paper, Typography } from '@mui/material';
 import { type FC } from 'react';
@@ -38,7 +38,7 @@ const MULTIPLE_DAYS_TITLE_STYLES = {
     fontSize: '12px',
     letterSpacing: '0.5px',
     fontWeight: 600,
-    color: PALETTE.BRAND_TEAL_PALE,
+    color: PALETTE.BRAND_TEAL_DARK_PALE,
 };
 
 export const ScheduleList: FC<IScheduleList> = ({ schedule }) => {
