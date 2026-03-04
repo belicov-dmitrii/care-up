@@ -4,7 +4,7 @@ import { type FC, memo } from 'react';
 import { Paper, Stack, Chip, Typography, Button, IconButton } from '@mui/material';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { formatTime } from '@/utils/addTrailingZero';
+import { formatMedDose, formatTime } from '@/utils/formatData';
 import { DOT } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
@@ -23,7 +23,7 @@ export const NextIntake: FC<INextIntakeProps> = memo(({ schedule }) => {
         <Paper
             sx={{
                 padding: 3,
-                backgroundColor: PALETTE.PALE_CYAN_GRAY,
+                backgroundColor: PALETTE.BRAND_TEAL_LIGHT,
                 border: `1px solid ${PALETTE.BRAND_WHITE}`,
                 borderRadius: '12px',
                 display: 'flex',
@@ -72,5 +72,5 @@ export const NextIntake: FC<INextIntakeProps> = memo(({ schedule }) => {
 });
 
 const getNextDose = (med: Med) => {
-    return `${med.strength} ${med.unit} ${DOT} ${med.dose} ${med.form.slice(0, -1)}`;
+    return `${med.strength} ${med.unit} ${DOT} ${formatMedDose(med)}`;
 };

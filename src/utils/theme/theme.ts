@@ -37,9 +37,9 @@ export const theme = createTheme({
 
     typography: {
         fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
-        h1: { fontSize: 36, fontWeight: 700, letterSpacing: -0.6 },
-        h2: { fontSize: 30, fontWeight: 700, letterSpacing: -0.4 },
-        h3: { fontSize: 24, fontWeight: 700 },
+        h1: { fontSize: 28, fontWeight: 600, letterSpacing: -0.6 },
+        h2: { fontSize: 24, fontWeight: 600, letterSpacing: -0.4 },
+        h3: { fontSize: 22, fontWeight: 600 },
         h4: { fontSize: 20, fontWeight: 700 },
         body1: { fontSize: 16, lineHeight: 1.45 },
         body2: { fontSize: 14, lineHeight: 1.45 },
@@ -108,7 +108,6 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: '20px',
-                    minHeight: 52,
                     fontWeight: 500,
                     fontSize: 16,
                 },
@@ -216,16 +215,22 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     borderRadius: 999,
-                    height: 32,
                     fontWeight: 500,
-                    fontSize: 12,
                     backgroundColor: alpha(PALETTE.BRAND_TEAL, 0.1),
                     color: PALETTE.BRAND_TEAL_DARK,
+                },
+                sizeSmall: {
+                    fontSize: 12,
                     maxHeight: 26,
+                },
+                sizeMedium: {
+                    fontSize: 15,
+                    minHeight: 38,
+                    padding: 10,
                 },
                 icon: {
                     color: 'inherit',
-                    fontSize: 14,
+                    fontSize: 'inherit',
                 },
                 label: {
                     padding: '0 10px',
