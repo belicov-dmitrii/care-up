@@ -1,10 +1,16 @@
 'use client';
 
 import { PALETTE } from '@/utils/theme/colors';
-import { CheckBox } from '@mui/icons-material';
 import { Box, Stack, Typography } from '@mui/material';
+import { FC } from 'react';
 
-export const InfoBox = () => {
+interface IInfoBoxProps {
+    title?: string;
+    message?: string;
+    iconCategory?: string;
+}
+
+export const InfoBox: FC<IInfoBoxProps> = () => {
     return (
         <Box
             sx={{
@@ -27,7 +33,7 @@ export const InfoBox = () => {
                     borderRadius: '50%',
                 }}
             >
-                <CheckBox />
+                <div>X</div>
             </Box>
             <Stack gap={1}>
                 <Typography variant="h3" sx={{ fontSize: 18, fontWeight: 600 }}>
