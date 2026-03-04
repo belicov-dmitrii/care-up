@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
     --background: #ffffff;
@@ -23,8 +23,9 @@
 body {
     background: var(--background);
     color: var(--foreground);
-    font-family: "Inter", Arial, Helvetica, sans-serif;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
     overflow: auto;
+    margin-bottom: 84px !important;
 }
 
 img {
@@ -60,4 +61,15 @@ footer {
     align-items: center;
     justify-content: center;
     height: 50px;
+}
+
+.icon-container {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    flex: 0 0 auto;
 }

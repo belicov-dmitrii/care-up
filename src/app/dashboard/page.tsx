@@ -1,8 +1,8 @@
 import '@/styles/dashboard.module.scss';
 import { getServerT } from '@/i18n';
 import { Alert, Button, Container } from '@mui/material';
-import { getMeds } from '@/utils/dashboard/getMeds';
-import { getSchedule } from '@/utils/dashboard/getSchedule';
+import { getMeds } from '@/utils/requests/getMeds';
+import { getSchedule } from '@/utils/requests/getSchedule';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import { PALETTE } from '@/utils/theme/colors';
 import { NextIntake } from '@/components/NextIntake/NextIntake';
