@@ -34,10 +34,14 @@
                 "enabled": true
             }
         ],
-        "recommendation": {
-            "category": "Activity Restrictions",
-            "text": "Avoid driving if dizziness occurs"
-        }
+        "recommendations": [
+            {
+                "id": "a9F3kLm8QxT2vR7zBn4P-1",
+                "category": "Activity Restrictions",
+                "title": "Avoid driving if dizziness occurs",
+                "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
+            }
+        ]
     },
     {
         "id": "X7pL2mQ9vZr8Tn5kFs1W",
@@ -67,10 +71,14 @@
                 "enabled": true
             }
         ],
-        "recommendation": {
-            "category": "Administration Method",
-            "text": "Take with food"
-        }
+        "recommendations": [
+            {
+                "id": "X7pL2mQ9vZr8Tn5kFs1W-1",
+                "category": "Administration Method",
+                "title": "Take with food",
+                "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
+            }
+        ]
     },
     {
         "id": "q7M9xL2vR8tZ4nK6pFs3",
@@ -101,9 +109,13 @@
                 "enabled": true
             }
         ],
-        "recommendation": {
-            "category": "Food & Diet",
-            "text": "Do not take on empty stomach"
-        }
+        "recommendations": [
+            {
+                "id": "q7M9xL2vR8tZ4nK6pFs3-1",
+                "category": "Food & Diet",
+                "title": "Do not take on empty stomach",
+                "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
+            }
+        ]
     }
 ]
