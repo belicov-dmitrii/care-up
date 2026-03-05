@@ -1,15 +1,14 @@
 'use client';
 
 import { type FC, memo, useState } from 'react';
-import { List, ListItem, ListItemText, Typography } from '@mui/material';
+import { List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { type Med } from '@/types';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { DOT } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
-import { DashboardItemWithMedType } from '@/utils/sortAndFilterMeds';
+import { type DashboardItemWithMedType } from '@/utils/sortAndFilterMeds';
 import { formatTime } from '@/utils/formatData';
-import { useRouter } from 'next/navigation';
 
 interface IProps {
     schedules: DashboardItemWithMedType[];
@@ -18,7 +17,6 @@ interface IProps {
 export const MedList: FC<IProps> = memo(({ schedules }) => {
     const { t } = useI18n();
     const [checkedIds, setCheckedIds] = useState<Array<string>>([]);
-    const router = useRouter();
 
     const handleUpdateMedCheckbox = (medId: string, checked: boolean) => {
         setCheckedIds((prev) => {
@@ -28,10 +26,6 @@ export const MedList: FC<IProps> = memo(({ schedules }) => {
 
             return [...prev, medId];
         });
-    };
-
-    const handleMedItemClick = (id: string) => {
-        router.replace(`/med-schedule/${id}`);
     };
 
     if (!schedules?.length) {
@@ -73,14 +67,15 @@ export const MedList: FC<IProps> = memo(({ schedules }) => {
                             checked={isMarkedAsTaken}
                             onChange={handleUpdateMedCheckbox}
                         />
-                        <ListItemText
-                            primary={med.name}
-                            secondary={getSecondaryListItemText(med, isMarkedAsTaken)}
-                            slotProps={{
-                                primary: { fontWeight: 600, color: PALETTE.BRAND_BLACK },
-                            }}
-                            onClick={() => handleMedItemClick(scheduleByTimeId)}
-                        />
+                        <ListItemButton href={`/med-schedule/${scheduleByTimeId}`}>
+                            <ListItemText
+                                primary={med.name}
+                                secondary={getSecondaryListItemText(med, isMarkedAsTaken)}
+                                slotProps={{
+                                    primary: { fontWeight: 600, color: PALETTE.BRAND_BLACK },
+                                }}
+                            />
+                        </ListItemButton>
                     </ListItem>
                 );
             })}
