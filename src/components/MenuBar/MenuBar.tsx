@@ -26,7 +26,7 @@ const MENU_ACTIONS: MenuAction[] = [
     {
         icon: <MedicationLiquidIcon />,
         label: 'Pharmacy',
-        path: '/',
+        path: '/pharmacy',
     },
     {
         icon: <FolderCopyIcon />,
