@@ -1,16 +1,27 @@
-'use client';
-
 import { PALETTE } from '@/utils/theme/colors';
-import { Box, Stack, Typography } from '@mui/material';
-import { FC } from 'react';
+import { alpha, Box, Stack, Typography } from '@mui/material';
+import { type FC } from 'react';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import { RecommendationCategory } from '@/types';
+
+export const iconByCategory: Record<RecommendationCategory, typeof RestaurantIcon> = {
+    [RecommendationCategory.AdministrationMethod]: RestaurantIcon,
+    [RecommendationCategory.ActivityRestrictions]: RestaurantIcon,
+    [RecommendationCategory.FoodDiet]: RestaurantIcon,
+    [RecommendationCategory.HealthConditionWarnings]: RestaurantIcon,
+    [RecommendationCategory.StorageInstructions]: RestaurantIcon,
+    [RecommendationCategory.SubstanceRestrictions]: RestaurantIcon,
+};
 
 interface IInfoBoxProps {
-    title?: string;
-    message?: string;
-    iconCategory?: string;
+    title: string;
+    note?: string;
+    category: RecommendationCategory;
 }
 
-export const InfoBox: FC<IInfoBoxProps> = () => {
+export const InfoBox: FC<IInfoBoxProps> = ({ title, note, category }) => {
+    const Icon = iconByCategory[category];
+
     return (
         <Box
             sx={{
@@ -23,26 +34,21 @@ export const InfoBox: FC<IInfoBoxProps> = () => {
             }}
         >
             <Box
+                className="icon-container"
                 sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: 48,
-                    minWidth: 48,
-                    backgroundColor: PALETTE.BRAND_TEAL_LIGHT,
-                    borderRadius: '50%',
+                    fontSize: 24,
+                    backgroundColor: alpha(PALETTE.BRAND_TEAL, 0.1),
+                    color: 'primary.main',
                 }}
             >
-                <div>X</div>
+                <Icon />
             </Box>
             <Stack gap={1}>
                 <Typography variant="h3" sx={{ fontSize: 18, fontWeight: 600 }}>
-                    Title
+                    {title}
                 </Typography>
                 <Typography variant="body2" fontSize={15}>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti odio
-                    doloremque blanditiis et voluptatem ad ipsa quia eius nulla suscipit voluptates
-                    inventore.
+                    {note}
                 </Typography>
             </Stack>
         </Box>

@@ -1,6 +1,6 @@
 import { ScheduleTabs } from '@/components/ScheduleTabs/ScheduleTabs';
-import { getMeds } from '@/utils/dashboard/getMeds';
-import { getSchedule } from '@/utils/dashboard/getSchedule';
+import { getMeds } from '@/utils/requests/getMeds';
+import { getSchedule } from '@/utils/requests/getSchedule';
 import { Container, Typography } from '@mui/material';
 
 export default async function Schedule() {

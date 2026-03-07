@@ -1,5 +1,9 @@
 import { type ScheduleItem, type Med } from '@/types';
-import { DashboardItemType, getEventsForSelectedDate } from './getEventsForSelectedDate';
+import {
+    type DashboardItemType,
+    getEventsForSelectedDate,
+    splitScheduleByTime,
+} from './getEventsForSelectedDate';
 import moment from 'moment';
 import { DATE_FORMAT } from './consts';
 
@@ -44,4 +48,25 @@ export const getTodaySchedule = (
     );
 
     return todaySchedules;
+};
+
+export const getMedScheduleById = (
+    id: string,
+    meds: Med[],
+    schedules: ScheduleItem[]
+): DashboardItemWithMedType | null => {
+    const events: DashboardItemType[] = [];
+
+    for (const schedule of schedules || []) {
+        if (!schedule || !Array.isArray(schedule.time)) continue;
+
+        events.push(...splitScheduleByTime(schedule));
+    }
+
+    const targetEvent = events.find((e) => e.scheduleByTimeId === id);
+
+    if (!targetEvent) return null;
+
+    const medSchedule = addMedsToSchedule([targetEvent], meds)[0];
+    return medSchedule;
 };

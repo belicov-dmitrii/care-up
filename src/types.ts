@@ -92,8 +92,10 @@ export type ScheduleRestriction = {
 };
 
 export type ScheduleRecommendation = {
+    id: string;
     category: RecommendationCategory;
-    text: string;
+    title: string;
+    note: string;
 };
 
 export type ScheduleItem = {
@@ -106,7 +108,7 @@ export type ScheduleItem = {
     dose: Record<string, number>; // key FK -> ScheduleTime.id
     endDate: string; // date (ISO: YYYY-MM-DD)
     restriction: ScheduleRestriction[];
-    recommendation: ScheduleRecommendation;
+    recommendations: ScheduleRecommendation[];
 };
 
 export type UserData = {
@@ -114,3 +116,11 @@ export type UserData = {
     name: string;
     email: string;
 };
+// ===== Types: Pharmacy =====
+
+export enum MedStockStatus {
+    Empty = 'Empty',
+    Expiring = 'Expiring',
+    Low = 'Low stock',
+    Good = 'Good',
+}
