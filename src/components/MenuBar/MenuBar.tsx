@@ -26,7 +26,7 @@ const MENU_ACTIONS: MenuAction[] = [
     {
         icon: <MedicationLiquidIcon />,
         label: 'Pharmacy',
-        path: '/',
+        path: 'pharmacy',
     },
     {
         icon: <FolderCopyIcon />,
@@ -39,7 +39,7 @@ export const MenuBar = memo(() => {
     const [active, setActive] = useState<string>(MENU_ACTIONS[0].path);
     const router = useRouter();
 
-    const handleActionChange = (_: any, path: string) => {
+    const handleActionChange = (_: unknown, path: string) => {
         setActive(path);
         router.replace(`/${path}`);
     };

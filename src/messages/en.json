@@ -2,5 +2,6 @@
     "good-afternoon": "Good afternoon",
     "next-intake": "Next intake",
     "today-things": "Today you have {count} things.",
-    "nothing-today": "Nothing for today"
+    "nothing-today": "Nothing for today",
+    "addMedicationHelper": "This creates an item for your pharmacy. You can link it to a schedule later."
 }
