@@ -17,9 +17,10 @@ export const PALETTE = {
     WARM_WHITE: '#f2f1ea',
 
     BROWN: '#5C4A26',
-    GOLDEN_BROWN: '#9D7531',
 
-    SUCCESS: '#6DAA7B',
+    WARNING: '#9D7531',
+    SUCCESS: '#4A7D56',
+    ERROR: '#9A4D4D',
 
     SHADOW_BASE_RGB: '15, 23, 42',
 } as const;
