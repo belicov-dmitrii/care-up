@@ -29,23 +29,24 @@ export enum MedUnit {
     Mmol = 'mmol',
     Units = 'units',
     IU = 'IU',
-    Drops = 'drops',
-    Teaspoon = 'teaspoon',
-    Tablespoon = 'tablespoon',
+    Drops = 'Drops',
+    Teaspoon = 'Teaspoon',
+    Tablespoon = 'Tablespoon',
     Ml = 'mL',
     L = 'L',
 }
 
 export type Med = {
     id: string; // uniq
+    userId: string;
     name: string;
     form: MedForm;
     strength: number;
     unit: MedUnit;
     dose: number;
     remaining: number;
-    quantity: number;
     expirationDate: string;
+    quantity: number;
 };
 // ===== Enums: Schedule =====
 
@@ -100,6 +101,7 @@ export type ScheduleRecommendation = {
 export type ScheduleItem = {
     id: string;
     medId: string; // FK -> Med.id
+    userId: string;
     type: ScheduleType;
     time: Array<ScheduleTime>;
     startDate: string; // date (ISO: YYYY-MM-DD)
@@ -109,6 +111,11 @@ export type ScheduleItem = {
     recommendations: ScheduleRecommendation[];
 };
 
+export type UserData = {
+    id: string;
+    name: string;
+    email: string;
+};
 // ===== Types: Pharmacy =====
 
 export enum MedStockStatus {

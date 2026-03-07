@@ -259,5 +259,18 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiSvgIcon: {
+            styleOverrides: {
+                root: {
+                    color: 'inherit',
+                    display: 'block',
+                    flexShrink: 0,
+                    '& path': {
+                        transformBox: 'fill-box',
+                        transformOrigin: 'center',
+                    },
+                },
+            },
+        },
     },
 });
