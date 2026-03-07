@@ -67,7 +67,7 @@ export const MedDashboardList: FC<IProps> = memo(({ schedules }) => {
                             checked={isMarkedAsTaken}
                             onChange={handleUpdateMedCheckbox}
                         />
-                        <ListItemButton href={`/med-schedule/${scheduleByTimeId}`}>
+                        <ListItemButton href={`/dashboard/${scheduleByTimeId}`}>
                             <ListItemText
                                 primary={med.name}
                                 secondary={getSecondaryListItemText(med, isMarkedAsTaken)}
