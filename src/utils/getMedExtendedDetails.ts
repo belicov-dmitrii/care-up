@@ -17,8 +17,8 @@ export const getMedStockStatus = (
     }
 };
 
-export const getMedUnitDetails = (med: Med) => {
-    return `${med.strength} ${med.unit} ${DOT} ${med.dose} ${med.form}`;
+export const getMedUnitDetails = (med: Med, includeDose = true) => {
+    return `${med.strength} ${med.unit} ${DOT} ${includeDose ? med.dose : ''} ${med.form}`;
 };
 
 export const getMedRemainingTime = (expirationDate: string) => {
