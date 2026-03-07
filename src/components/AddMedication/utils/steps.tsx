@@ -29,7 +29,7 @@ export enum AddMedicationStepChooser {
 
 export const addMedicationManualSteps: Array<FormFields<keyof NewMedType>> = [
     [
-        { name: 'medName', type: 'text', label: 'Name', autoFillName: 'med name' },
+        { name: 'medName', type: 'text', label: 'Name' },
         {
             name: 'form',
             type: 'select',
