@@ -1,10 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { AUTH_COOKIE_NAME, MOCK_USER_DATA } from '../login/route';
+import { AUTH_COOKIE_NAME } from '../login/route';
+import { getUserDataByToken } from '@/utils/getUserDataByToken';
 
 export async function GET(req: NextRequest) {
-    if (req.cookies.get(AUTH_COOKIE_NAME)) {
-        return NextResponse.json({
-            ...MOCK_USER_DATA,
-        });
-    }
+    return NextResponse.json(getUserDataByToken(req.cookies.get(AUTH_COOKIE_NAME)?.value));
 }

@@ -7,14 +7,15 @@ const BASE_PARAMS = {
 export const NetworkRequest = async <T>(
     url: string,
     reqBody: Record<string, unknown> = {},
-    params: Parameters<typeof fetch>[1] = BASE_PARAMS
+    params: Parameters<typeof fetch>[1] = BASE_PARAMS,
+    type: 'formData' | 'json' = 'json'
 ) => {
     const isServerLink = url.startsWith('http://') || url.startsWith('https://');
 
     try {
         const finalParams = { ...(params || {}) };
 
-        if (finalParams.method !== 'GET') {
+        if (finalParams.method !== 'GET' && type !== 'formData') {
             finalParams.body = JSON.stringify(reqBody);
         }
 

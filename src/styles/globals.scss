@@ -61,3 +61,14 @@ footer {
     justify-content: center;
     height: 50px;
 }
+
+.icon-container {
+    width: 56px;
+    height: 56px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    font-size: 28px;
+}

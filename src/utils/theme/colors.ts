@@ -22,4 +22,10 @@ export const PALETTE = {
     SUCCESS: '#6DAA7B',
 
     SHADOW_BASE_RGB: '15, 23, 42',
+
+    BUTTON_BG_TEAL: '#8fb9a826',
+    BUTTON_BG_LAVANDER: '#b8a6c926',
+
+    ICON_GREEN: '#588A75',
+    ICON_PURPLE: '#8C72A6',
 } as const;

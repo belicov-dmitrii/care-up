@@ -1,6 +1,6 @@
 import { createTheme, alpha } from '@mui/material/styles';
 import { PALETTE } from './colors';
-import { Shadows } from '@mui/material/styles';
+import { type Shadows } from '@mui/material/styles';
 
 export const theme = createTheme({
     palette: {
@@ -256,6 +256,19 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     color: 'inherit',
+                },
+            },
+        },
+        MuiSvgIcon: {
+            styleOverrides: {
+                root: {
+                    color: 'inherit',
+                    display: 'block',
+                    flexShrink: 0,
+                    '& path': {
+                        transformBox: 'fill-box',
+                        transformOrigin: 'center',
+                    },
                 },
             },
         },
