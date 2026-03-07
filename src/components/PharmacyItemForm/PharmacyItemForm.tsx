@@ -147,7 +147,7 @@ export const PharmacyItemForm: FC<IPharmacyItemFormProps> = memo(({ med }) => {
                 <Button
                     variant="text"
                     size="large"
-                    sx={{ color: PALETTE.ERROR }}
+                    color="error"
                     onClick={deleteItem}
                 >
                     {t('Delete Item')}
