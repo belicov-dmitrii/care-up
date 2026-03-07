@@ -21,7 +21,21 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
     const schedules = await getSchedule();
     const medSchedule = getMedScheduleById(id, meds, schedules);
 
-    if (!medSchedule) return <p>Something went wrong!</p>;
+    if (!medSchedule)
+        return (
+            <Typography
+                variant="h5"
+                sx={{
+                    color: PALETTE.BRAND_GREY,
+                    opacity: '0.6',
+                    fontSize: 18,
+                    textAlign: 'center',
+                    padding: '40px 0',
+                }}
+            >
+                {t('No data.')}
+            </Typography>
+        );
 
     const { med, hours, minutes, recommendations } = medSchedule;
 

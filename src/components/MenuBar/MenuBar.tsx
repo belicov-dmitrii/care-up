@@ -37,6 +37,7 @@ const MENU_ACTIONS: MenuAction[] = [
 
 export const MenuBar = memo(() => {
     const pathName = usePathname();
+    const parentPath = '/' + pathName.split('/')[1];
 
     return (
         <Box>
@@ -61,7 +62,7 @@ export const MenuBar = memo(() => {
                             sx={{
                                 gap: 0.5,
                                 color:
-                                    pathName === action.path
+                                    parentPath === action.path
                                         ? PALETTE.BRAND_TEAL
                                         : PALETTE.BRAND_TEAL_DARK_PALE,
                                 fontSize: 12,
