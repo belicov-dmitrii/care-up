@@ -1,20 +1,21 @@
-'use client';
-import { AddMedication } from '@/components/AddMedication/AddMedication';
-import { Box, Button, Typography } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { getServerT } from '@/i18n';
+import { Container, Typography } from '@mui/material';
+import { getMeds } from '@/utils/requests/getMeds';
+import { ColumnBoxStyles } from '@/utils/consts';
+import { PharmacyFilterableArea } from '@/components/ParmacyFilterableArea/PharmacyFilterableArea';
 
-export default function Pharmacy() {
-    const [openDrawer, setOpenDrawer] = useState(false);
+export default async function Pharmacy() {
+    const t = await getServerT();
+    const meds = await getMeds();
 
-    const toggleDrawer = useCallback(() => {
-        return setOpenDrawer((prev) => !prev);
-    }, []);
+    if (!meds?.length) return <div>No meds</div>;
 
     return (
-        <Box>
-            <Typography variant="h1">Pharmacy</Typography>
-            <Button onClick={toggleDrawer}>Add Medication</Button>
-            <AddMedication open={openDrawer} onClose={toggleDrawer} />
-        </Box>
+        <Container sx={{ ...ColumnBoxStyles, padding: 3 }}>
+            <Typography variant="h1" fontWeight={600}>
+                {t('Pharmacy')}
+            </Typography>
+            <PharmacyFilterableArea meds={meds} />
+        </Container>
     );
 }
