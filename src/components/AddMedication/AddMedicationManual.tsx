@@ -53,7 +53,6 @@ export const AddMedicationManual: FC<IAddMedicationChildProps> = memo(({ medData
         },
         onSubmit: async (values) => {
             const castedValues = validationSchema.cast(values);
-            console.log('🚀 ~ castedValues:', castedValues);
             await NetworkRequest(
                 '/add-med',
                 {

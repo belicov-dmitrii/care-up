@@ -81,5 +81,16 @@
         "remaining": 0,
         "quantity": 383,
         "expirationDate": "2027-03-06"
+    },
+    {
+        "id": "485bf95d-275d-4547-b9df-bcb899c41a4b",
+        "userId": "1",
+        "name": "Melatonin",
+        "form": "Tablets",
+        "strength": 310,
+        "unit": "Mg",
+        "dose": 5,
+        "remaining": 52,
+        "quantity": 183
     }
 ]

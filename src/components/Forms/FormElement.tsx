@@ -8,7 +8,6 @@ export type FormFieldType<T extends string> = {
     label: string;
     type: 'text' | 'select' | 'custom';
     options?: Array<{ value: string; display: string }>;
-    autoFillName?: string;
 };
 
 export type FormFields<T extends string> = Array<FormFieldType<T> | Array<FormFieldType<T>>>;
@@ -70,11 +69,6 @@ export const FormElement: FC<IFormElementProps> = ({
                 return (
                     <TextField
                         autoComplete="off"
-                        slotProps={{
-                            htmlInput: {
-                                autoComplete: field.autoFillName,
-                            },
-                        }}
                         variant="outlined"
                         key={field.name}
                         label={t(field.label)}
