@@ -6,7 +6,7 @@ import { getSchedule } from '@/utils/requests/getSchedule';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import { PALETTE } from '@/utils/theme/colors';
 import { NextIntake } from '@/components/NextIntake/NextIntake';
-import { MedList } from '@/components/MedList/MedList';
+import { MedDashboardList } from '@/components/MedDashboardList/MedDashboardList';
 import { getTodaySchedule } from '@/utils/sortAndFilterMeds';
 import { DashboardHeader } from '@/components/DashboardHeader/DashboardHeader';
 
@@ -33,7 +33,7 @@ export default async function Dashboards() {
                     icon={
                         <InventoryIcon
                             sx={{
-                                color: PALETTE.GOLDEN_BROWN,
+                                color: PALETTE.WARNING,
                             }}
                         />
                     }
@@ -53,7 +53,7 @@ export default async function Dashboards() {
                     Vitamin D is running low.
                 </Alert>
             )}
-            <MedList schedules={todaySchedules} />
+            <MedDashboardList schedules={todaySchedules} />
         </Container>
     );
 }

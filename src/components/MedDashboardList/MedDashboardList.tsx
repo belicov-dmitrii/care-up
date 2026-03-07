@@ -14,7 +14,7 @@ interface IProps {
     schedules: DashboardItemWithMedType[];
 }
 
-export const MedList: FC<IProps> = memo(({ schedules }) => {
+export const MedDashboardList: FC<IProps> = memo(({ schedules }) => {
     const { t } = useI18n();
     const [checkedIds, setCheckedIds] = useState<Array<string>>([]);
 

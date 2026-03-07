@@ -45,6 +45,7 @@ export type Med = {
     dose: number;
     remaining: number;
     quantity: number;
+    expirationDate: string;
 };
 // ===== Enums: Schedule =====
 
@@ -107,3 +108,12 @@ export type ScheduleItem = {
     restriction: ScheduleRestriction[];
     recommendations: ScheduleRecommendation[];
 };
+
+// ===== Types: Pharmacy =====
+
+export enum MedStockStatus {
+    Empty = 'Empty',
+    Expiring = 'Expiring',
+    Low = 'Low stock',
+    Good = 'Good',
+}
