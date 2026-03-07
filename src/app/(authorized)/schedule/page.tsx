@@ -1,3 +1,4 @@
+import { AddMedicationButton } from '@/components/AddMedication/AddMedicationButton';
 import { ScheduleTabs } from '@/components/ScheduleTabs/ScheduleTabs';
 import { getMeds } from '@/utils/requests/getMeds';
 import { getSchedule } from '@/utils/requests/getSchedule';
@@ -15,6 +16,7 @@ export default async function Schedule() {
                 gap: 3,
             }}
         >
+            <AddMedicationButton />
             <Typography variant="h1" fontWeight={600}>
                 Schedule
             </Typography>
