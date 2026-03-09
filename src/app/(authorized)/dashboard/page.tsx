@@ -21,7 +21,7 @@ export default async function Dashboards() {
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', gap: 3, padding: 3 }}>
             <DashboardHeader schedulesCount={todaySchedules.length} />
-            {todaySchedules?.length ? <NextIntake schedule={todaySchedules[0]} /> : ''}
+            {!!todaySchedules?.length ? <NextIntake schedule={todaySchedules[0]} /> : ''}
             {hasAlerts && (
                 <Alert
                     sx={{
