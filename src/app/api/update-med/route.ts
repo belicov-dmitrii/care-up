@@ -53,7 +53,7 @@ function isValidUpdateMedBody(body: unknown): body is UpdateMedBody {
 
 export async function PATCH(req: NextRequest) {
     try {
-        const userId = getUserDataByToken(req.cookies.get(AUTH_COOKIE_NAME)?.value)?.id;
+        const userId = (await getUserDataByToken(req.cookies.get(AUTH_COOKIE_NAME)?.value))?.id;
 
         if (!userId) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
