@@ -107,7 +107,7 @@ export const theme = createTheme({
             },
             styleOverrides: {
                 root: {
-                    borderRadius: '20px',
+                    borderRadius: '14px',
                     fontWeight: 500,
                     fontSize: 16,
                 },

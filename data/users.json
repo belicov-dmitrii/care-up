@@ -1,0 +1,51 @@
+[
+    {
+        "id": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+        "token": "eb0ce288-cdc7-41cb-9915-950aa27bd831",
+        "name": "Дмитрий",
+        "email": "test@test.com",
+        "password": "5c4e7bbc-d798-4dd0-b0b5-ee6a327e031a:6cce404ee38d0ef120a126b2538ef2ea16b9f44d6d94b2db0a0e80b3ec5332a8e3c21aab643d4de1dce1bfde6751a9fbabb867174b8942e2df6d0418b2739ae2",
+        "sex": "M",
+        "age": 26,
+        "height": 196,
+        "weight": 80,
+        "pregnant": false,
+        "breastfeeding": false,
+        "smoking": true,
+        "drinking": false,
+        "allergies": [
+            "fools",
+            "Black Panther"
+        ],
+        "diseases": [
+            "Spider-Main"
+        ],
+        "createdAt": "2026-03-09T22:36:47.766Z",
+        "updatedAt": "2026-03-09T22:36:47.766Z"
+    },
+    {
+        "id": "a4bf8db4-ca7b-41b3-a7e1-27104e1620c6",
+        "token": "f3e61047-5148-45fc-a9a7-efb27f00846a",
+        "name": "Светлана",
+        "email": "svetanegnom@test.ru",
+        "password": "e8f2b310-03e4-4061-8ca8-8c1c4828301d:6ae969475acf619437559f786b359aa9552d0e40cb950927ddd1153af5f057e3605312bca2a928e43fc00a4edca67636afe676ec7669c3f0861f728f58b8b99e",
+        "sex": "F",
+        "age": 15,
+        "height": 60,
+        "weight": 20,
+        "pregnant": false,
+        "breastfeeding": true,
+        "smoking": true,
+        "drinking": true,
+        "allergies": [
+            "Aim",
+            "Good plays"
+        ],
+        "diseases": [
+            "Budget Aimer",
+            "Winrate Rebalancer"
+        ],
+        "createdAt": "2026-03-09T22:51:48.599Z",
+        "updatedAt": "2026-03-09T22:51:48.599Z"
+    }
+]
