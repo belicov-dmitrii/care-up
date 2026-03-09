@@ -1,5 +1,5 @@
 import { PALETTE } from '@/utils/theme/colors';
-import { alpha, Box, Stack, Typography } from '@mui/material';
+import { alpha, Box, Paper, Stack, Typography } from '@mui/material';
 import { type FC } from 'react';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { RecommendationCategory } from '@/types';
@@ -23,7 +23,7 @@ export const InfoBox: FC<IInfoBoxProps> = ({ title, note, category }) => {
     const Icon = iconByCategory[category];
 
     return (
-        <Box
+        <Paper
             sx={{
                 display: 'flex',
                 backgroundColor: PALETTE.BRAND_WHITE,
@@ -37,8 +37,8 @@ export const InfoBox: FC<IInfoBoxProps> = ({ title, note, category }) => {
                 className="icon-container"
                 sx={{
                     fontSize: 24,
-                    backgroundColor: alpha(PALETTE.BRAND_TEAL, 0.1),
-                    color: 'primary.main',
+                    backgroundColor: alpha(PALETTE.SUCCESS, 0.1),
+                    color: PALETTE.SUCCESS,
                 }}
             >
                 <Icon />
@@ -51,6 +51,6 @@ export const InfoBox: FC<IInfoBoxProps> = ({ title, note, category }) => {
                     {note}
                 </Typography>
             </Stack>
-        </Box>
+        </Paper>
     );
 };

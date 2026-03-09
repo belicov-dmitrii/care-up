@@ -16,13 +16,6 @@ function isValidCreateMedBody(body: unknown): body is CreateMedBody {
 
     const candidate = body as Record<string, unknown>;
 
-    console.log(
-        typeof candidate.name === 'string' &&
-            Object.keys(MedForm).includes(candidate.form as MedForm) &&
-            typeof candidate.strength === 'number' &&
-            Object.keys(MedUnit).includes(candidate.unit as MedUnit)
-    );
-
     return (
         typeof candidate.name === 'string' &&
         Object.keys(MedForm).includes(candidate.form as MedForm) &&
