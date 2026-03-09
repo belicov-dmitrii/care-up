@@ -115,7 +115,18 @@ export type UserData = {
     id: string;
     name: string;
     email: string;
+    sex: 'M' | 'F';
+    age: number;
+    height: number;
+    weight: number;
+    pregnant: boolean;
+    breastfeeding: boolean;
+    smoking: boolean;
+    drinking: boolean;
+    allergies: Array<string>;
+    diseases: Array<string>;
 };
+
 // ===== Types: Pharmacy =====
 
 export enum MedStockStatus {
