@@ -32,7 +32,13 @@ export async function DELETE(req: NextRequest) {
 
         await fs.writeFile(filePath, JSON.stringify(updatedMeds, null, 4), 'utf-8');
 
-        return NextResponse.json({}, { status: 201 });
+        return NextResponse.json(
+            {
+                success: true,
+                message: 'Med deleted successfully',
+            },
+            { status: 201 }
+        );
     } catch {
         return NextResponse.json({ error: 'Failed to create med' }, { status: 500 });
     }
