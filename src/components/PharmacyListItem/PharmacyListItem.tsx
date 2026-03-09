@@ -1,14 +1,13 @@
 'use client';
-import { type ScheduleItem, type Med } from '@/types';
+import { type Med } from '@/types';
 import { ColumnBoxStyles, RowBoxStyles } from '@/utils/consts';
 import { Box, alpha, Paper, Typography, Chip, Button } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useI18n } from '../I18nProvider';
-import { memo, useMemo, type FC } from 'react';
+import { memo, type FC } from 'react';
 import {
     getMedUnitDetails,
-    getMedRemainingTime,
     getMedStockStatus,
     isDateExpiring,
     isDateExpired,
@@ -18,16 +17,14 @@ import { PALETTE } from '@/utils/theme/colors';
 
 interface IPharmacyListItemProps {
     med: Med;
-    schedule: ScheduleItem | undefined;
+    medRemainingTime: string;
 }
 
-export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(({ med, schedule }) => {
+export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(({ med, medRemainingTime }) => {
     const { t } = useI18n();
     const { stockLabel, stockColor } = getMedStockStatus(med.remaining);
     const stockBackgroundColor = alpha(stockColor, 0.1);
     const medExpirationColor = isDateExpiring(med.expirationDate) ? PALETTE.ERROR : PALETTE.SUCCESS;
-
-    const medRemainingTime = useMemo(() => getMedRemainingTime(med, schedule), [med, schedule]);
 
     return (
         <Button href={`/pharmacy/${med.id}`} sx={{ padding: 0 }}>

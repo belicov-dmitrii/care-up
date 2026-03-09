@@ -16,7 +16,7 @@ import { PharmacyListItem } from '../PharmacyListItem/PharmacyListItem';
 import SearchIcon from '@mui/icons-material/Search';
 import { memo, useState, type FC, type ChangeEvent, useMemo } from 'react';
 import { useI18n } from '../I18nProvider';
-import { getMedStockStatus } from '@/utils/getMedExtendedDetails';
+import { getMedRemainingTime, getMedStockStatus } from '@/utils/getMedExtendedDetails';
 
 interface IPharmacyFilterableAreaProps {
     meds: Med[];
@@ -73,6 +73,15 @@ export const PharmacyFilterableArea: FC<IPharmacyFilterableAreaProps> = memo(
                 });
         }, [meds, searchTerm, activeFilter]);
 
+        const medsRemainingTime = useMemo(() => {
+            return meds.reduce((acc: { [key: string]: string }, med) => {
+                const medSchedule = schedules?.find((schedule) => schedule.medId === med.id);
+                acc[med.id] = getMedRemainingTime(med, medSchedule);
+
+                return acc;
+            }, {});
+        }, [meds, schedules]);
+
         return (
             <>
                 <Box>
@@ -115,11 +124,12 @@ export const PharmacyFilterableArea: FC<IPharmacyFilterableAreaProps> = memo(
                 <Box sx={{ ...ColumnBoxStyles }}>
                     {filteredMeds.length ? (
                         filteredMeds.map((med) => {
-                            const medSchedule = schedules?.find(
-                                (schedule) => schedule.medId === med.id
-                            );
                             return (
-                                <PharmacyListItem key={med.id} med={med} schedule={medSchedule} />
+                                <PharmacyListItem
+                                    key={med.id}
+                                    med={med}
+                                    medRemainingTime={medsRemainingTime[med.id]}
+                                />
                             );
                         })
                     ) : (
