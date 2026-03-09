@@ -1,7 +1,7 @@
 'use client';
 
 import { type FC, memo, useState } from 'react';
-import { List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
+import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { type Med } from '@/types';
 import { Checkbox } from '../Checkbox/Checkbox';
 import { DOT } from '@/utils/consts';
@@ -46,40 +46,44 @@ export const MedDashboardList: FC<IProps> = memo(({ schedules }) => {
     }
 
     return (
-        <List>
-            {schedules.map(({ scheduleByTimeId, med, hours, minutes }) => {
-                const isMarkedAsTaken = checkedIds.includes(scheduleByTimeId);
+        <Box>
+            <Typography variant="h3">{t('Today')}</Typography>
+            <List>
+                {schedules.map(({ scheduleByTimeId, med, hours, minutes }) => {
+                    const isMarkedAsTaken = checkedIds.includes(scheduleByTimeId);
 
-                return (
-                    <ListItem
-                        key={scheduleByTimeId}
-                        sx={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 2,
-                            opacity: isMarkedAsTaken ? '0.5' : '',
-                            color: PALETTE.BRAND_GREY,
-                        }}
-                    >
-                        <Typography variant="body2">{formatTime(hours, minutes)}</Typography>
-                        <Checkbox
-                            id={scheduleByTimeId}
-                            checked={isMarkedAsTaken}
-                            onChange={handleUpdateMedCheckbox}
-                        />
-                        <ListItemButton href={`/dashboard/${scheduleByTimeId}`}>
-                            <ListItemText
-                                primary={med.name}
-                                secondary={getSecondaryListItemText(med, isMarkedAsTaken)}
-                                slotProps={{
-                                    primary: { fontWeight: 600, color: PALETTE.BRAND_BLACK },
-                                }}
+                    return (
+                        <ListItem
+                            key={scheduleByTimeId}
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 2,
+                                opacity: isMarkedAsTaken ? '0.5' : '',
+                                color: PALETTE.BRAND_GREY,
+                                height: 70,
+                            }}
+                        >
+                            <Typography variant="body2">{formatTime(hours, minutes)}</Typography>
+                            <Checkbox
+                                id={scheduleByTimeId}
+                                checked={isMarkedAsTaken}
+                                onChange={handleUpdateMedCheckbox}
                             />
-                        </ListItemButton>
-                    </ListItem>
-                );
-            })}
-        </List>
+                            <ListItemButton href={`/dashboard/${scheduleByTimeId}`}>
+                                <ListItemText
+                                    primary={med.name}
+                                    secondary={getSecondaryListItemText(med, isMarkedAsTaken)}
+                                    slotProps={{
+                                        primary: { fontWeight: 600, color: PALETTE.BRAND_BLACK },
+                                    }}
+                                />
+                            </ListItemButton>
+                        </ListItem>
+                    );
+                })}
+            </List>
+        </Box>
     );
 });
 

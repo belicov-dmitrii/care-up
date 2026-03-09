@@ -1,26 +1,33 @@
 'use client';
-import { type Med } from '@/types';
+import { type ScheduleItem, type Med } from '@/types';
 import { ColumnBoxStyles, RowBoxStyles } from '@/utils/consts';
 import { Box, alpha, Paper, Typography, Chip, Button } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { useI18n } from '../I18nProvider';
-import { memo, type FC } from 'react';
+import { memo, useMemo, type FC } from 'react';
 import {
     getMedUnitDetails,
     getMedRemainingTime,
     getMedStockStatus,
+    isDateExpiring,
+    isDateExpired,
 } from '@/utils/getMedExtendedDetails';
 import { formatMedExpirationDate } from '@/utils/formatData';
+import { PALETTE } from '@/utils/theme/colors';
 
 interface IPharmacyListItemProps {
     med: Med;
+    schedule: ScheduleItem | undefined;
 }
 
-export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(({ med }) => {
+export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(({ med, schedule }) => {
     const { t } = useI18n();
     const { stockLabel, stockColor } = getMedStockStatus(med.remaining);
     const stockBackgroundColor = alpha(stockColor, 0.1);
+    const medExpirationColor = isDateExpiring(med.expirationDate) ? PALETTE.ERROR : PALETTE.SUCCESS;
+
+    const medRemainingTime = useMemo(() => getMedRemainingTime(med, schedule), [med, schedule]);
 
     return (
         <Button href={`/pharmacy/${med.id}`} sx={{ padding: 0 }}>
@@ -71,24 +78,29 @@ export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(({ med }) => {
                         >{`${med.remaining} ${t('remaining')}`}</Typography>
                     </Box>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        ~{getMedRemainingTime(med.expirationDate)}
+                        {medRemainingTime}
                     </Typography>
                 </Box>
                 <Box
                     sx={{
                         ...RowBoxStyles,
-                        backgroundColor: stockBackgroundColor,
-                        color: stockColor,
+                        backgroundColor: alpha(medExpirationColor, 0.1),
+                        color: medExpirationColor,
                         borderRadius: '12px',
                         padding: '10px 12px',
                     }}
                 >
                     <CalendarMonthIcon sx={{ fontSize: 16 }} />
                     <Typography variant="body2">
-                        {`${t('Expires')} ${formatMedExpirationDate(med.expirationDate)}`}
+                        {t(getMedExpirationLabel(med.expirationDate))}
                     </Typography>
                 </Box>
             </Paper>
         </Button>
     );
 });
+
+const getMedExpirationLabel = (expirationDate: string | undefined) => {
+    if (!expirationDate) return 'No Expiration Date';
+    return `${isDateExpired(expirationDate) ? 'Expired' : 'Expires'} ${formatMedExpirationDate(expirationDate)}`;
+};

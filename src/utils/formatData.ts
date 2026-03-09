@@ -13,6 +13,6 @@ export const formatMedDose = (med: Med) => {
     return `${med.dose} ${med.form.slice(0, -1)}`.toLowerCase();
 };
 
-export const formatMedExpirationDate = (expirationDate: string) => {
-    return moment(expirationDate).format('MMM YYYY');
+export const formatMedExpirationDate = (expirationDate: string | undefined) => {
+    return expirationDate ? moment(expirationDate).format('MMM YYYY') : 'No Expiration Date';
 };

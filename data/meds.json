@@ -9,7 +9,7 @@
         "dose": 1,
         "quantity": 12345,
         "remaining": 18,
-        "expirationDate": "2026-03-01"
+        "expirationDate": "2027-03-01"
     },
     {
         "id": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
@@ -21,7 +21,7 @@
         "dose": 1,
         "quantity": 22346,
         "remaining": 60,
-        "expirationDate": "2026-03-01"
+        "expirationDate": "2027-03-01"
     },
     {
         "id": "f3c8b1a9-2d55-41ab-9f77-6e2d4c9d0033",
@@ -33,7 +33,7 @@
         "dose": 1,
         "quantity": 32347,
         "remaining": 25,
-        "expirationDate": "2026-03-01"
+        "expirationDate": "2027-03-01"
     },
     {
         "id": "d9e1c4b7-7a66-4f33-b8e4-3c7d1a5e0044",
