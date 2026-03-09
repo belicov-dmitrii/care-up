@@ -23,29 +23,5 @@
         "createdAt": "2026-03-09T22:36:47.766Z",
         "updatedAt": "2026-03-09T22:36:47.766Z"
     },
-    {
-        "id": "a4bf8db4-ca7b-41b3-a7e1-27104e1620c6",
-        "token": "f3e61047-5148-45fc-a9a7-efb27f00846a",
-        "name": "Светлана",
-        "email": "svetanegnom@test.ru",
-        "password": "e8f2b310-03e4-4061-8ca8-8c1c4828301d:6ae969475acf619437559f786b359aa9552d0e40cb950927ddd1153af5f057e3605312bca2a928e43fc00a4edca67636afe676ec7669c3f0861f728f58b8b99e",
-        "sex": "F",
-        "age": 15,
-        "height": 60,
-        "weight": 20,
-        "pregnant": false,
-        "breastfeeding": true,
-        "smoking": true,
-        "drinking": true,
-        "allergies": [
-            "Aim",
-            "Good plays"
-        ],
-        "diseases": [
-            "Budget Aimer",
-            "Winrate Rebalancer"
-        ],
-        "createdAt": "2026-03-09T22:51:48.599Z",
-        "updatedAt": "2026-03-09T22:51:48.599Z"
-    }
+    
 ]

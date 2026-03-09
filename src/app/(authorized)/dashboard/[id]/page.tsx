@@ -1,7 +1,7 @@
 import { formatMedDose, formatTime } from '@/utils/formatData';
 import { getMeds } from '@/utils/requests/getMeds';
 import { getSchedule } from '@/utils/requests/getSchedule';
-import { getMedScheduleById } from '@/utils/sortAndFilterMeds';
+import { getMedScheduleByScheduleId } from '@/utils/sortAndFilterMeds';
 import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { getServerT } from '@/i18n';
@@ -19,7 +19,7 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
     const t = await getServerT();
     const meds = await getMeds();
     const schedules = await getSchedule();
-    const medSchedule = getMedScheduleById(id, meds, schedules);
+    const medSchedule = getMedScheduleByScheduleId(id, meds, schedules);
 
     if (!medSchedule)
         return (
@@ -73,14 +73,7 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
             </Box>
             <Box>
                 {recommendations?.map((recommendation) => {
-                    return (
-                        <InfoBox
-                            key={recommendation.id}
-                            title={recommendation.title}
-                            note={recommendation.note}
-                            category={recommendation.category}
-                        />
-                    );
+                    return <InfoBox key={recommendation.id} {...recommendation} />;
                 })}
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 2 }}>

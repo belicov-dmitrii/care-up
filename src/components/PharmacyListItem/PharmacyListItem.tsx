@@ -8,19 +8,23 @@ import { useI18n } from '../I18nProvider';
 import { memo, type FC } from 'react';
 import {
     getMedUnitDetails,
-    getMedRemainingTime,
     getMedStockStatus,
+    isDateExpiring,
+    isDateExpired,
 } from '@/utils/getMedExtendedDetails';
 import { formatMedExpirationDate } from '@/utils/formatData';
+import { PALETTE } from '@/utils/theme/colors';
 
 interface IPharmacyListItemProps {
     med: Med;
+    medRemainingTime: string;
 }
 
-export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(({ med }) => {
+export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(({ med, medRemainingTime }) => {
     const { t } = useI18n();
     const { stockLabel, stockColor } = getMedStockStatus(med.remaining);
     const stockBackgroundColor = alpha(stockColor, 0.1);
+    const medExpirationColor = isDateExpiring(med.expirationDate) ? PALETTE.ERROR : PALETTE.SUCCESS;
 
     return (
         <Button href={`/pharmacy/${med.id}`} sx={{ padding: 0 }}>
@@ -71,24 +75,29 @@ export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(({ med }) => {
                         >{`${med.remaining} ${t('remaining')}`}</Typography>
                     </Box>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                        ~{getMedRemainingTime(med.expirationDate)}
+                        {medRemainingTime}
                     </Typography>
                 </Box>
                 <Box
                     sx={{
                         ...RowBoxStyles,
-                        backgroundColor: stockBackgroundColor,
-                        color: stockColor,
+                        backgroundColor: alpha(medExpirationColor, 0.1),
+                        color: medExpirationColor,
                         borderRadius: '12px',
                         padding: '10px 12px',
                     }}
                 >
                     <CalendarMonthIcon sx={{ fontSize: 16 }} />
                     <Typography variant="body2">
-                        {`${t('Expires')} ${formatMedExpirationDate(med.expirationDate)}`}
+                        {t(getMedExpirationLabel(med.expirationDate))}
                     </Typography>
                 </Box>
             </Paper>
         </Button>
     );
 });
+
+const getMedExpirationLabel = (expirationDate: string | undefined) => {
+    if (!expirationDate) return 'No Expiration Date';
+    return `${isDateExpired(expirationDate) ? 'Expired' : 'Expires'} ${formatMedExpirationDate(expirationDate)}`;
+};

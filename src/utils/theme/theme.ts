@@ -216,8 +216,8 @@ export const theme = createTheme({
                 root: {
                     borderRadius: 999,
                     fontWeight: 500,
-                    backgroundColor: alpha(PALETTE.BRAND_TEAL, 0.1),
-                    color: PALETTE.BRAND_TEAL_DARK,
+                    backgroundColor: alpha(PALETTE.SUCCESS, 0.1),
+                    color: PALETTE.SUCCESS,
                 },
                 sizeSmall: {
                     fontSize: 12,
