@@ -45,16 +45,18 @@ export const getTodaySchedule = (
     const todaySchedules: ReturnType<typeof addMedsToSchedule> = addMedsToSchedule(
         getEventsForSelectedDate(schedules, formattedTodayDate),
         meds
-    );
+    ).filter((schedule) => Boolean(schedule.med));
 
-    return todaySchedules;
+    return todaySchedules as DashboardItemWithMedType[];
 };
 
-export const getMedScheduleById = (
+export const getMedScheduleByScheduleId = (
     id: string,
     meds: Med[],
     schedules: ScheduleItem[]
 ): DashboardItemWithMedType | null => {
+    if (!meds?.length || !schedules?.length) return null;
+
     const events: DashboardItemType[] = [];
 
     for (const schedule of schedules || []) {
@@ -68,5 +70,12 @@ export const getMedScheduleById = (
     if (!targetEvent) return null;
 
     const medSchedule = addMedsToSchedule([targetEvent], meds)[0];
+
     return medSchedule;
+};
+
+export const getScheduleByMedId = (id: string, schedules: ScheduleItem[]): ScheduleItem | null => {
+    if (!schedules?.length) return null;
+
+    return schedules.find((schedule) => schedule.medId === id) || null;
 };

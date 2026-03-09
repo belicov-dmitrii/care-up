@@ -1,4 +1,4 @@
-import { type Med, MedStockStatus } from '@/types';
+import { type Med, MedStockStatus, type ScheduleItem, ScheduleType } from '@/types';
 import { PALETTE } from './theme/colors';
 import { DOT } from './consts';
 import moment from 'moment';
@@ -21,8 +21,44 @@ export const getMedUnitDetails = (med: Med, includeDose = true) => {
     return `${med.strength} ${med.unit} ${DOT} ${includeDose ? med.dose : ''} ${med.form}`;
 };
 
-export const getMedRemainingTime = (expirationDate: string) => {
-    const date = moment(expirationDate);
-    const duration = moment.duration(date.diff(moment()));
-    return duration.humanize();
+export const isDateExpired = (date: string | undefined) =>
+    date ? moment(date).diff(moment(), 'days') < 0 : false;
+export const isDateExpiring = (date: string | undefined) =>
+    date ? moment(date).diff(moment(), 'days') <= 20 : false;
+
+const daysIncrement = {
+    [ScheduleType.EveryDay]: 1,
+    [ScheduleType.EveryOtherDay]: 2,
+    [ScheduleType.EveryWeek]: 7,
+    [ScheduleType.EveryMonth]: 30,
+};
+
+export const getMedRemainingTime = (med: Med, schedule: ScheduleItem | undefined) => {
+    if (!med.remaining && !isDateExpired(schedule?.endDate)) return 'Needs refill';
+    if (isDateExpired(med?.expirationDate)) return 'Expired';
+    if (
+        schedule?.type === ScheduleType.SpecificDate ||
+        isDateExpired(schedule?.endDate) ||
+        !Array.isArray(schedule?.time)
+    )
+        return 'As needed';
+
+    let remaining = med.remaining;
+    let daysLeft = 0;
+    const dose = Object.values(schedule.dose).reduce((acc, item) => acc + item, 0);
+
+    while (remaining) {
+        if (dose > remaining) {
+            break;
+        }
+
+        remaining -= dose;
+        daysLeft += daysIncrement[schedule.type];
+    }
+
+    daysLeft = daysLeft / schedule.time.length;
+
+    if (daysLeft <= 0) return 'Needs refill';
+
+    return `~${moment.duration(daysLeft, 'days').humanize()}`;
 };
