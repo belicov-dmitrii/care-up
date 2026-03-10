@@ -13,6 +13,7 @@ import { NetworkRequest } from '@/utils/NetworkRequest';
 import * as Yup from 'yup';
 import { PALETTE } from '@/utils/theme/colors';
 import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
+import { formFloatingAnimation } from '@/utils/consts';
 
 const EMPTY_MED: NewMedType = {
     medName: '',
@@ -22,16 +23,6 @@ const EMPTY_MED: NewMedType = {
     dose: 1,
     remaining: 100,
     expirationDate: moment().add(1, 'year'),
-};
-
-const animation = {
-    enter: (direction: 'forward' | 'backward') => ({
-        x: direction === 'forward' ? 500 : -500,
-    }),
-    center: { x: 0, opacity: 1 },
-    exit: (direction: 'forward' | 'backward') => ({
-        x: direction === 'forward' ? -500 : 500,
-    }),
 };
 
 const validationSchema = Yup.object({
@@ -121,7 +112,7 @@ export const AddMedicationManual: FC<IAddMedicationChildProps> = memo(({ medData
                         <motion.div
                             key={currentStep}
                             custom={direction}
-                            variants={animation}
+                            variants={formFloatingAnimation}
                             initial="enter"
                             animate="center"
                             exit="exit"

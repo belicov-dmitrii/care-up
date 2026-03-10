@@ -16,16 +16,7 @@ import Link from 'next/link';
 import { NetworkRequest } from '@/utils/NetworkRequest';
 import { useRouter } from 'next/navigation';
 import { registrationValidationSchema } from '@/components/Registration/utils/registrationValidationSchema';
-
-const animation = {
-    enter: (direction: 'forward' | 'backward') => ({
-        x: direction === 'forward' ? 500 : -500,
-    }),
-    center: { x: 0, opacity: 1 },
-    exit: (direction: 'forward' | 'backward') => ({
-        x: direction === 'forward' ? -500 : 500,
-    }),
-};
+import { formFloatingAnimation } from '@/utils/consts';
 
 const EMPTY_USER = {
     name: '',
@@ -57,7 +48,7 @@ export default function RegistrationPage() {
         onSubmit: async (values) => {
             const castedValues = registrationValidationSchema.cast(values);
 
-            const { data, ok } = await NetworkRequest(
+            const { ok } = await NetworkRequest(
                 '/register-user',
                 { ...castedValues },
                 { method: 'POST' }
@@ -198,7 +189,7 @@ export default function RegistrationPage() {
                         <motion.div
                             key={currentStep}
                             custom={direction}
-                            variants={animation}
+                            variants={formFloatingAnimation}
                             initial="enter"
                             animate="center"
                             exit="exit"
@@ -300,7 +291,7 @@ export default function RegistrationPage() {
             </form>
             <Link href="/login" style={{ width: '100%' }}>
                 <Button variant="contained" type="button" sx={{ width: '100%' }}>
-                    Back To Login
+                    {t('Back To Login')}
                 </Button>
             </Link>
         </Container>
