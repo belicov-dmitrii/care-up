@@ -1,6 +1,5 @@
-import { type Med } from '@/types';
+import { type IntakeEvent, type Med } from '@/types';
 import { addTrailingZero } from '@/utils/formatData';
-import { CheckBox } from '@mui/icons-material';
 import { Box, IconButton, Paper, Typography } from '@mui/material';
 import { type FC } from 'react';
 import { type DayMedsSchedule } from './ScheduleTabs';
@@ -8,6 +7,8 @@ import { useI18n } from '../I18nProvider';
 import { DATE_FORMAT, DOT } from '@/utils/consts';
 import moment from 'moment';
 import { PALETTE } from '@/utils/theme/colors';
+import { EventStatus } from '../EventStatus/EventStatus';
+import { useRouter } from 'next/navigation';
 
 export interface IScheduleList {
     schedule: Array<DayMedsSchedule>;
@@ -44,6 +45,9 @@ const MULTIPLE_DAYS_TITLE_STYLES = {
 export const ScheduleList: FC<IScheduleList> = ({ schedule }) => {
     const { t } = useI18n();
     const isOneDay = schedule.length === 1;
+
+    const startDate = moment().startOf('day');
+    const tomorrow = moment().add(1, 'day').startOf('day');
 
     return (
         <Box py={4}>
@@ -91,12 +95,27 @@ export const ScheduleList: FC<IScheduleList> = ({ schedule }) => {
                                     </Typography>
                                     <Box sx={MED_CONTAINER_STYLES}>
                                         {group.map((item) => {
+                                            const momentDate = moment(
+                                                scheduleItem.date,
+                                                DATE_FORMAT,
+                                                true
+                                            );
+
+                                            let status = item.event?.status;
+
+                                            if (!status && momentDate.isBefore(startDate)) {
+                                                status = 'missed';
+                                            }
+
                                             return (
                                                 <MedItem
                                                     key={`${item.id}-${item.hours}-${item.minutes}`}
                                                     med={item.med}
                                                     hours={item.hours}
                                                     minutes={item.minutes}
+                                                    status={status}
+                                                    canBeClicked={momentDate.isBefore(tomorrow)}
+                                                    computedId={item.computedId}
                                                 />
                                             );
                                         })}
@@ -115,17 +134,40 @@ const MedItem = ({
     med,
     hours,
     minutes,
+    status,
+    canBeClicked,
+    computedId,
 }: {
     med: Med | undefined;
     hours: number;
     minutes: number;
+    status: IntakeEvent['status'] | undefined;
+    canBeClicked: boolean;
+    computedId?: string;
 }) => {
+    const router = useRouter();
+
     if (!med) {
         return null;
     }
 
+    const goToItem = () => {
+        if (!canBeClicked) {
+            return;
+        }
+
+        router.push(`/dashboard/${computedId}`);
+    };
+
     return (
-        <Paper sx={{ display: 'flex', alignItems: 'center' }}>
+        <Paper
+            sx={{
+                display: 'flex',
+                alignItems: 'center',
+                cursor: canBeClicked ? 'pointer' : 'default',
+            }}
+            onClick={goToItem}
+        >
             <Box p={4}>{`${addTrailingZero(hours)}:${addTrailingZero(minutes)}`}</Box>
             <Box sx={{ flex: '1' }}>
                 <Typography>{med.name}</Typography>
@@ -133,7 +175,7 @@ const MedItem = ({
             </Box>
             <Box p={2}>
                 <IconButton>
-                    <CheckBox />
+                    <EventStatus status={status} />
                 </IconButton>
             </Box>
         </Paper>

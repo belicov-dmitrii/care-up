@@ -1,14 +1,17 @@
 'use client';
 
-import { type FC, memo, useState } from 'react';
+import { type FC, memo } from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
-import { type Med } from '@/types';
-import { Checkbox } from '../Checkbox/Checkbox';
+import { type IntakeEvent, type Med } from '@/types';
 import { DOT } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
 import { type DashboardItemWithMedType } from '@/utils/sortAndFilterMeds';
 import { formatTime } from '@/utils/formatData';
+import moment from 'moment';
+import { encodeIdWithDate } from '@/utils/eventsEncoder';
+import { EventStatus } from '../EventStatus/EventStatus';
+import { capitalize } from '@/utils/capitalize';
 
 interface IProps {
     schedules: DashboardItemWithMedType[];
@@ -16,17 +19,6 @@ interface IProps {
 
 export const MedDashboardList: FC<IProps> = memo(({ schedules }) => {
     const { t } = useI18n();
-    const [checkedIds, setCheckedIds] = useState<Array<string>>([]);
-
-    const handleUpdateMedCheckbox = (medId: string, checked: boolean) => {
-        setCheckedIds((prev) => {
-            if (!checked) {
-                return [...prev].filter((id) => id !== medId);
-            }
-
-            return [...prev, medId];
-        });
-    };
 
     if (!schedules?.length) {
         return (
@@ -49,8 +41,8 @@ export const MedDashboardList: FC<IProps> = memo(({ schedules }) => {
         <Box>
             <Typography variant="h3">{t('Today')}</Typography>
             <List>
-                {schedules.map(({ scheduleByTimeId, med, hours, minutes }) => {
-                    const isMarkedAsTaken = checkedIds.includes(scheduleByTimeId);
+                {schedules.map(({ scheduleByTimeId, med, hours, minutes, event }) => {
+                    const isMarkedAsTaken = event?.status === 'taken';
 
                     return (
                         <ListItem
@@ -65,15 +57,13 @@ export const MedDashboardList: FC<IProps> = memo(({ schedules }) => {
                             }}
                         >
                             <Typography variant="body2">{formatTime(hours, minutes)}</Typography>
-                            <Checkbox
-                                id={scheduleByTimeId}
-                                checked={isMarkedAsTaken}
-                                onChange={handleUpdateMedCheckbox}
-                            />
-                            <ListItemButton href={`/dashboard/${scheduleByTimeId}`}>
+                            <EventStatus status={event?.status} />
+                            <ListItemButton
+                                href={`/dashboard/${encodeIdWithDate(scheduleByTimeId, moment().format('DD-MM-YYYY'))}`}
+                            >
                                 <ListItemText
                                     primary={med.name}
-                                    secondary={getSecondaryListItemText(med, isMarkedAsTaken)}
+                                    secondary={getSecondaryListItemText(med, event?.status)}
                                     slotProps={{
                                         primary: { fontWeight: 600, color: PALETTE.BRAND_BLACK },
                                     }}
@@ -87,6 +77,6 @@ export const MedDashboardList: FC<IProps> = memo(({ schedules }) => {
     );
 });
 
-const getSecondaryListItemText = (med: Med, isMarkedAsTaken: boolean) => {
-    return `${med.strength} ${med.unit} ${isMarkedAsTaken ? ` ${DOT} Taken` : ''}`;
+const getSecondaryListItemText = (med: Med, eventStatus?: IntakeEvent['status']) => {
+    return `${med.strength} ${med.unit} ${eventStatus ? ` ${DOT} ${capitalize(eventStatus)}` : ''}`;
 };

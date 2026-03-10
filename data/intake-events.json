@@ -1,0 +1,72 @@
+[
+    {
+        "id": "YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDEwLTAzLTIwMjY",
+        "userId": "1",
+        "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+        "medName": "Paracetamol",
+        "time": "08:30",
+        "medStrenght": "500 mg",
+        "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+        "scheduleTimeId": "a7f3c9e1b2",
+        "eventDate": "10-03-2026",
+        "status": "taken",
+        "symptoms": [
+            "Chills",
+            "Sweating",
+            "Confusion",
+            "Nausea",
+            "Rash",
+            "Malaise (general feeling of illness)"
+        ],
+        "createdAt": "2026-03-10T18:56:02.090Z",
+        "updatedAt": "2026-03-10T21:17:24.228Z"
+    },
+    {
+        "id": "YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDEwLTAzLTIwMjY",
+        "userId": "1",
+        "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+        "medName": "Paracetamol",
+        "time": "10:00",
+        "medStrenght": "500 mg",
+        "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+        "scheduleTimeId": "d4k8x2q9mz",
+        "eventDate": "10-03-2026",
+        "status": "skipped",
+        "symptoms": [],
+        "createdAt": "2026-03-10T21:40:57.756Z",
+        "updatedAt": null
+    },
+    {
+        "id": "WDdwTDJtUTl2WnI4VG41a0ZzMVd4M203ejFrOHF3fDExLTAzLTIwMjY",
+        "userId": "1",
+        "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+        "medName": "Vitamin D3",
+        "time": "15:00",
+        "medStrenght": "1000 IU",
+        "scheduleId": "X7pL2mQ9vZr8Tn5kFs1W",
+        "scheduleTimeId": "x3m7z1k8qw",
+        "eventDate": "11-03-2026",
+        "status": "taken",
+        "symptoms": [
+            "Abdominal cramps",
+            "Tingling or numbness (paresthesia)"
+        ],
+        "createdAt": "2026-03-10T22:11:59.020Z",
+        "updatedAt": "2026-03-10T23:02:26.588Z"
+    },
+    {
+        "id": "WDdwTDJtUTl2WnI4VG41a0ZzMVd4M203ejFrOHF3fDA3LTAzLTIwMjY",
+        "userId": "1",
+        "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+        "medName": "Vitamin D3",
+        "time": "15:00",
+        "medStrenght": "1000 IU",
+        "scheduleId": "X7pL2mQ9vZr8Tn5kFs1W",
+        "scheduleTimeId": "x3m7z1k8qw",
+        "eventDate": "07-03-2026",
+        "status": "taken",
+        "symptoms": [],
+        "createdAt": "2026-03-10T23:28:34.684Z",
+        "updatedAt": null
+    }
+]
