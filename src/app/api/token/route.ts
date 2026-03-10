@@ -3,5 +3,16 @@ import { AUTH_COOKIE_NAME } from '../login/route';
 import { getUserDataByToken } from '@/utils/getUserDataByToken';
 
 export async function GET(req: NextRequest) {
-    return NextResponse.json(getUserDataByToken(req.cookies.get(AUTH_COOKIE_NAME)?.value));
+    const token = req.cookies.get(AUTH_COOKIE_NAME)?.value;
+
+    const user = await getUserDataByToken(token);
+
+    if (!token || !user) {
+        return NextResponse.json(
+            { success: false, message: 'Missing credentials' },
+            { status: 400 }
+        );
+    }
+
+    return NextResponse.json(user, { status: 200 });
 }

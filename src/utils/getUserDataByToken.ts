@@ -1,10 +1,20 @@
-import { MOCK_USER_DATA } from '@/app/api/login/route';
 import { type UserData } from '@/types';
+import { readUsers } from './readUsers';
 
-export const getUserDataByToken = (token: string | undefined): UserData | null => {
+export const getUserDataByToken = async (token: string | undefined): Promise<UserData | null> => {
     if (!token) {
         return null;
     }
 
-    return { ...MOCK_USER_DATA };
+    const users = await readUsers();
+
+    const selectedUser = users.find(({ token: userToken }) => token === userToken);
+
+    if (!selectedUser) {
+        return null;
+    }
+
+    const { password: _, token: _t, ...userToSend } = selectedUser;
+
+    return userToSend;
 };

@@ -16,8 +16,6 @@ export const ExpirationDateChooser: FC<IExpirationDateChooser> = memo(({ value, 
     const { t } = useI18n();
 
     const onInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        console.log(e.target.value);
-
         setValue(moment(e.target.value));
     };
 
