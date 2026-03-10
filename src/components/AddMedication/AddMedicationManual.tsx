@@ -11,6 +11,9 @@ import { addMedicationManualSteps, addMedicationManualStepsTitles } from './util
 import { ExpirationDateChooser } from './ExpirationDateChooser';
 import { NetworkRequest } from '@/utils/NetworkRequest';
 import * as Yup from 'yup';
+import { PALETTE } from '@/utils/theme/colors';
+import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
+import { formFloatingAnimation } from '@/utils/consts';
 
 const EMPTY_MED: NewMedType = {
     medName: '',
@@ -20,16 +23,6 @@ const EMPTY_MED: NewMedType = {
     dose: 1,
     remaining: 100,
     expirationDate: moment().add(1, 'year'),
-};
-
-const animation = {
-    enter: (direction: 'forward' | 'backward') => ({
-        x: direction === 'forward' ? 500 : -500,
-    }),
-    center: { x: 0, opacity: 1 },
-    exit: (direction: 'forward' | 'backward') => ({
-        x: direction === 'forward' ? -500 : 500,
-    }),
 };
 
 const validationSchema = Yup.object({
@@ -95,94 +88,126 @@ export const AddMedicationManual: FC<IAddMedicationChildProps> = memo(({ medData
     }, [getFieldHelpers, values.expirationDate]);
 
     return (
-        <Box>
-            <Box textAlign="center">
-                <Typography variant="h3" fontSize="18px" mb={1}>
-                    {t('Add Medication')}
-                </Typography>
-                <Typography fontSize="13px" color="text.secondary">
-                    {t('addMedicationHelper')}
-                </Typography>
-            </Box>
-            <Divider sx={{ my: 3 }} />
-            <AnimatePresence mode="wait" custom={direction}>
-                <motion.div
-                    key={currentStep}
-                    custom={direction}
-                    variants={animation}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{ duration: 0.35 }}
-                >
-                    <Paper sx={{ p: '20px', borderRadius: '14px', minHeight: '200px' }}>
-                        <Box>
-                            <Typography variant="h3" fontSize="18px" mb={3}>
-                                {t(addMedicationManualStepsTitles[currentStep])}
-                            </Typography>
-                        </Box>
-                        <form
-                            onSubmit={handleSubmit}
-                            style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'space-between',
-                                height: '100%',
-                                minHeight: '200px',
-                            }}
+        <Box height="100%">
+            <form
+                onSubmit={handleSubmit}
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    height: '100%',
+                }}
+            >
+                <Box>
+                    <Box textAlign="center">
+                        <Typography variant="h3" fontSize="18px" mb={1}>
+                            {t('Add Medication')}
+                        </Typography>
+                        <Typography fontSize="13px" color="text.secondary">
+                            {t('addMedicationHelper')}
+                        </Typography>
+                    </Box>
+                    <Divider sx={{ my: 3 }} />
+                    <AnimatePresence mode="wait" custom={direction}>
+                        <motion.div
+                            key={currentStep}
+                            custom={direction}
+                            variants={formFloatingAnimation}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{ duration: 0.35 }}
                         >
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    gap: 2,
-                                    alignItems: 'center',
-                                    flexDirection: 'column',
-                                }}
-                            >
-                                <FormElement
-                                    values={values}
-                                    formikChange={handleChange}
-                                    currentFields={addMedicationManualSteps[currentStep]}
-                                    customElements={customElements}
-                                />
-                            </Box>
-
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    mt: 2,
-                                }}
-                            >
-                                {!!currentStep && (
-                                    <Button
-                                        type="button"
-                                        onClick={() => changeStep('backward')}
-                                        variant="contained"
+                            <Paper sx={{ p: '20px', borderRadius: '14px', minHeight: '200px' }}>
+                                <Box>
+                                    <Typography variant="h3" fontSize="18px" mb={3}>
+                                        {t(addMedicationManualStepsTitles[currentStep])}
+                                    </Typography>
+                                </Box>
+                                <Box
+                                    style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        justifyContent: 'center',
+                                        height: '100%',
+                                        minHeight: '200px',
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            gap: 2,
+                                            alignItems: 'center',
+                                            flexDirection: 'column',
+                                        }}
                                     >
-                                        {t('Prev')}
-                                    </Button>
-                                )}
+                                        <FormElement
+                                            values={values}
+                                            formikChange={handleChange}
+                                            currentFields={addMedicationManualSteps[currentStep]}
+                                            customElements={customElements}
+                                        />
+                                    </Box>
+                                </Box>
+                            </Paper>
+                        </motion.div>
+                    </AnimatePresence>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            mt: 2,
+                            gap: 2,
+                            borderRadius: '14px',
+                            '& button': {
+                                flex: '1 1',
+                            },
+                        }}
+                    >
+                        {!!currentStep && (
+                            <Button
+                                type="button"
+                                onClick={() => changeStep('backward')}
+                                variant="contained"
+                            >
+                                {t('Prev')}
+                            </Button>
+                        )}
 
-                                {currentStep === addMedicationManualSteps.length - 1 ? (
-                                    <Button type="submit" variant="contained">
-                                        {t('Submit')}
-                                    </Button>
-                                ) : (
-                                    <Button
-                                        type="button"
-                                        onClick={() => changeStep('forward')}
-                                        variant="contained"
-                                    >
-                                        {t('Next')}
-                                    </Button>
-                                )}
-                            </Box>
-                        </form>
-                    </Paper>
-                </motion.div>
-            </AnimatePresence>
+                        {currentStep === addMedicationManualSteps.length - 1 ? (
+                            <Button type="submit" variant="contained">
+                                {t('Submit')}
+                            </Button>
+                        ) : (
+                            <Button
+                                type="button"
+                                onClick={() => changeStep('forward')}
+                                variant="contained"
+                            >
+                                {t('Next')}
+                            </Button>
+                        )}
+                    </Box>
+                </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 1,
+                        pt: 4,
+                        pb: 2,
+                        fontSize: '13px',
+                        color: PALETTE.BRAND_TEAL_DARK_PALE,
+                    }}
+                >
+                    <Box fontSize="16px">
+                        <VerifiedUserOutlinedIcon fontSize="inherit" />
+                    </Box>
+                    {t('Your data stays private.')}
+                </Box>
+            </form>
         </Box>
     );
 });

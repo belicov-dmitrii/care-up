@@ -6,7 +6,6 @@
         "form": "Tablets",
         "strength": 500,
         "unit": "mg",
-        "dose": 1,
         "quantity": 12345,
         "remaining": 18,
         "expirationDate": "2027-03-01"
@@ -18,7 +17,6 @@
         "form": "Capsules",
         "strength": 1000,
         "unit": "IU",
-        "dose": 1,
         "quantity": 22346,
         "remaining": 60,
         "expirationDate": "2027-03-01"
@@ -30,7 +28,6 @@
         "form": "Film-coated tablets",
         "strength": 400,
         "unit": "mg",
-        "dose": 1,
         "quantity": 32347,
         "remaining": 25,
         "expirationDate": "2027-03-01"
@@ -42,7 +39,6 @@
         "form": "Powders",
         "strength": 300,
         "unit": "mg",
-        "dose": 1,
         "quantity": 42348,
         "remaining": 10,
         "expirationDate": "2026-03-01"
@@ -54,7 +50,6 @@
         "form": "Syrups",
         "strength": 10,
         "unit": "mL",
-        "dose": 5,
         "quantity": 52349,
         "remaining": 120,
         "expirationDate": "2026-03-01"
@@ -66,7 +61,6 @@
         "form": "Capsules",
         "strength": 156,
         "unit": "Mcg",
-        "dose": 1,
         "remaining": 15,
         "expirationDate": "2027-03-06"
     },
@@ -77,7 +71,6 @@
         "form": "Powders",
         "strength": 531,
         "unit": "Drops",
-        "dose": 4,
         "remaining": 0,
         "quantity": 383,
         "expirationDate": "2027-03-06"
@@ -89,8 +82,18 @@
         "form": "Tablets",
         "strength": 310,
         "unit": "Mg",
-        "dose": 5,
         "remaining": 52,
         "quantity": 183
+    },
+    {
+        "id": "df786eac-e698-4676-876c-9a175c9897c8",
+        "userId": "1",
+        "name": "Trombolon",
+        "form": "OralDrops",
+        "strength": 100,
+        "unit": "Mcg",
+        "dose": 1,
+        "remaining": 100,
+        "expirationDate": "2027-03-09"
     }
 ]

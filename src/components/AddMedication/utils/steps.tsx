@@ -43,7 +43,7 @@ export const addMedicationManualSteps: Array<FormFields<keyof NewMedType>> = [
             { name: 'unit', type: 'select', options: enumToOptions(MedUnit), label: 'Unit' },
         ],
     ],
-    [{ name: 'remaining', type: 'text', label: 'Quantity' }],
+    [[{ name: 'remaining', type: 'text', label: 'Quantity' }]],
     [{ name: 'expirationDate', type: 'custom', label: 'Expiration Date' }],
 ];
 
