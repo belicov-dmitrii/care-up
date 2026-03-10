@@ -1,4 +1,4 @@
-import { type ScheduleItem, type Med } from '@/types';
+import { type ScheduleItem, type Med, type IntakeEvent } from '@/types';
 import {
     type DashboardItemType,
     getEventsForSelectedDate,
@@ -6,6 +6,7 @@ import {
 } from './getEventsForSelectedDate';
 import moment from 'moment';
 import { DATE_FORMAT } from './consts';
+import { encodeIdWithDate } from './eventsEncoder';
 
 export type DashboardItemWithMedType = DashboardItemType & { med: Med };
 
@@ -39,15 +40,27 @@ export const sortByTimeOfDay = (schedule: DashboardItemWithMedType[], date: stri
 
 export const getTodaySchedule = (
     meds: Med[],
-    schedules: ScheduleItem[]
+    schedules: ScheduleItem[],
+    events: Record<string, IntakeEvent>
 ): DashboardItemWithMedType[] => {
     const formattedTodayDate = moment().format(DATE_FORMAT);
     const todaySchedules: ReturnType<typeof addMedsToSchedule> = addMedsToSchedule(
         getEventsForSelectedDate(schedules, formattedTodayDate),
         meds
-    ).filter((schedule) => Boolean(schedule.med));
+    ).filter((schedule) => Boolean(schedule.med)) as DashboardItemWithMedType[];
 
-    return todaySchedules as DashboardItemWithMedType[];
+    return todaySchedules.map((schedule) => {
+        const computedId = encodeIdWithDate(schedule.scheduleByTimeId, formattedTodayDate);
+
+        if (!events[computedId]) {
+            return schedule;
+        }
+
+        return {
+            ...schedule,
+            event: events[computedId],
+        };
+    });
 };
 
 export const getMedScheduleByScheduleId = (

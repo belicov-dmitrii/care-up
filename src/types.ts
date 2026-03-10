@@ -1,5 +1,7 @@
 // ===== Enums: Meds =====
 
+import { type Symptoms } from './utils/consts';
+
 export enum MedForm {
     Tablets = 'Tablets',
     FilmCoatedTablets = 'Film-coated tablets',
@@ -123,4 +125,24 @@ export enum MedStockStatus {
     Expiring = 'Expiring',
     Low = 'Low stock',
     Good = 'Good',
+}
+
+// ===== Types: Intake Events =====
+
+export type SymptomsType = (typeof Symptoms)[number];
+
+export interface IntakeEvent {
+    id: string; // uniq
+    userId: string;
+    medId: string;
+    medName: string;
+    time: string;
+    medStrenght: string;
+    scheduleId: string;
+    scheduleTimeId: string;
+    eventDate: string;
+    status: 'taken' | 'missed' | 'skipped';
+    symptoms: Array<SymptomsType>;
+    createdAt: string;
+    updatedAt: string | null;
 }

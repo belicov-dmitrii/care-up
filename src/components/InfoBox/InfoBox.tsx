@@ -3,13 +3,15 @@ import { alpha, Box, Paper, Stack, Typography } from '@mui/material';
 import { type FC } from 'react';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import { RecommendationCategory } from '@/types';
+import { BoxIcon } from '../icons/BoxIcon';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export const iconByCategory: Record<RecommendationCategory, typeof RestaurantIcon> = {
     [RecommendationCategory.AdministrationMethod]: RestaurantIcon,
     [RecommendationCategory.ActivityRestrictions]: RestaurantIcon,
     [RecommendationCategory.FoodDiet]: RestaurantIcon,
     [RecommendationCategory.HealthConditionWarnings]: RestaurantIcon,
-    [RecommendationCategory.StorageInstructions]: RestaurantIcon,
+    [RecommendationCategory.StorageInstructions]: BoxIcon as unknown as typeof RestaurantIcon,
     [RecommendationCategory.SubstanceRestrictions]: RestaurantIcon,
 };
 
@@ -17,9 +19,10 @@ interface IInfoBoxProps {
     title: string;
     note?: string;
     category: RecommendationCategory;
+    showArrow?: boolean;
 }
 
-export const InfoBox: FC<IInfoBoxProps> = ({ title, note, category }) => {
+export const InfoBox: FC<IInfoBoxProps> = ({ title, showArrow, note, category }) => {
     const Icon = iconByCategory[category];
 
     return (
@@ -51,6 +54,20 @@ export const InfoBox: FC<IInfoBoxProps> = ({ title, note, category }) => {
                     {note}
                 </Typography>
             </Stack>
+            {showArrow && (
+                <Box
+                    sx={{
+                        flex: '2 2',
+                        textAlign: 'right',
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                        alignItems: 'center',
+                        color: PALETTE.TEXT_SECONDARY,
+                    }}
+                >
+                    <ArrowForwardIosIcon color="inherit" />
+                </Box>
+            )}
         </Paper>
     );
 };
