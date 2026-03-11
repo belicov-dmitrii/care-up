@@ -16,20 +16,27 @@ import { PharmacyListItem } from '../PharmacyListItem/PharmacyListItem';
 import SearchIcon from '@mui/icons-material/Search';
 import { memo, useState, type FC, type ChangeEvent, useMemo } from 'react';
 import { useI18n } from '../I18nProvider';
-import { getMedRemainingTime, getMedStockStatus } from '@/utils/getMedExtendedDetails';
+import {
+    getMedRemainingTime,
+    getMedStockStatus,
+    isDateExpired,
+    isDateExpiring,
+} from '@/utils/getMedExtendedDetails';
+import { enumToOptions } from '../Forms/utils/enumToOptions';
 
 interface IPharmacyFilterableAreaProps {
     meds: Med[];
     schedules: ScheduleItem[];
 }
 
-const FILTER_OPTIONS = [
-    'All items',
-    MedStockStatus.Empty,
-    MedStockStatus.Expiring,
-    MedStockStatus.Low,
-    MedStockStatus.Good,
-];
+enum FilterOptions {
+    All = 'All Items',
+    Attention = 'Needs Attention',
+    Expired = 'Expired',
+    LowStock = 'Low Stock',
+    InStock = 'In Stock',
+}
+const FILTER_OPTIONS = enumToOptions(FilterOptions).map((option) => option.display);
 
 const tabStyles: CSSProperties = {
     backgroundColor: PALETTE.BRAND_WHITE,
@@ -66,12 +73,44 @@ export const PharmacyFilterableArea: FC<IPharmacyFilterableAreaProps> = memo(
                     return med.name.toLowerCase().includes(searchTerm.toLowerCase());
                 })
                 .filter((med) => {
-                    if (activeFilter === FILTER_OPTIONS[0]) return true;
-
                     const medStockStatus = getMedStockStatus(med.remaining).stockLabel;
-                    return medStockStatus === activeFilter;
+                    const medSchedule = schedules?.find((schedule) => schedule.medId === med.id);
+
+                    const expired =
+                        isDateExpired(med?.expirationDate) ||
+                        medStockStatus === MedStockStatus.Empty;
+
+                    const needsAttention =
+                        !expired &&
+                        (medStockStatus === MedStockStatus.Expiring ||
+                            isDateExpiring(med?.expirationDate) ||
+                            (med.remaining &&
+                                getMedRemainingTime(med, medSchedule) === 'Needs refill'));
+
+                    switch (activeFilter) {
+                        case FilterOptions.Expired:
+                            return expired;
+
+                        case FilterOptions.Attention:
+                            return needsAttention;
+
+                        case FilterOptions.LowStock:
+                            return (
+                                !expired && !needsAttention && medStockStatus === MedStockStatus.Low
+                            );
+
+                        case FilterOptions.InStock:
+                            return (
+                                !expired &&
+                                !needsAttention &&
+                                medStockStatus === MedStockStatus.Good
+                            );
+
+                        default:
+                            return true;
+                    }
                 });
-        }, [meds, searchTerm, activeFilter]);
+        }, [meds, schedules, searchTerm, activeFilter]);
 
         const medsRemainingTime = useMemo(() => {
             return meds.reduce((acc: { [key: string]: string }, med) => {

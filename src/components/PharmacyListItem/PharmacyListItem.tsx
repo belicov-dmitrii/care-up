@@ -24,7 +24,10 @@ export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(({ med, medRema
     const { t } = useI18n();
     const { stockLabel, stockColor } = getMedStockStatus(med.remaining);
     const stockBackgroundColor = alpha(stockColor, 0.1);
-    const medExpirationColor = isDateExpiring(med.expirationDate) ? PALETTE.ERROR : PALETTE.SUCCESS;
+    const medExpirationColor =
+        isDateExpiring(med.expirationDate) || isDateExpired(med.expirationDate)
+            ? PALETTE.ERROR
+            : PALETTE.SUCCESS;
 
     return (
         <Button href={`/pharmacy/${med.id}`} sx={{ padding: 0 }}>

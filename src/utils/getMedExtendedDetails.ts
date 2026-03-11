@@ -23,8 +23,10 @@ export const getMedUnitDetails = (med: Med, includeDose = true) => {
 
 export const isDateExpired = (date: string | undefined) =>
     date ? moment(date).diff(moment(), 'days') < 0 : false;
-export const isDateExpiring = (date: string | undefined) =>
-    date ? moment(date).diff(moment(), 'days') <= 20 : false;
+export const isDateExpiring = (date: string | undefined) => {
+    const diff = moment(date).diff(moment(), 'days');
+    return date ? diff <= 30 && diff > 0 : false;
+};
 
 const daysIncrement = {
     [ScheduleType.EveryDay]: 1,

@@ -1,7 +1,7 @@
 'use client';
 
-import { type ScheduleTime, ScheduleType, type Med, MedUnit } from '@/types';
-import { ColumnBoxStyles, PaperStyles, RowBoxStyles } from '@/utils/consts';
+import { type ScheduleTime, ScheduleType, type Med } from '@/types';
+import { ColumnBoxStyles, PaperStyles, RowBoxStyles, YEAR_FIRST_DATE_FORMAT } from '@/utils/consts';
 import {
     alpha,
     Box,
@@ -27,7 +27,7 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { TimePicker } from '@/libs/time-picker';
 import { formatTime } from '@/utils/formatData';
-import { typedObjectKeys } from '@/utils/typedObjectKeys';
+import moment from 'moment';
 
 interface ICreateScheduleFormProps {
     id?: string;
@@ -62,10 +62,13 @@ const FREQUENCY_OPTIONS: ScheduleType[] = [
     ScheduleType.SpecificDate,
 ];
 
+type SelectedTime = ScheduleTime & { dose: string };
+
 export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds }) => {
     const [selectedMedId, setSelectedMedId] = useState<string>(id ?? meds[0].id);
     const [selectedFrequency, setSelectedFrequency] = useState<ScheduleType>(FREQUENCY_OPTIONS[0]);
-    const [selectedTimes, setSelectedTimes] = useState<ScheduleTime[]>([]);
+    const [selectedEndDate, setSelectedEndDate] = useState<moment.Moment>(moment());
+    const [selectedTimes, setSelectedTimes] = useState<SelectedTime[]>([]);
     const [addTimeOpen, setAddTimeOpen] = useState<boolean>(false);
 
     const handleMedChange = (e: SelectChangeEvent) => {
@@ -156,6 +159,23 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds
             </Paper>
             <Paper sx={PaperStyles}>
                 <Typography variant="h3" fontSize={16}>
+                    {t('End Date')}
+                </Typography>
+                <TextField
+                    type="date"
+                    value={selectedEndDate.format(YEAR_FIRST_DATE_FORMAT)}
+                    onChange={(e) => {
+                        setSelectedEndDate(moment(e.target.value));
+                    }}
+                    slotProps={{
+                        htmlInput: {
+                            min: moment().format(YEAR_FIRST_DATE_FORMAT),
+                        },
+                    }}
+                />
+            </Paper>
+            <Paper sx={PaperStyles}>
+                <Typography variant="h3" fontSize={16}>
                     {t('Daily Intake Times')}
                 </Typography>
                 {selectedTimes.map((time) => {
@@ -185,17 +205,12 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds
     );
 });
 
-const AddTimeModal = ({
-    open,
-    setOpen,
-    setSelectedTimes,
-}: {
+const AddTimeModal: FC<{
     open: boolean;
     setOpen: Dispatch<SetStateAction<boolean>>;
-    setSelectedTimes: Dispatch<SetStateAction<ScheduleTime[]>>;
-}) => {
+    setSelectedTimes: Dispatch<SetStateAction<SelectedTime[]>>;
+}> = memo(({ open, setOpen, setSelectedTimes }) => {
     const handleClose = () => {
-        console.log('here');
         setOpen((prev) => !prev);
     };
 
@@ -209,6 +224,7 @@ const AddTimeModal = ({
                     id: crypto.randomUUID(),
                     hours: Number(hours),
                     minutes: Number(minutes),
+                    dose: '1',
                 },
             ];
         });
@@ -230,26 +246,34 @@ const AddTimeModal = ({
             </Box>
         </Modal>
     );
-};
+});
 
 const TimeItem: FC<{
-    time: ScheduleTime;
-    setSelectedTimes: Dispatch<SetStateAction<ScheduleTime[]>>;
-}> = ({ time, setSelectedTimes }) => {
-    const { id, hours, minutes } = time;
+    time: SelectedTime;
+    setSelectedTimes: Dispatch<SetStateAction<SelectedTime[]>>;
+}> = memo(({ time, setSelectedTimes }) => {
+    const { id, hours, minutes, dose } = time;
 
-    const handleDeleteTime = (id: string) => {
-        return () => {
-            setSelectedTimes((prev) => {
-                return prev.filter((time) => time.id !== id);
-            });
-        };
+    const handleDeleteTime = () => {
+        setSelectedTimes((prev) => {
+            return prev.filter((time) => time.id !== id);
+        });
+    };
+
+    const handleDoseChange = (dose: string) => {
+        setSelectedTimes((prev) =>
+            prev.map((time) => {
+                if (time.id === id) return { ...time, dose };
+                return time;
+            })
+        );
     };
 
     return (
         <Box sx={{ ...RowBoxStyles, justifyContent: 'space-between' }}>
             <Typography variant="body1">{formatTime(hours, minutes)}</Typography>
             <TextField
+                value={dose}
                 type="number"
                 sx={{ maxWidth: 70 }}
                 slotProps={{
@@ -257,27 +281,14 @@ const TimeItem: FC<{
                         sx: {
                             height: 40,
                         },
+                        inputMode: 'decimal',
                     },
                 }}
+                onChange={(e) => handleDoseChange(e.target.value)}
             />
-            <TextField
-                fullWidth
-                select
-                slotProps={{
-                    input: {
-                        sx: {
-                            height: 40,
-                        },
-                    },
-                }}
-            >
-                {typedObjectKeys(MedUnit).map((unit) => {
-                    return <MenuItem key={unit}>{unit}</MenuItem>;
-                })}
-            </TextField>
-            <IconButton onClick={handleDeleteTime(id)} sx={{ color: PALETTE.ERROR }}>
+            <IconButton onClick={handleDeleteTime} sx={{ color: PALETTE.ERROR }}>
                 <DeleteOutlinedIcon />
             </IconButton>
         </Box>
     );
-};
+});
