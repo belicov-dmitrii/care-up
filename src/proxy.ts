@@ -13,6 +13,7 @@ export function proxy(req: NextRequest) {
         pathname === '/favicon.ico' ||
         pathname.startsWith('/icons') ||
         pathname.startsWith('/image') ||
+        pathname.startsWith('/OneSignalSDKWorker') ||
         pathname.startsWith('/apple-touch-icon') ||
         pathname.startsWith('/site.webmanifest')
     ) {

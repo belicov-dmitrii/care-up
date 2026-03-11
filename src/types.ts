@@ -135,3 +135,25 @@ export enum MedStockStatus {
     Low = 'Low stock',
     Good = 'Good',
 }
+
+// ===== Types: Pharmacy =====
+
+export type NotificationJob = {
+    id: string;
+    userId: string;
+    medId: string;
+    scheduleId: string;
+    timeId: string;
+    kind: 'intake' | 'restriction-before' | 'restriction-after';
+    title: string;
+    body: string;
+    sendAtLocal: string; // YYYY-MM-DDTHH:mm:ss
+    sendAtUTC: string; // ISO UTC
+    oneSignalNotificationId: string | null;
+    status: 'pending' | 'scheduled' | 'cancelled' | 'sent' | 'failed';
+    meta?: {
+        restrictionType?: string;
+        restrictionNote?: string;
+        dose?: number;
+    };
+};

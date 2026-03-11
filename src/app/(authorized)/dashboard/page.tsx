@@ -9,6 +9,7 @@ import { NextIntake } from '@/components/NextIntake/NextIntake';
 import { MedDashboardList } from '@/components/MedDashboardList/MedDashboardList';
 import { getTodaySchedule } from '@/utils/sortAndFilterMeds';
 import { DashboardHeader } from '@/components/DashboardHeader/DashboardHeader';
+import EnablePushButton from '@/components/Subscription/EnablePushButton';
 
 const hasAlerts = true;
 
@@ -20,6 +21,7 @@ export default async function Dashboards() {
 
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', gap: 3, padding: 3 }}>
+            <EnablePushButton />
             <DashboardHeader schedulesCount={todaySchedules.length} />
             {!!todaySchedules?.length ? <NextIntake schedule={todaySchedules[0]} /> : ''}
             {hasAlerts && (
