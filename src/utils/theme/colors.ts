@@ -12,6 +12,7 @@ export const PALETTE = {
 
     TEXT_PRIMARY: '#1c1f1f',
     TEXT_SECONDARY: '#5F6a6a',
+    TEXT_SUCCESS: '#6DAA7B',
 
     NEUTRAL_SLATE_400: '#94A3B8',
     WARM_WHITE: '#f2f1ea',

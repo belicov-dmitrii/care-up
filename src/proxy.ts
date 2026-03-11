@@ -12,6 +12,7 @@ export function proxy(req: NextRequest) {
         pathname.startsWith('/_next') ||
         pathname === '/favicon.ico' ||
         pathname.startsWith('/icons') ||
+        pathname.startsWith('/image') ||
         pathname.startsWith('/apple-touch-icon') ||
         pathname.startsWith('/site.webmanifest')
     ) {

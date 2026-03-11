@@ -1,6 +1,7 @@
-import { type ScheduleItem } from '@/types';
+import { type IntakeEvent, type ScheduleItem } from '@/types';
 import moment from 'moment';
 import { DATE_FORMAT, YEAR_FIRST_DATE_FORMAT } from './consts';
+import { encodeIdWithDate } from './eventsEncoder';
 
 export enum ScheduleType {
     EveryDay = 'every day',
@@ -11,7 +12,12 @@ export enum ScheduleType {
 }
 
 export type DashboardItemType = Omit<ScheduleItem, 'time'> &
-    Record<'hours' | 'minutes', number> & { timeId: string; scheduleByTimeId: string };
+    Record<'hours' | 'minutes', number> & {
+        timeId: string;
+        scheduleByTimeId: string;
+        event?: IntakeEvent;
+        computedId?: string;
+    };
 
 const isValidHM = (h: number, m: number) =>
     Number.isInteger(h) && Number.isInteger(m) && h >= 0 && h <= 23 && m >= 0 && m <= 59;
@@ -80,7 +86,8 @@ export const splitScheduleByTime = (schedule: ScheduleItem): DashboardItemType[]
 
 export function getEventsForSelectedDate(
     schedules: ScheduleItem[],
-    dateStr: string
+    dateStr: string,
+    intakeEvents?: Record<string, IntakeEvent>
 ): DashboardItemType[] {
     const selected = moment(dateStr, DATE_FORMAT, true).startOf('day');
     if (!selected.isValid()) return [];
@@ -94,6 +101,20 @@ export function getEventsForSelectedDate(
 
         events = splitScheduleByTime(schedule);
     }
+
+    events = events.map((event) => {
+        const computedId = encodeIdWithDate(event.scheduleByTimeId, dateStr);
+
+        if (!intakeEvents?.[computedId]) {
+            return { ...event, computedId };
+        }
+
+        return {
+            ...event,
+            computedId: computedId,
+            event: intakeEvents[computedId],
+        };
+    });
 
     // sort by time, then by medId for stable ordering
     events.sort(

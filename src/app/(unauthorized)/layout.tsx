@@ -5,9 +5,8 @@ import { Box, Typography } from '@mui/material';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
-import { UserContextProvider } from '@/context/UserContext';
+import '@/styles/imports.css';
 import '@/styles/globals.scss';
-import '@/styles/embla.css';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -39,16 +38,14 @@ export default async function RootLayout({
             </head>
             <body className={`${inter.className}`}>
                 <ThemeRegistry>
-                    <UserContextProvider>
-                        <I18nProvider dict={dict} lang={lang}>
-                            <Box className="main-container">{children}</Box>
-                            <Box color="text.secondary" className="footer" component="footer">
-                                <Typography variant="body2">
-                                    © {new Date().getFullYear()} Care Up
-                                </Typography>
-                            </Box>
-                        </I18nProvider>
-                    </UserContextProvider>
+                    <I18nProvider dict={dict} lang={lang}>
+                        <Box className="main-container">{children}</Box>
+                        <Box color="text.secondary" className="footer" component="footer">
+                            <Typography variant="body2">
+                                © {new Date().getFullYear()} Care Up
+                            </Typography>
+                        </Box>
+                    </I18nProvider>
                 </ThemeRegistry>
             </body>
         </html>

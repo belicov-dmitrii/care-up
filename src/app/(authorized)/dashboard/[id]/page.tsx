@@ -2,12 +2,17 @@ import { formatMedDose, formatTime } from '@/utils/formatData';
 import { getMeds } from '@/utils/requests/getMeds';
 import { getSchedule } from '@/utils/requests/getSchedule';
 import { getMedScheduleByScheduleId } from '@/utils/sortAndFilterMeds';
-import { Box, Button, Chip, Container, Stack, Typography } from '@mui/material';
+import { Box, Chip, Container, Stack, Typography } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { getServerT } from '@/i18n';
 import { PALETTE } from '@/utils/theme/colors';
 import { InfoBox } from '@/components/InfoBox/InfoBox';
 import { ColumnBoxStyles } from '@/utils/consts';
+import { decodeIdWithDate } from '@/utils/eventsEncoder';
+import { getIntakeEvent } from '@/utils/requests/getIntakeEvent';
+import { EventActions } from '@/components/EventActions/EventActions';
+import { RecommendationCategory } from '@/types';
+import Link from 'next/link';
 
 interface IMedScheduleDetailsProps {
     params: {
@@ -16,10 +21,14 @@ interface IMedScheduleDetailsProps {
 }
 
 export default async function MedScheduleDetails({ params }: IMedScheduleDetailsProps) {
-    const { id } = await params;
+    const { id: paramsId } = await params;
+
     const t = await getServerT();
     const meds = await getMeds();
     const schedules = await getSchedule();
+    const event = await getIntakeEvent(paramsId);
+
+    const { id, date } = decodeIdWithDate(paramsId);
     const medSchedule = getMedScheduleByScheduleId(id, meds, schedules);
 
     if (!medSchedule)
@@ -76,22 +85,19 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
                 {recommendations?.map((recommendation) => {
                     return <InfoBox key={recommendation.id} {...recommendation} />;
                 })}
+                <Box mt={4}>
+                    <Link href={`/pharmacy/${med.id}`}>
+                        <InfoBox
+                            title="Home Pharmacy"
+                            note={`${med.remaining} ${med.form.toLocaleLowerCase()} left`}
+                            category={RecommendationCategory.StorageInstructions}
+                            showArrow
+                        />
+                    </Link>
+                </Box>
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 2 }}>
-                <Button variant="contained" size="large">
-                    {t('Mark as taken')}
-                </Button>
-                <Button
-                    variant="contained"
-                    sx={{ backgroundColor: PALETTE.BRAND_TEAL_LIGHT, color: PALETTE.BRAND_TEAL }}
-                    size="large"
-                >
-                    {t('Snooze for 1 hour')}
-                </Button>
-                <Button variant="text" sx={{ color: PALETTE.TEXT_PRIMARY }} size="large">
-                    {t('Reschedule intake')}
-                </Button>
-            </Box>
+
+            <EventActions id={paramsId} medSchedule={medSchedule} date={date} event={event} />
         </Container>
     );
 }

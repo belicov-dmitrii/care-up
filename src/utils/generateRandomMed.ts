@@ -21,7 +21,7 @@ const medNames = [
 ];
 
 export function generateRandomMed(): Partial<Omit<Med, 'id'>> & { name: string } {
-    const base: Omit<Med, 'id'> = {
+    const base: Omit<Med, 'id' | 'userId' | 'expirationDate'> = {
         name: randomFromArray(medNames),
         form: randomFromArray(Object.values(MedForm)),
         strength: randomNumber(1, 1000),
@@ -31,7 +31,7 @@ export function generateRandomMed(): Partial<Omit<Med, 'id'>> & { name: string }
         quantity: randomNumber(10, 500),
     };
 
-    const optionalKeys: (keyof Omit<Med, 'id' | 'name'>)[] = [
+    const optionalKeys: (keyof Omit<Med, 'id' | 'name' | 'userId' | 'expirationDate'>)[] = [
         'form',
         'strength',
         'unit',

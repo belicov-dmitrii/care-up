@@ -1,6 +1,5 @@
 import { Box, Paper, Typography, Stack, Avatar, Container, Button } from '@mui/material';
 
-import Image from 'next/image';
 import { Spa } from '@mui/icons-material';
 import { LoginForm } from '@/components/LoginForm/LoginForm';
 import Link from 'next/link';
@@ -32,7 +31,21 @@ export default function AuthLoginPage() {
                     overflow: 'hidden',
                 }}
             >
-                <Image src="/care-logo.png" alt="logo" fill />
+                <video
+                    src="/image_login-gif.mp4"
+                    muted
+                    loop
+                    autoPlay
+                    style={{
+                        position: 'absolute',
+                        top: '0',
+                        left: 0,
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        objectPosition: 'center',
+                    }}
+                />
             </Box>
             <Paper
                 sx={{
@@ -58,7 +71,7 @@ export default function AuthLoginPage() {
                         </Avatar>
                         <Box>
                             <Typography variant="h4" sx={{ lineHeight: 1.1 }}>
-                                Nurture
+                                Care Up
                             </Typography>
                             <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
                                 Your gentle guide to daily health and wellbeing.
