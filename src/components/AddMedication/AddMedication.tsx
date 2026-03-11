@@ -2,12 +2,10 @@
 
 import { type Med } from '@/types';
 import { Box, Drawer, IconButton } from '@mui/material';
-import { type FC, memo, useCallback, useState } from 'react';
-import { useI18n } from '../I18nProvider';
+import { type FC, memo, useCallback, useEffect, useState } from 'react';
 import { AddMedicationStepChooser, AddMedicationSteps } from './utils/steps';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { PALETTE } from '@/utils/theme/colors';
-import VerifiedUserOutlinedIcon from '@mui/icons-material/VerifiedUserOutlined';
 
 interface IAddMedicationProps {
     open: boolean;
@@ -17,7 +15,6 @@ interface IAddMedicationProps {
 export const AddMedication: FC<IAddMedicationProps> = memo(({ open, onClose }) => {
     const [step, setStep] = useState(AddMedicationStepChooser.AddMedication);
     const [medData, setMedData] = useState<Partial<Med>>({});
-    const { t } = useI18n();
 
     const Component = AddMedicationSteps[step].content;
 
@@ -29,6 +26,15 @@ export const AddMedication: FC<IAddMedicationProps> = memo(({ open, onClose }) =
             };
         });
     }, []);
+
+    useEffect(() => {
+        if (!open) {
+            // HINT: To wait for Drawer to hide
+            setTimeout(() => {
+                setStep(AddMedicationStepChooser.AddMedication);
+            }, 500);
+        }
+    }, [open]);
 
     return (
         <Drawer anchor="right" open={open} onClose={onClose}>
@@ -45,23 +51,6 @@ export const AddMedication: FC<IAddMedicationProps> = memo(({ open, onClose }) =
                 </Box>
                 <Box sx={{ flex: '1 1' }}>
                     <Component setStep={setStep} medData={medData} changeMedData={changeMedData} />
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: 1,
-                        pt: 4,
-                        pb: 2,
-                        fontSize: '13px',
-                        color: PALETTE.BRAND_TEAL_DARK_PALE,
-                    }}
-                >
-                    <Box fontSize="16px">
-                        <VerifiedUserOutlinedIcon fontSize="inherit" />
-                    </Box>
-                    {t('Your data stays private.')}
                 </Box>
             </Box>
         </Drawer>

@@ -1,8 +1,9 @@
-import { Box, Paper, Typography, Stack, Avatar, Container } from '@mui/material';
+import { Box, Paper, Typography, Stack, Avatar, Container, Button } from '@mui/material';
 
 import Image from 'next/image';
 import { Spa } from '@mui/icons-material';
 import { LoginForm } from '@/components/LoginForm/LoginForm';
+import Link from 'next/link';
 
 export default function AuthLoginPage() {
     return (
@@ -81,6 +82,23 @@ export default function AuthLoginPage() {
                     </Typography>
                 </Stack>
             </Paper>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'stretch',
+                    width: '100%',
+                }}
+            >
+                <Typography sx={{ textAlign: 'center', mb: 2 }}>
+                    You don&apos;t have an account?{' '}
+                </Typography>
+                <Link href="/registration">
+                    <Button variant="contained" sx={{ width: '100%' }}>
+                        Register Now
+                    </Button>
+                </Link>
+            </Box>
         </Container>
     );
 }

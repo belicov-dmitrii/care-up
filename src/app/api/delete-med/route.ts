@@ -9,7 +9,7 @@ const dataPath = (...p: string[]) => path.join(process.cwd(), 'data', ...p);
 
 export async function DELETE(req: NextRequest) {
     try {
-        const userId = getUserDataByToken(req.cookies.get(AUTH_COOKIE_NAME)?.value)?.id;
+        const userId = (await getUserDataByToken(req.cookies.get(AUTH_COOKIE_NAME)?.value))?.id;
 
         if (!userId) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
