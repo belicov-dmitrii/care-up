@@ -20,7 +20,8 @@ interface IEventActionsProps {
 }
 
 export const EventActions: FC<IEventActionsProps> = memo(({ id, medSchedule, event, date }) => {
-    const [eventType, setEventType] = useState<null | 'taken' | 'skipped' | 'missed'>(null);
+    const [eventType, setEventType] = useState<null | IntakeEvent['status']>(null);
+    const [eventId, setEventId] = useState<null | string>(null);
 
     const { t } = useI18n();
     const { med } = medSchedule;
@@ -29,7 +30,11 @@ export const EventActions: FC<IEventActionsProps> = memo(({ id, medSchedule, eve
         if (event?.status && event?.status !== eventType) {
             setEventType(event?.status);
         }
-    }, [event?.status, eventType]);
+
+        if (event?.id) {
+            setEventId(event.id);
+        }
+    }, [event?.id, event?.status, eventType]);
 
     const submitEvent = (action: 'skip' | 'take') => {
         return async () => {
@@ -60,6 +65,7 @@ export const EventActions: FC<IEventActionsProps> = memo(({ id, medSchedule, eve
                 return;
             }
 
+            setEventId(id);
             setEventType(status);
         };
     };
@@ -108,7 +114,7 @@ export const EventActions: FC<IEventActionsProps> = memo(({ id, medSchedule, eve
                     </Box>
                 </Box>
                 <Box mt={2}>
-                    <SymptomsChooser eventId={event?.id} initialValues={event?.symptoms} />
+                    <SymptomsChooser eventId={eventId} initialValues={event?.symptoms} />
                 </Box>
             </Box>
         );
