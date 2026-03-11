@@ -4,13 +4,20 @@ import moment from 'moment';
 import { type NextRequest, NextResponse } from 'next/server';
 import { getUserDataByToken } from '@/utils/getUserDataByToken';
 import { AUTH_COOKIE_NAME } from '../../login/route';
-import { type ScheduleTime, type NotificationJob, type ScheduleItem } from '@/types';
+import { type ScheduleTime, type NotificationJob, type ScheduleItem, type Med } from '@/types';
+import { addMedsToScheduleItems } from '@/utils/addMedsToScheduleItems';
+import { DATE_FORMAT } from '@/utils/consts';
+import { encodeIdWithDate } from '@/utils/eventsEncoder';
+
+type ScheduleItemWithMed = ScheduleItem & { med: Med };
 
 const DATA_DIR = path.join(process.cwd(), 'data');
-const SCHEDULES_FILE = path.join(DATA_DIR, 'schedules.json');
+const SCHEDULES_FILE = path.join(DATA_DIR, 'schedule.json');
 const NOTIFICATIONS_FILE = path.join(DATA_DIR, 'notifications.json');
+const MEDS_FILE = path.join(DATA_DIR, 'meds.json');
 
 const APP_TIMEZONE_OFFSET = '+02:00';
+const DAYS_AHEAD = 4;
 
 async function readJsonFile<T>(filePath: string, fallback: T): Promise<T> {
     try {
@@ -26,7 +33,7 @@ async function writeJsonFile<T>(filePath: string, data: T): Promise<void> {
     await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
 }
 
-function isScheduleActiveOnDate(schedule: ScheduleItem, targetDate: string): boolean {
+function isScheduleActiveOnDate(schedule: ScheduleItemWithMed, targetDate: string): boolean {
     const start = moment(schedule.startDate, 'YYYY-MM-DD', true);
     const target = moment(targetDate, 'YYYY-MM-DD', true);
 
@@ -65,7 +72,7 @@ function isScheduleActiveOnDate(schedule: ScheduleItem, targetDate: string): boo
 }
 
 function buildJobId(
-    schedule: ScheduleItem,
+    schedule: ScheduleItemWithMed,
     scheduleTimeId: string,
     targetDate: string,
     kind: NotificationJob['kind'],
@@ -78,18 +85,18 @@ function buildJobId(
     return `${schedule.id}:${scheduleTimeId}:${targetDate}:${kind}`;
 }
 
-function buildIntakeBody(schedule: ScheduleItem, scheduleTimeId: string): string {
+function buildIntakeBody(schedule: ScheduleItemWithMed, scheduleTimeId: string): string {
     const dose = schedule.dose?.[scheduleTimeId];
 
     if (dose != null) {
-        return `Take medication — dose: ${dose}`;
+        return `Take ${schedule?.med?.name} — dose: ${dose} ${schedule.med.form}`;
     }
 
-    return 'Take medication';
+    return `Take ${schedule?.med?.name || 'medication'}`;
 }
 
 function buildJobsForScheduleTime(
-    schedule: ScheduleItem,
+    schedule: ScheduleItemWithMed,
     scheduleTime: ScheduleTime,
     targetDate: string
 ): NotificationJob[] {
@@ -104,7 +111,10 @@ function buildJobsForScheduleTime(
     const dose = schedule.dose?.[scheduleTime.id];
     const jobs: NotificationJob[] = [];
 
+    const url = `/dashboard/${encodeIdWithDate(`${schedule.id}${scheduleTime.id}`, moment(targetDate).format(DATE_FORMAT))}`;
+
     jobs.push({
+        url,
         id: buildJobId(schedule, scheduleTime.id, targetDate, 'intake'),
         userId: schedule.userId,
         medId: schedule.medId,
@@ -129,6 +139,7 @@ function buildJobsForScheduleTime(
             const beforeAt = intakeAt.clone().subtract(restriction.before, 'minutes');
 
             jobs.push({
+                url,
                 id: buildJobId(
                     schedule,
                     scheduleTime.id,
@@ -142,7 +153,7 @@ function buildJobsForScheduleTime(
                 timeId: scheduleTime.id,
                 kind: 'restriction-before',
                 title: 'Medication reminder',
-                body: restriction.note,
+                body: `${schedule?.med?.name}: ${restriction.note}`,
                 sendAtLocal: beforeAt.format('YYYY-MM-DDTHH:mm:ss'),
                 sendAtUTC: beforeAt.clone().utc().toISOString(),
                 oneSignalNotificationId: null,
@@ -159,6 +170,7 @@ function buildJobsForScheduleTime(
             const afterAt = intakeAt.clone().add(restriction.after, 'minutes');
 
             jobs.push({
+                url,
                 id: buildJobId(
                     schedule,
                     scheduleTime.id,
@@ -172,7 +184,7 @@ function buildJobsForScheduleTime(
                 timeId: scheduleTime.id,
                 kind: 'restriction-after',
                 title: 'Medication reminder',
-                body: restriction.note,
+                body: `${schedule?.med?.name}: ${restriction.note}`,
                 sendAtLocal: afterAt.format('YYYY-MM-DDTHH:mm:ss'),
                 sendAtUTC: afterAt.clone().utc().toISOString(),
                 oneSignalNotificationId: null,
@@ -190,15 +202,15 @@ function buildJobsForScheduleTime(
 }
 
 function buildNotificationJobsForWindow(
-    schedules: ScheduleItem[],
-    daysAhead = 7
+    schedules: ScheduleItemWithMed[],
+    daysAhead = DAYS_AHEAD
 ): NotificationJob[] {
-    const today = moment().utcOffset(APP_TIMEZONE_OFFSET);
+    const now = moment().utcOffset(APP_TIMEZONE_OFFSET);
     const allJobs: NotificationJob[] = [];
 
     for (const schedule of schedules) {
         for (let i = 0; i < daysAhead; i++) {
-            const targetDate = today.clone().add(i, 'days').format('YYYY-MM-DD');
+            const targetDate = now.clone().add(i, 'days').format('YYYY-MM-DD');
 
             if (!isScheduleActiveOnDate(schedule, targetDate)) continue;
 
@@ -209,16 +221,102 @@ function buildNotificationJobsForWindow(
         }
     }
 
-    return allJobs.sort((a, b) => a.sendAtUTC.localeCompare(b.sendAtUTC));
+    return allJobs
+        .filter((job) => moment(job.sendAtUTC).isAfter(moment.utc()))
+        .sort((a, b) => a.sendAtUTC.localeCompare(b.sendAtUTC));
 }
 
-async function sendNotificationJobToOneSignal(job: NotificationJob) {
+type NotificationGroup = {
+    key: string;
+    userId: string;
+    sendAtUTC: string;
+    jobs: NotificationJob[];
+};
+
+function groupJobsForOneSignal(jobs: NotificationJob[]): NotificationGroup[] {
+    const groupsMap = new Map<string, NotificationGroup>();
+
+    for (const job of jobs) {
+        const key = `${job.userId}:${job.sendAtUTC}`;
+
+        if (!groupsMap.has(key)) {
+            groupsMap.set(key, {
+                key,
+                userId: job.userId,
+                sendAtUTC: job.sendAtUTC,
+                jobs: [],
+            });
+        }
+
+        groupsMap.get(key)!.jobs.push(job);
+    }
+
+    return Array.from(groupsMap.values()).sort((a, b) => a.sendAtUTC.localeCompare(b.sendAtUTC));
+}
+
+function buildGroupedNotificationPayload(group: NotificationGroup) {
+    const jobs = group.jobs;
+
+    if (jobs.length === 1) {
+        const job = jobs[0];
+
+        return {
+            title: job.title,
+            body: job.body,
+            url: job.url,
+            data: {
+                notificationJobIds: [job.id],
+                scheduleIds: [job.scheduleId],
+                timeIds: [job.timeId],
+                kinds: [job.kind],
+                medIds: [job.medId],
+                grouped: false,
+            },
+        };
+    }
+
+    const intakeJobs = jobs.filter((job) => job.kind === 'intake');
+    const beforeJobs = jobs.filter((job) => job.kind === 'restriction-before');
+    const afterJobs = jobs.filter((job) => job.kind === 'restriction-after');
+
+    const lines: string[] = [];
+
+    if (intakeJobs.length) {
+        lines.push(...intakeJobs.map((job) => `• ${job.body}`));
+    }
+
+    if (beforeJobs.length) {
+        lines.push(...beforeJobs.map((job) => `• ${job.body}`));
+    }
+
+    if (afterJobs.length) {
+        lines.push(...afterJobs.map((job) => `• ${job.body}`));
+    }
+
+    return {
+        title: `Medication reminders (${jobs.length})`,
+        body: lines.join('\n').slice(0, 1800),
+        url: jobs[0].url,
+        data: {
+            notificationJobIds: jobs.map((job) => job.id),
+            scheduleIds: jobs.map((job) => job.scheduleId),
+            timeIds: jobs.map((job) => job.timeId),
+            kinds: jobs.map((job) => job.kind),
+            medIds: jobs.map((job) => job.medId),
+            grouped: true,
+        },
+    };
+}
+
+async function sendNotificationGroupToOneSignal(group: NotificationGroup) {
     const appId = process.env.ONESIGNAL_APP_ID;
     const apiKey = process.env.ONESIGNAL_REST_API_KEY;
 
     if (!appId || !apiKey) {
         throw new Error('Missing ONESIGNAL_APP_ID or ONESIGNAL_REST_API_KEY');
     }
+
+    const payload = buildGroupedNotificationPayload(group);
 
     const response = await fetch('https://api.onesignal.com/notifications?c=push', {
         method: 'POST',
@@ -229,23 +327,19 @@ async function sendNotificationJobToOneSignal(job: NotificationJob) {
         body: JSON.stringify({
             app_id: appId,
             include_aliases: {
-                external_id: [job.userId],
+                external_id: [group.userId],
             },
             target_channel: 'push',
             headings: {
-                en: job.title,
+                en: payload.title,
             },
             contents: {
-                en: job.body,
+                en: payload.body,
             },
-            send_after: job.sendAtUTC,
-            data: {
-                notificationJobId: job.id,
-                scheduleId: job.scheduleId,
-                timeId: job.timeId,
-                kind: job.kind,
-                medId: job.medId,
-            },
+            url: payload.url,
+            web_url: payload.url,
+            send_after: group.sendAtUTC,
+            data: payload.data,
         }),
     });
 
@@ -263,20 +357,27 @@ export async function POST(req: NextRequest) {
         const userId = (await getUserDataByToken(req.cookies.get(AUTH_COOKIE_NAME)?.value))?.id;
 
         if (!userId) {
-            return NextResponse.json({ error: 'userId is required' }, { status: 400 });
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
         }
 
         const schedules = await readJsonFile<ScheduleItem[]>(SCHEDULES_FILE, []);
+        const meds = await readJsonFile<Med[]>(MEDS_FILE, []);
         const notifications = await readJsonFile<NotificationJob[]>(NOTIFICATIONS_FILE, []);
 
         const userSchedules = schedules.filter((schedule) => schedule.userId === userId);
-        const candidateJobs = buildNotificationJobsForWindow(userSchedules, 7);
+
+        const userSchedulesWithMeds: ScheduleItemWithMed[] = addMedsToScheduleItems(
+            userSchedules,
+            meds
+        );
+
+        const candidateJobs = buildNotificationJobsForWindow(userSchedulesWithMeds, DAYS_AHEAD);
 
         const existingJobsMap = new Map<string, NotificationJob>(
             notifications.map((job) => [job.id, job])
         );
 
-        const createdJobs: NotificationJob[] = [];
+        const newJobs: NotificationJob[] = [];
         const skippedJobs: NotificationJob[] = [];
 
         for (const candidateJob of candidateJobs) {
@@ -287,24 +388,33 @@ export async function POST(req: NextRequest) {
                 continue;
             }
 
+            newJobs.push(candidateJob);
+        }
+
+        const groups = groupJobsForOneSignal(newJobs);
+
+        const createdJobs: NotificationJob[] = [];
+
+        for (const group of groups) {
             try {
-                const oneSignalResult = await sendNotificationJobToOneSignal(candidateJob);
+                const oneSignalResult = await sendNotificationGroupToOneSignal(group);
+                const oneSignalNotificationId =
+                    typeof oneSignalResult?.id === 'string' ? oneSignalResult.id : null;
 
-                const scheduledJob: NotificationJob = {
-                    ...candidateJob,
-                    oneSignalNotificationId:
-                        typeof oneSignalResult?.id === 'string' ? oneSignalResult.id : null,
-                    status: 'scheduled',
-                };
-
-                createdJobs.push(scheduledJob);
+                for (const job of group.jobs) {
+                    createdJobs.push({
+                        ...job,
+                        oneSignalNotificationId,
+                        status: 'scheduled',
+                    });
+                }
             } catch {
-                const failedJob: NotificationJob = {
-                    ...candidateJob,
-                    status: 'failed',
-                };
-
-                createdJobs.push(failedJob);
+                for (const job of group.jobs) {
+                    createdJobs.push({
+                        ...job,
+                        status: 'failed',
+                    });
+                }
             }
         }
 
@@ -316,6 +426,8 @@ export async function POST(req: NextRequest) {
             userId,
             schedulesCount: userSchedules.length,
             candidateJobsCount: candidateJobs.length,
+            newJobsCount: newJobs.length,
+            groupedRequestsCount: groups.length,
             createdJobsCount: createdJobs.length,
             skippedJobsCount: skippedJobs.length,
             createdJobs,

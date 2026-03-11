@@ -1,1 +1,464 @@
-[]
+[
+  {
+    "url": "dashboard/WDdwTDJtUTl2WnI4VG41a0ZzMVdwOXYydDZyNGhufDExLTAzLTIwMjY",
+    "id": "X7pL2mQ9vZr8Tn5kFs1W:p9v2t6r4hn:2026-03-11:restriction-after:Supplement / Mineral Separation",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+    "scheduleId": "X7pL2mQ9vZr8Tn5kFs1W",
+    "timeId": "p9v2t6r4hn",
+    "kind": "restriction-after",
+    "title": "Medication reminder",
+    "body": "Vitamin D3: Separate from magnesium",
+    "sendAtLocal": "2026-03-12T00:00:00",
+    "sendAtUTC": "2026-03-11T22:00:00.000Z",
+    "oneSignalNotificationId": "d088ee54-e133-41cd-a9a7-cb91e723e2a5",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Supplement / Mineral Separation",
+      "restrictionNote": "Separate from magnesium",
+      "dose": 3
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDEyLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:a7f3c9e1b2:2026-03-12:restriction-before:Food & Drink Timing",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "a7f3c9e1b2",
+    "kind": "restriction-before",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Avoid coffee before intake",
+    "sendAtLocal": "2026-03-12T06:30:00",
+    "sendAtUTC": "2026-03-12T04:30:00.000Z",
+    "oneSignalNotificationId": "9aa5850f-0379-4cf6-aacc-4f72de54a5a6",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Food & Drink Timing",
+      "restrictionNote": "Avoid coffee before intake",
+      "dose": 20
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDEyLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:d4k8x2q9mz:2026-03-12:restriction-before:Food & Drink Timing",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "d4k8x2q9mz",
+    "kind": "restriction-before",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Avoid coffee before intake",
+    "sendAtLocal": "2026-03-12T08:00:00",
+    "sendAtUTC": "2026-03-12T06:00:00.000Z",
+    "oneSignalNotificationId": "9dff5c59-b589-4b7a-a591-a9ca06539123",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Food & Drink Timing",
+      "restrictionNote": "Avoid coffee before intake",
+      "dose": 15
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDEyLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:a7f3c9e1b2:2026-03-12:intake",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "a7f3c9e1b2",
+    "kind": "intake",
+    "title": "Medication reminder",
+    "body": "Take Paracetamol — dose: 20 Tablets",
+    "sendAtLocal": "2026-03-12T08:30:00",
+    "sendAtUTC": "2026-03-12T06:30:00.000Z",
+    "oneSignalNotificationId": "161155f0-832b-4562-8e09-75c1b621907f",
+    "status": "scheduled",
+    "meta": {
+      "dose": 20
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDEyLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:a7f3c9e1b2:2026-03-12:restriction-after:Posture / Immediate Behavior",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "a7f3c9e1b2",
+    "kind": "restriction-after",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Do not lie down immediately after intake",
+    "sendAtLocal": "2026-03-12T09:00:00",
+    "sendAtUTC": "2026-03-12T07:00:00.000Z",
+    "oneSignalNotificationId": "acef7d81-1c51-48f2-9de2-98372fb20d51",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Posture / Immediate Behavior",
+      "restrictionNote": "Do not lie down immediately after intake",
+      "dose": 20
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDEyLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:d4k8x2q9mz:2026-03-12:intake",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "d4k8x2q9mz",
+    "kind": "intake",
+    "title": "Medication reminder",
+    "body": "Take Paracetamol — dose: 15 Tablets",
+    "sendAtLocal": "2026-03-12T10:00:00",
+    "sendAtUTC": "2026-03-12T08:00:00.000Z",
+    "oneSignalNotificationId": "da0eff38-a506-4adb-ad4b-f618a064bbe6",
+    "status": "scheduled",
+    "meta": {
+      "dose": 15
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDEyLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:d4k8x2q9mz:2026-03-12:restriction-after:Posture / Immediate Behavior",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "d4k8x2q9mz",
+    "kind": "restriction-after",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Do not lie down immediately after intake",
+    "sendAtLocal": "2026-03-12T10:30:00",
+    "sendAtUTC": "2026-03-12T08:30:00.000Z",
+    "oneSignalNotificationId": "eccc7bda-86cb-4e80-ae08-e0748ef786c7",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Posture / Immediate Behavior",
+      "restrictionNote": "Do not lie down immediately after intake",
+      "dose": 15
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDEzLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:a7f3c9e1b2:2026-03-13:restriction-before:Food & Drink Timing",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "a7f3c9e1b2",
+    "kind": "restriction-before",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Avoid coffee before intake",
+    "sendAtLocal": "2026-03-13T06:30:00",
+    "sendAtUTC": "2026-03-13T04:30:00.000Z",
+    "oneSignalNotificationId": "1b496a7a-aad8-4269-af68-ce0c76ebbdb7",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Food & Drink Timing",
+      "restrictionNote": "Avoid coffee before intake",
+      "dose": 20
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDEzLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:d4k8x2q9mz:2026-03-13:restriction-before:Food & Drink Timing",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "d4k8x2q9mz",
+    "kind": "restriction-before",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Avoid coffee before intake",
+    "sendAtLocal": "2026-03-13T08:00:00",
+    "sendAtUTC": "2026-03-13T06:00:00.000Z",
+    "oneSignalNotificationId": "b490792e-badc-4260-9787-c8b4c7e6e3f7",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Food & Drink Timing",
+      "restrictionNote": "Avoid coffee before intake",
+      "dose": 15
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDEzLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:a7f3c9e1b2:2026-03-13:intake",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "a7f3c9e1b2",
+    "kind": "intake",
+    "title": "Medication reminder",
+    "body": "Take Paracetamol — dose: 20 Tablets",
+    "sendAtLocal": "2026-03-13T08:30:00",
+    "sendAtUTC": "2026-03-13T06:30:00.000Z",
+    "oneSignalNotificationId": "3f22474a-a720-4237-9f0d-40365d02b50e",
+    "status": "scheduled",
+    "meta": {
+      "dose": 20
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDEzLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:a7f3c9e1b2:2026-03-13:restriction-after:Posture / Immediate Behavior",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "a7f3c9e1b2",
+    "kind": "restriction-after",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Do not lie down immediately after intake",
+    "sendAtLocal": "2026-03-13T09:00:00",
+    "sendAtUTC": "2026-03-13T07:00:00.000Z",
+    "oneSignalNotificationId": "038ddb64-36e5-4699-a18b-8070f051df03",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Posture / Immediate Behavior",
+      "restrictionNote": "Do not lie down immediately after intake",
+      "dose": 20
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDEzLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:d4k8x2q9mz:2026-03-13:intake",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "d4k8x2q9mz",
+    "kind": "intake",
+    "title": "Medication reminder",
+    "body": "Take Paracetamol — dose: 15 Tablets",
+    "sendAtLocal": "2026-03-13T10:00:00",
+    "sendAtUTC": "2026-03-13T08:00:00.000Z",
+    "oneSignalNotificationId": "2927df6c-040c-4273-b52c-41446732937b",
+    "status": "scheduled",
+    "meta": {
+      "dose": 15
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDEzLTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:d4k8x2q9mz:2026-03-13:restriction-after:Posture / Immediate Behavior",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "d4k8x2q9mz",
+    "kind": "restriction-after",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Do not lie down immediately after intake",
+    "sendAtLocal": "2026-03-13T10:30:00",
+    "sendAtUTC": "2026-03-13T08:30:00.000Z",
+    "oneSignalNotificationId": "f8539b3a-07f5-4b86-928e-e203dc76985d",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Posture / Immediate Behavior",
+      "restrictionNote": "Do not lie down immediately after intake",
+      "dose": 15
+    }
+  },
+  {
+    "url": "dashboard/WDdwTDJtUTl2WnI4VG41a0ZzMVd4M203ejFrOHF3fDEzLTAzLTIwMjY",
+    "id": "X7pL2mQ9vZr8Tn5kFs1W:x3m7z1k8qw:2026-03-13:intake",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+    "scheduleId": "X7pL2mQ9vZr8Tn5kFs1W",
+    "timeId": "x3m7z1k8qw",
+    "kind": "intake",
+    "title": "Medication reminder",
+    "body": "Take Vitamin D3 — dose: 12 Capsules",
+    "sendAtLocal": "2026-03-13T15:00:00",
+    "sendAtUTC": "2026-03-13T13:00:00.000Z",
+    "oneSignalNotificationId": "801ca2bc-1e25-4cd1-ab14-1ae29cf4d63e",
+    "status": "scheduled",
+    "meta": {
+      "dose": 12
+    }
+  },
+  {
+    "url": "dashboard/WDdwTDJtUTl2WnI4VG41a0ZzMVd4M203ejFrOHF3fDEzLTAzLTIwMjY",
+    "id": "X7pL2mQ9vZr8Tn5kFs1W:x3m7z1k8qw:2026-03-13:restriction-after:Supplement / Mineral Separation",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+    "scheduleId": "X7pL2mQ9vZr8Tn5kFs1W",
+    "timeId": "x3m7z1k8qw",
+    "kind": "restriction-after",
+    "title": "Medication reminder",
+    "body": "Vitamin D3: Separate from magnesium",
+    "sendAtLocal": "2026-03-13T18:00:00",
+    "sendAtUTC": "2026-03-13T16:00:00.000Z",
+    "oneSignalNotificationId": "e42e646b-13ed-4fb0-9e6c-79143448a7e4",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Supplement / Mineral Separation",
+      "restrictionNote": "Separate from magnesium",
+      "dose": 12
+    }
+  },
+  {
+    "url": "dashboard/WDdwTDJtUTl2WnI4VG41a0ZzMVdwOXYydDZyNGhufDEzLTAzLTIwMjY",
+    "id": "X7pL2mQ9vZr8Tn5kFs1W:p9v2t6r4hn:2026-03-13:intake",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+    "scheduleId": "X7pL2mQ9vZr8Tn5kFs1W",
+    "timeId": "p9v2t6r4hn",
+    "kind": "intake",
+    "title": "Medication reminder",
+    "body": "Take Vitamin D3 — dose: 3 Capsules",
+    "sendAtLocal": "2026-03-13T21:00:00",
+    "sendAtUTC": "2026-03-13T19:00:00.000Z",
+    "oneSignalNotificationId": "530fb5a8-e604-49d1-ac46-358280ef8d57",
+    "status": "scheduled",
+    "meta": {
+      "dose": 3
+    }
+  },
+  {
+    "url": "dashboard/WDdwTDJtUTl2WnI4VG41a0ZzMVdwOXYydDZyNGhufDEzLTAzLTIwMjY",
+    "id": "X7pL2mQ9vZr8Tn5kFs1W:p9v2t6r4hn:2026-03-13:restriction-after:Supplement / Mineral Separation",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+    "scheduleId": "X7pL2mQ9vZr8Tn5kFs1W",
+    "timeId": "p9v2t6r4hn",
+    "kind": "restriction-after",
+    "title": "Medication reminder",
+    "body": "Vitamin D3: Separate from magnesium",
+    "sendAtLocal": "2026-03-14T00:00:00",
+    "sendAtUTC": "2026-03-13T22:00:00.000Z",
+    "oneSignalNotificationId": "4e588541-8839-4de9-a334-aad345f48bd2",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Supplement / Mineral Separation",
+      "restrictionNote": "Separate from magnesium",
+      "dose": 3
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDE0LTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:a7f3c9e1b2:2026-03-14:restriction-before:Food & Drink Timing",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "a7f3c9e1b2",
+    "kind": "restriction-before",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Avoid coffee before intake",
+    "sendAtLocal": "2026-03-14T06:30:00",
+    "sendAtUTC": "2026-03-14T04:30:00.000Z",
+    "oneSignalNotificationId": "5ffa47ce-106a-4773-a48f-b503f9e395f0",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Food & Drink Timing",
+      "restrictionNote": "Avoid coffee before intake",
+      "dose": 20
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDE0LTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:d4k8x2q9mz:2026-03-14:restriction-before:Food & Drink Timing",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "d4k8x2q9mz",
+    "kind": "restriction-before",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Avoid coffee before intake",
+    "sendAtLocal": "2026-03-14T08:00:00",
+    "sendAtUTC": "2026-03-14T06:00:00.000Z",
+    "oneSignalNotificationId": "4228e7b3-a7ab-4476-bb8d-2ce5cb357f34",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Food & Drink Timing",
+      "restrictionNote": "Avoid coffee before intake",
+      "dose": 15
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDE0LTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:a7f3c9e1b2:2026-03-14:intake",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "a7f3c9e1b2",
+    "kind": "intake",
+    "title": "Medication reminder",
+    "body": "Take Paracetamol — dose: 20 Tablets",
+    "sendAtLocal": "2026-03-14T08:30:00",
+    "sendAtUTC": "2026-03-14T06:30:00.000Z",
+    "oneSignalNotificationId": "817a073d-3ab4-4cbd-add5-4bf99c2513f8",
+    "status": "scheduled",
+    "meta": {
+      "dose": 20
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBhN2YzYzllMWIyfDE0LTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:a7f3c9e1b2:2026-03-14:restriction-after:Posture / Immediate Behavior",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "a7f3c9e1b2",
+    "kind": "restriction-after",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Do not lie down immediately after intake",
+    "sendAtLocal": "2026-03-14T09:00:00",
+    "sendAtUTC": "2026-03-14T07:00:00.000Z",
+    "oneSignalNotificationId": "d71d334d-544f-4fc4-b329-6239b0ac90f3",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Posture / Immediate Behavior",
+      "restrictionNote": "Do not lie down immediately after intake",
+      "dose": 20
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDE0LTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:d4k8x2q9mz:2026-03-14:intake",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "d4k8x2q9mz",
+    "kind": "intake",
+    "title": "Medication reminder",
+    "body": "Take Paracetamol — dose: 15 Tablets",
+    "sendAtLocal": "2026-03-14T10:00:00",
+    "sendAtUTC": "2026-03-14T08:00:00.000Z",
+    "oneSignalNotificationId": "5ca6a8d3-e1e9-4120-871a-126a02d1a749",
+    "status": "scheduled",
+    "meta": {
+      "dose": 15
+    }
+  },
+  {
+    "url": "dashboard/YTlGM2tMbThReFQydlI3ekJuNFBkNGs4eDJxOW16fDE0LTAzLTIwMjY",
+    "id": "a9F3kLm8QxT2vR7zBn4P:d4k8x2q9mz:2026-03-14:restriction-after:Posture / Immediate Behavior",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
+    "scheduleId": "a9F3kLm8QxT2vR7zBn4P",
+    "timeId": "d4k8x2q9mz",
+    "kind": "restriction-after",
+    "title": "Medication reminder",
+    "body": "Paracetamol: Do not lie down immediately after intake",
+    "sendAtLocal": "2026-03-14T10:30:00",
+    "sendAtUTC": "2026-03-14T08:30:00.000Z",
+    "oneSignalNotificationId": "068a8dda-f68f-4ab5-8761-fd96db7c3e93",
+    "status": "scheduled",
+    "meta": {
+      "restrictionType": "Posture / Immediate Behavior",
+      "restrictionNote": "Do not lie down immediately after intake",
+      "dose": 15
+    }
+  },
+  {
+    "url": "dashboard/WDdwTDJtUTl2WnI4VG41a0ZzMVdwOXYydDZyNGhufDExLTAzLTIwMjY",
+    "id": "X7pL2mQ9vZr8Tn5kFs1W:p9v2t6r4hn:2026-03-11:intake",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
+    "scheduleId": "X7pL2mQ9vZr8Tn5kFs1W",
+    "timeId": "p9v2t6r4hn",
+    "kind": "intake",
+    "title": "Medication reminder",
+    "body": "Take Vitamin D3 — dose: 3 Capsules",
+    "sendAtLocal": "2026-03-11T23:10:00",
+    "sendAtUTC": "2026-03-11T21:10:00.000Z",
+    "oneSignalNotificationId": "f1e05dad-016f-43d1-84a1-fad52330e6fb",
+    "status": "scheduled",
+    "meta": {
+      "dose": 3
+    }
+  }
+]

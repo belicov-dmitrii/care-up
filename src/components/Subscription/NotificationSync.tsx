@@ -12,6 +12,6 @@ export const NotificationSync = memo(() => {
             return;
         }
 
-        NetworkRequest('/notifactions/sync', {}, { method: 'POST' });
+        NetworkRequest('/notifications/sync', {}, { method: 'POST' });
     }, [userData?.id]);
 });

@@ -149,6 +149,7 @@ export type NotificationJob = {
     kind: 'intake' | 'restriction-before' | 'restriction-after';
     title: string;
     body: string;
+    url: string;
     sendAtLocal: string; // YYYY-MM-DDTHH:mm:ss
     sendAtUTC: string; // ISO UTC
     oneSignalNotificationId: string | null;
