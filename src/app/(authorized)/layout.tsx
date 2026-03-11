@@ -7,6 +7,7 @@ import { Inter } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { UserContextProvider } from '@/context/UserContext';
 import { Header } from '@/components/Header/Header';
+import '@/styles/imports.css';
 import '@/styles/globals.scss';
 import '@/styles/embla.css';
 import { MenuBar } from '@/components/MenuBar/MenuBar';
