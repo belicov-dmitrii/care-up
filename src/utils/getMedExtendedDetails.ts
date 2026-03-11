@@ -58,7 +58,7 @@ export const getMedRemainingTime = (med: Med, schedule: ScheduleItem | undefined
 
     daysLeft = daysLeft / schedule.time.length;
 
-    if (daysLeft <= 0) return 'Needs refill';
+    if (daysLeft <= 7) return 'Needs refill';
 
     return `~${moment.duration(daysLeft, 'days').humanize()}`;
 };

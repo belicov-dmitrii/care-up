@@ -10,6 +10,9 @@ import { MedDashboardList } from '@/components/MedDashboardList/MedDashboardList
 import { getTodaySchedule } from '@/utils/sortAndFilterMeds';
 import { DashboardHeader } from '@/components/DashboardHeader/DashboardHeader';
 import EnablePushButton from '@/components/Subscription/EnablePushButton';
+import moment from 'moment';
+import { getTodayEvents } from '@/utils/requests/getTodayEvents';
+import { DATE_FORMAT } from '@/utils/consts';
 
 const hasAlerts = true;
 
@@ -17,7 +20,11 @@ export default async function Dashboards() {
     const t = await getServerT();
     const meds = await getMeds();
     const schedules = await getSchedule();
-    const todaySchedules = getTodaySchedule(meds, schedules);
+    const todayEvents = await getTodayEvents(
+        moment().format(DATE_FORMAT),
+        moment().format(DATE_FORMAT)
+    );
+    const todaySchedules = getTodaySchedule(meds, schedules, todayEvents);
 
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', gap: 3, padding: 3 }}>
