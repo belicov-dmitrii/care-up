@@ -26,7 +26,7 @@ export const PharmacyItemActions: FC<IPharmacyItemActionsProps> = ({ id }) => {
 
     return (
         <Box sx={{ ...ColumnBoxStyles, width: '100%', mt: 3 }}>
-            <Button variant="contained" size="large">
+            <Button variant="contained" size="large" href={`/dashboard/create-schedule?id=${id}`}>
                 {t('Create Schedule')}
             </Button>
             <Button

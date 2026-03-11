@@ -1,6 +1,6 @@
 'use client';
 
-import { RowBoxStyles, ColumnBoxStyles } from '@/utils/consts';
+import { RowBoxStyles, ColumnBoxStyles, PaperStyles } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import {
     Paper,
@@ -23,13 +23,6 @@ import { NetworkRequest } from '@/utils/NetworkRequest';
 interface IPharmacyInventoryProps {
     med: Med;
 }
-
-const paperStyles: CSSProperties = {
-    ...ColumnBoxStyles,
-    width: '100%',
-    padding: 3,
-    borderRadius: '14px',
-};
 
 const roundedButtonStyles: CSSProperties = {
     width: 52,
@@ -78,7 +71,7 @@ export const MedInventory: FC<IPharmacyInventoryProps> = memo(({ med }) => {
     );
 
     return (
-        <Paper sx={paperStyles}>
+        <Paper sx={PaperStyles}>
             <Typography variant="h3" fontSize={16}>
                 {t('Inventory')}
             </Typography>

@@ -16,3 +16,10 @@ export const RowBoxStyles: CSSProperties = {
     alignItems: 'center',
     gap: 1,
 };
+
+export const PaperStyles: CSSProperties = {
+    ...ColumnBoxStyles,
+    width: '100%',
+    padding: 3,
+    borderRadius: '14px',
+};
