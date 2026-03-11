@@ -31,7 +31,6 @@ export const ScheduleTabs: FC<IScheduleTabsProps> = memo(({ schedule, meds, even
     const [selectedTab, setSelectedTab] = useState<SCHEDULE_TABS>(SCHEDULE_TABS.DAY);
     const [selectedDate, setSelectedDate] = useState<string>(moment().format(DATE_FORMAT));
     const [clientEvents, setClientEvents] = useState<Record<string, IntakeEvent> | null>(null);
-    console.log('🚀 ~ clientEvents:', clientEvents);
 
     const tabChange = (tab: SCHEDULE_TABS) => {
         setSelectedTab(tab);

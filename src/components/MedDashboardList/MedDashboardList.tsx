@@ -3,7 +3,7 @@
 import { type FC, memo } from 'react';
 import { Box, List, ListItem, ListItemButton, ListItemText, Typography } from '@mui/material';
 import { type IntakeEvent, type Med } from '@/types';
-import { DOT } from '@/utils/consts';
+import { DATE_FORMAT, DOT } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
 import { type DashboardItemWithMedType } from '@/utils/sortAndFilterMeds';
@@ -59,7 +59,7 @@ export const MedDashboardList: FC<IProps> = memo(({ schedules }) => {
                             <Typography variant="body2">{formatTime(hours, minutes)}</Typography>
                             <EventStatus status={event?.status} />
                             <ListItemButton
-                                href={`/dashboard/${encodeIdWithDate(scheduleByTimeId, moment().format('DD-MM-YYYY'))}`}
+                                href={`/dashboard/${encodeIdWithDate(scheduleByTimeId, moment().format(DATE_FORMAT))}`}
                             >
                                 <ListItemText
                                     primary={med.name}

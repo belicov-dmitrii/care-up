@@ -2,9 +2,9 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { type NextRequest, NextResponse } from 'next/server';
 import { type SymptomsType } from '@/types';
-import { Symptoms } from "@/utils/consts";
 import { getUserDataByToken } from '@/utils/getUserDataByToken';
 import { AUTH_COOKIE_NAME } from '../login/route';
+import { isObject, isValidStatus, isValidSymptoms } from '@/utils/typeGuards';
 
 export type IntakeEventStatus = 'taken' | 'missed' | 'skipped';
 
@@ -33,20 +33,6 @@ type UpdateIntakeEventPayload = Partial<
 };
 
 const dataPath = path.join(process.cwd(), 'data', 'intake-events.json');
-
-const allowedStatuses: IntakeEventStatus[] = ['taken', 'missed', 'skipped'];
-
-const isObject = (value: unknown): value is Record<string, unknown> => {
-    return typeof value === 'object' && value !== null && !Array.isArray(value);
-};
-
-const isValidSymptoms = (value: unknown): value is Array<SymptomsType> => {
-    return Array.isArray(value) && value.every((item) => Symptoms.includes(item as SymptomsType));
-};
-
-const isValidStatus = (value: unknown): value is IntakeEventStatus => {
-    return typeof value === 'string' && allowedStatuses.includes(value as IntakeEventStatus);
-};
 
 const ensureFileExists = async () => {
     try {
