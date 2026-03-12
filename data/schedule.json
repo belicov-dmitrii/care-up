@@ -2,7 +2,7 @@
     {
         "id": "a9F3kLm8QxT2vR7zBn4P",
         "medId": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "type": "every day",
         "time": [
             {
@@ -47,13 +47,13 @@
     {
         "id": "X7pL2mQ9vZr8Tn5kFs1W",
         "medId": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "type": "every other day",
         "time": [
             {
                 "id": "p9v2t6r4hn",
-                "hours": 21,
-                "minutes": 0
+                "hours": 23,
+                "minutes": 10
             },
             {
                 "id": "x3m7z1k8qw",
@@ -84,7 +84,7 @@
     },
     {
         "id": "q7M9xL2vR8tZ4nK6pFs3",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "medId": "f3c8b1a9-2d55-41ab-9f77-6e2d4c9d0033",
         "type": "specific date",
         "time": [
