@@ -55,7 +55,9 @@ export const SymptomsChooser: FC<{
     return (
         <Paper sx={{ p: 3, borderRadius: '14px' }}>
             <Typography textAlign="left" fontSize="18px" my={2}>
-                {t('Are you not feeling well? Tell us what happened?')}
+                {t(
+                    'How are you feeling? Tell us if something went wrong after taking this medication.'
+                )}
             </Typography>
             <Box>
                 {!isEdit ? (

@@ -6,6 +6,7 @@ import {
 } from './getEventsForSelectedDate';
 import moment from 'moment';
 import { DATE_FORMAT } from './consts';
+import { makeCryptoId } from './cryptoId';
 import { encodeIdWithDate } from './eventsEncoder';
 
 export type DashboardItemWithMedType = DashboardItemType & { med: Med };
@@ -30,7 +31,7 @@ export const addMedsToSchedule = (
 
 export const sortByTimeOfDay = (schedule: DashboardItemWithMedType[], date: string) => {
     return {
-        id: crypto.randomUUID(),
+        id: makeCryptoId(),
         date: date,
         morning: schedule.filter(({ hours }) => hours < 12),
         afternoon: schedule.filter(({ hours }) => hours < 18 && hours > 12),
