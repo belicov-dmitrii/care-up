@@ -1,4 +1,4 @@
-import { type CreateScheduleBody } from '@/types';
+import { type ScheduleTime, type CreateScheduleBody } from '@/types';
 import { type ActionDispatch } from 'react';
 
 export type CreateScheduleFormBody = Omit<CreateScheduleBody, 'dose'> & {
@@ -15,29 +15,44 @@ export enum CreateScheduleActionTypes {
     AddTime = 'ADD_TIME',
 }
 
-type CreateScheduleAction =
-    | { type: CreateScheduleActionTypes.UpdateMedId; payload: string }
-    | {
-          type: CreateScheduleActionTypes.UpdateFrequency;
-          payload: CreateScheduleFormBody['type'];
-      }
-    | { type: CreateScheduleActionTypes.UpdateEndDate; payload: string }
-    | {
-          type: CreateScheduleActionTypes.AddTime;
-          payload: string;
-      }
-    | {
-          type: CreateScheduleActionTypes.UpdateTime;
-          payload: CreateScheduleFormBody['time'];
-      }
-    | {
-          type: CreateScheduleActionTypes.DeleteTime;
-          payload: string;
-      }
-    | {
-          type: CreateScheduleActionTypes.UpdateDose;
-          payload: CreateScheduleFormBody['dose'];
-      };
+type CreateScheduleActionPayload = {
+    [CreateScheduleActionTypes.UpdateMedId]: string;
+    [CreateScheduleActionTypes.UpdateFrequency]: CreateScheduleFormBody['type'];
+    [CreateScheduleActionTypes.UpdateEndDate]: string;
+    [CreateScheduleActionTypes.AddTime]: string;
+    [CreateScheduleActionTypes.UpdateTime]: ScheduleTime;
+    [CreateScheduleActionTypes.DeleteTime]: string;
+    [CreateScheduleActionTypes.UpdateDose]: CreateScheduleFormBody['dose'];
+};
+
+type CreateScheduleAction = {
+    [K in keyof CreateScheduleActionPayload]: {
+        type: K;
+        payload: CreateScheduleActionPayload[K];
+    };
+}[keyof CreateScheduleActionPayload];
+//     | { type: CreateScheduleActionTypes.UpdateMedId; payload: string }
+//     | {
+//           type: CreateScheduleActionTypes.UpdateFrequency;
+//           payload: CreateScheduleFormBody['type'];
+//       }
+//     | { type: CreateScheduleActionTypes.UpdateEndDate; payload: string }
+//     | {
+//           type: CreateScheduleActionTypes.AddTime;
+//           payload: string;
+//       }
+//     | {
+//           type: CreateScheduleActionTypes.UpdateTime;
+//           payload: CreateScheduleFormBody['time'];
+//       }
+//     | {
+//           type: CreateScheduleActionTypes.DeleteTime;
+//           payload: string;
+//       }
+//     | {
+//           type: CreateScheduleActionTypes.UpdateDose;
+//           payload: CreateScheduleFormBody['dose'];
+//       };
 
 export type CreateScheduleDispatch = ActionDispatch<[action: CreateScheduleAction]>;
 
@@ -55,7 +70,7 @@ export function createScheduleReducer(
         case CreateScheduleActionTypes.UpdateEndDate:
             return { ...state, endDate: payload };
 
-        case CreateScheduleActionTypes.AddTime:
+        case CreateScheduleActionTypes.AddTime: {
             const [hours, minutes] = payload.split(':');
             const id = crypto.randomUUID();
 
@@ -74,19 +89,31 @@ export function createScheduleReducer(
                     [id]: '',
                 },
             };
+        }
 
-        case CreateScheduleActionTypes.UpdateTime:
-            return state;
+        case CreateScheduleActionTypes.UpdateTime: {
+            return {
+                ...state,
+                time: state.time.map((t) => {
+                    if (t.id === payload.id) {
+                        return payload;
+                    }
 
-        case CreateScheduleActionTypes.DeleteTime:
+                    return t;
+                }),
+            };
+        }
+
+        case CreateScheduleActionTypes.DeleteTime: {
             const stateCopy = { ...state, dose: { ...state.dose } };
             delete stateCopy.dose[payload];
             return {
                 ...stateCopy,
                 time: stateCopy.time.filter((t) => t.id !== payload),
             };
+        }
 
-        case CreateScheduleActionTypes.UpdateDose:
+        case CreateScheduleActionTypes.UpdateDose: {
             return {
                 ...state,
                 dose: {
@@ -94,6 +121,7 @@ export function createScheduleReducer(
                     ...payload,
                 },
             };
+        }
 
         default:
             return state;

@@ -2,17 +2,19 @@ import { RowBoxStyles } from '@/utils/consts';
 import { formatTime } from '@/utils/formatData';
 import { PALETTE } from '@/utils/theme/colors';
 import { Box, Typography, TextField, IconButton } from '@mui/material';
-import { type FC, memo, type KeyboardEvent } from 'react';
+import { type FC, memo, type KeyboardEvent, type Dispatch, type SetStateAction } from 'react';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { type ScheduleTime } from '@/types';
 import { CreateScheduleActionTypes, type CreateScheduleDispatch } from './reducer';
+import { type AddTimeModalAction } from './CreateScheduleForm';
 
 type SelectedTime = ScheduleTime & { dose: string };
 
 export const TimeItem: FC<{
     time: SelectedTime;
     dispatch: CreateScheduleDispatch;
-}> = memo(({ time, dispatch }) => {
+    setAddTimeOpen: Dispatch<SetStateAction<AddTimeModalAction>>;
+}> = memo(({ time, dispatch, setAddTimeOpen }) => {
     const { id, hours, minutes, dose } = time;
 
     const handleDeleteTime = () => {
@@ -21,6 +23,10 @@ export const TimeItem: FC<{
 
     const handleDoseChange = (dose: string) => {
         dispatch({ type: CreateScheduleActionTypes.UpdateDose, payload: { [id]: dose } });
+    };
+
+    const handleUpdateTime = () => {
+        setAddTimeOpen({ id, hours, minutes });
     };
 
     const handleNumberKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -54,7 +60,9 @@ export const TimeItem: FC<{
 
     return (
         <Box sx={{ ...RowBoxStyles, justifyContent: 'space-between' }}>
-            <Typography variant="body1">{formatTime(hours, minutes)}</Typography>
+            <Typography variant="body1" onClick={handleUpdateTime}>
+                {formatTime(hours, minutes)}
+            </Typography>
             <TextField
                 value={dose}
                 type="number"
@@ -72,6 +80,7 @@ export const TimeItem: FC<{
                     },
                 }}
                 onChange={(e) => handleDoseChange(e.target.value)}
+                onWheel={(e) => (e.target as HTMLInputElement).blur()}
             />
             <IconButton onClick={handleDeleteTime} sx={{ color: PALETTE.ERROR }}>
                 <DeleteOutlinedIcon />

@@ -16,7 +16,7 @@ export const getMedStockStatus = (
     if (!remaining || remainingTime === MedRemainingTime.Expired)
         return { stockLabel: MedStockStatus.Expired, stockColor: PALETTE.ERROR };
 
-    if (remaining <= 20) {
+    if (remaining <= 20 || remainingTime === MedRemainingTime.Refill) {
         return { stockLabel: MedStockStatus.Expiring, stockColor: PALETTE.ERROR };
     } else if (remaining <= 40) {
         return { stockLabel: MedStockStatus.Low, stockColor: PALETTE.WARNING };

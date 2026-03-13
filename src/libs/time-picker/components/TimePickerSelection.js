@@ -62,19 +62,6 @@ function TimePickerSelection({
 
     return (
         <div className="react-ios-time-picker  react-ios-time-picker-transition">
-            {controllers && (
-                <div className="react-ios-time-picker-btn-container">
-                    <button
-                        className="react-ios-time-picker-btn react-ios-time-picker-btn-cancel"
-                        onClick={handleCancel}
-                    >
-                        {cancelButtonText}
-                    </button>
-                    <button className="react-ios-time-picker-btn" onClick={handleSave}>
-                        {saveButtonText}
-                    </button>
-                </div>
-            )}
             <div
                 className="react-ios-time-picker-container"
                 style={{ height: `${height * 5 + 40}px` }}
@@ -91,6 +78,19 @@ function TimePickerSelection({
                 <MinuteWheel {...params} />
                 {use12Hours && <HourFormat {...params} />}
             </div>
+            {controllers && (
+                <div className="react-ios-time-picker-btn-container">
+                    <button
+                        className="react-ios-time-picker-btn react-ios-time-picker-btn-cancel"
+                        onClick={handleCancel}
+                    >
+                        {cancelButtonText}
+                    </button>
+                    <button className="react-ios-time-picker-btn" onClick={handleSave}>
+                        {saveButtonText}
+                    </button>
+                </div>
+            )}
         </div>
     );
 }

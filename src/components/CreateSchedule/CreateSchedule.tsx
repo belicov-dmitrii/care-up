@@ -1,7 +1,7 @@
 import { CreateScheduleForm } from '@/components/CreateSchedule/CreateScheduleForm';
 import { ColumnBoxStyles } from '@/utils/consts';
 import { Box, Container, Drawer, IconButton, Stack, Typography } from '@mui/material';
-import { useEffect, useState, type FC } from 'react';
+import { useCallback, useEffect, useState, type FC } from 'react';
 import { useI18n } from '../I18nProvider';
 import { type Med } from '@/types';
 import { NetworkRequest } from '@/utils/NetworkRequest';
@@ -30,6 +30,10 @@ export const CreateSchedule: FC<ICreateScheduleProps> = ({ id, open, onClose }) 
         getMeds();
     }, []);
 
+    const closeDrawer = useCallback(() => {
+        onClose();
+    }, [onClose]);
+
     return (
         <Drawer anchor="right" open={open} onClose={onClose}>
             <Container sx={{ ...ColumnBoxStyles, p: 3, width: '100%' }}>
@@ -56,7 +60,7 @@ export const CreateSchedule: FC<ICreateScheduleProps> = ({ id, open, onClose }) 
                                 {t('Set when this medication should be taken.')}
                             </Typography>
                         </Stack>
-                        <CreateScheduleForm id={id} meds={meds} />
+                        <CreateScheduleForm id={id} meds={meds} closeDrawer={closeDrawer} />
                     </Box>
                 )}
             </Container>
