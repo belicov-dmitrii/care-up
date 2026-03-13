@@ -113,6 +113,13 @@ export type ScheduleItem = {
     recommendations: ScheduleRecommendation[];
 };
 
+export type CreateScheduleBody = Omit<
+    ScheduleItem,
+    'id' | 'userId' | 'restriction' | 'recommendations' | 'startDate'
+>;
+
+// ===== Types: User =====
+
 export type UserData = {
     id: string;
     name: string;
@@ -132,10 +139,16 @@ export type UserData = {
 // ===== Types: Pharmacy =====
 
 export enum MedStockStatus {
-    Empty = 'Empty',
+    Expired = 'Expired',
     Expiring = 'Expiring',
     Low = 'Low stock',
     Good = 'Good',
+}
+
+export enum MedRemainingTime {
+    Refill = 'Needs refill',
+    Expired = 'Expired',
+    AsNeeded = 'As needed',
 }
 
 // ===== Types: Intake Events =====

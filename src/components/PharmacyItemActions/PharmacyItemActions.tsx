@@ -1,12 +1,13 @@
 'use client';
 
-import { ColumnBoxStyles } from '@/utils/consts';
+import { ColumnBoxStyles, RowBoxStyles } from '@/utils/consts';
 import { NetworkRequest } from '@/utils/NetworkRequest';
-import { Box, Button } from '@mui/material';
-import { type FC } from 'react';
+import { Box, Button, Modal, Typography } from '@mui/material';
+import { useState, type FC } from 'react';
 import { useI18n } from '../I18nProvider';
 import { useRouter } from 'next/navigation';
 import { PALETTE } from '@/utils/theme/colors';
+import { CreateScheduleAction } from '../CreateSchedule/CreateScheduleAction';
 
 interface IPharmacyItemActionsProps {
     id: string;
@@ -15,28 +16,65 @@ interface IPharmacyItemActionsProps {
 export const PharmacyItemActions: FC<IPharmacyItemActionsProps> = ({ id }) => {
     const { t } = useI18n();
     const router = useRouter();
+    const [confirm, setConfirm] = useState(false);
 
-    const handleDelete = async () => {
-        const res = await NetworkRequest('/delete-med', { id }, { method: 'DELETE' });
+    const handleConfirmation = (isYes: boolean) => {
+        return async () => {
+            if (isYes) {
+                const res = await NetworkRequest('/delete-med', { id }, { method: 'DELETE' });
 
-        if (!res.ok) return;
+                if (!res.ok) return;
 
-        router.push('/pharmacy');
+                router.push('/pharmacy');
+            }
+
+            setConfirm((prev) => !prev);
+        };
     };
 
     return (
         <Box sx={{ ...ColumnBoxStyles, width: '100%', mt: 3 }}>
-            <Button variant="contained" size="large" href={`/dashboard/create-schedule?id=${id}`}>
-                {t('Create Schedule')}
-            </Button>
+            <CreateScheduleAction id={id} />
             <Button
                 variant="text"
                 size="large"
                 sx={{ color: PALETTE.ERROR }}
-                onClick={handleDelete}
+                onClick={() => setConfirm(true)}
             >
                 {t('Delete Item')}
             </Button>
+            <Modal open={confirm} onClose={handleConfirmation(false)}>
+                <Box
+                    sx={{
+                        ...ColumnBoxStyles,
+                        p: 3,
+                        backgroundColor: PALETTE.BRAND_WHITE,
+                        borderRadius: '14px',
+                        width: '90%',
+                        maxWidth: 600,
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                    }}
+                >
+                    <Typography variant="h3" fontSize={18} fontWeight={400} lineHeight={1.5}>
+                        {t('Are you sure you want to delete this medication?')}
+                    </Typography>
+                    <Box sx={{ ...RowBoxStyles, gap: 2, alignSelf: 'flex-end' }}>
+                        <Button
+                            variant="text"
+                            sx={{ color: PALETTE.ERROR }}
+                            onClick={handleConfirmation(false)}
+                        >
+                            {t('Cancel')}
+                        </Button>
+                        <Button variant="contained" onClick={handleConfirmation(true)}>
+                            {t('Yes')}
+                        </Button>
+                    </Box>
+                </Box>
+            </Modal>
         </Box>
     );
 };

@@ -116,17 +116,20 @@ const UpdateInventoryModal = ({
     const { t } = useI18n();
     const [value, setValue] = useState('');
 
-    const close = () => {
-        let newValue = Number(value);
+    const close = (isSave: boolean) => {
+        return () => {
+            if (isSave) {
+                let newValue = Number(value);
 
-        if (!value || Number.isNaN(newValue)) {
-            newValue = 0;
-        }
+                if (!value || Number.isNaN(newValue)) {
+                    newValue = 0;
+                }
 
-        onSave(open, newValue);
-
-        setValue('');
-        setOpen('');
+                onSave(open, newValue);
+            }
+            setValue('');
+            setOpen('');
+        };
     };
 
     const handleInventoryChange = (remaining: string) => {
@@ -136,12 +139,7 @@ const UpdateInventoryModal = ({
     return (
         <Modal
             open={!!open}
-            onClose={(_, reason) => {
-                if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
-                    return;
-                }
-                close();
-            }}
+            onClose={close(false)}
             sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
         >
             <Box
@@ -163,7 +161,7 @@ const UpdateInventoryModal = ({
                     value={value}
                     onChange={(e) => handleInventoryChange(e.target.value)}
                 />
-                <Button onClick={close}>{t('Save')}</Button>
+                <Button onClick={close(true)}>{t('Save')}</Button>
             </Box>
         </Modal>
     );

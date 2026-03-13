@@ -1,33 +1,32 @@
 'use client';
 
-import { type ScheduleTime, ScheduleType, type Med } from '@/types';
+import { type CreateScheduleBody, ScheduleType, type Med } from '@/types';
 import { ColumnBoxStyles, PaperStyles, RowBoxStyles, YEAR_FIRST_DATE_FORMAT } from '@/utils/consts';
 import {
     alpha,
     Box,
     Button,
     Container,
-    IconButton,
     MenuItem,
-    Modal,
     Paper,
     Select,
-    type SelectChangeEvent,
     Stack,
     TextField,
     Typography,
 } from '@mui/material';
-import { type Dispatch, memo, type SetStateAction, useState, type FC } from 'react';
+import { memo, useState, type FC, useReducer } from 'react';
 import { useI18n } from '../I18nProvider';
 import { getMedUnitDetails } from '@/utils/getMedExtendedDetails';
 import MedicationIcon from '@mui/icons-material/Medication';
 import { PALETTE } from '@/utils/theme/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AddIcon from '@mui/icons-material/Add';
-import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
-import { TimePicker } from '@/libs/time-picker';
-import { formatTime } from '@/utils/formatData';
 import moment from 'moment';
+import { TimeItem } from './TimeItem';
+import { AddTimeModal } from './AddTimeModal';
+import { CreateScheduleActionTypes, createScheduleReducer } from './reducer';
+import { isValidCreateScheduleBody } from '@/utils/typeGuards';
+import { NetworkRequest } from '@/utils/NetworkRequest';
 
 interface ICreateScheduleFormProps {
     id?: string;
@@ -62,30 +61,33 @@ const FREQUENCY_OPTIONS: ScheduleType[] = [
     ScheduleType.SpecificDate,
 ];
 
-type SelectedTime = ScheduleTime & { dose: string };
-
 export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds }) => {
-    const [selectedMedId, setSelectedMedId] = useState<string>(id ?? meds[0].id);
-    const [selectedFrequency, setSelectedFrequency] = useState<ScheduleType>(FREQUENCY_OPTIONS[0]);
-    const [selectedEndDate, setSelectedEndDate] = useState<moment.Moment>(moment());
-    const [selectedTimes, setSelectedTimes] = useState<SelectedTime[]>([]);
+    const [state, dispatch] = useReducer(createScheduleReducer, {
+        medId: id || meds[0].id,
+        type: FREQUENCY_OPTIONS[0],
+        time: [],
+        dose: {},
+        endDate: moment().format(YEAR_FIRST_DATE_FORMAT),
+    });
     const [addTimeOpen, setAddTimeOpen] = useState<boolean>(false);
-
-    const handleMedChange = (e: SelectChangeEvent) => {
-        setSelectedMedId(e.target.value);
-    };
-
-    const handleFrequencyChange = (value: ScheduleType) => {
-        return () => {
-            setSelectedFrequency(value);
-        };
-    };
-
-    const handleAddTime = () => {
-        setAddTimeOpen(true);
-    };
-
     const { t } = useI18n();
+
+    const handleCreateSchedule = async () => {
+        const doseCopy: CreateScheduleBody['dose'] = {};
+
+        for (const id in state.dose) {
+            doseCopy[id] = Number(state.dose[id]);
+        }
+
+        const { ok } = await NetworkRequest(
+            '/create-schedule',
+            { ...state, dose: doseCopy },
+            { method: 'POST' }
+        );
+
+        if (!ok) return;
+    };
+
     return (
         <Container sx={{ ...ColumnBoxStyles, padding: 0 }}>
             <Paper sx={PaperStyles}>
@@ -93,10 +95,15 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds
                     {t('Medication')}
                 </Typography>
                 <Select
-                    value={selectedMedId}
+                    value={state.medId}
                     variant="standard"
                     disableUnderline
-                    onChange={handleMedChange}
+                    onChange={(e) =>
+                        dispatch({
+                            type: CreateScheduleActionTypes.UpdateMedId,
+                            payload: e.target.value,
+                        })
+                    }
                     IconComponent={(props) => <ExpandMoreIcon {...props} />}
                     MenuProps={MedsMenuProps}
                 >
@@ -134,8 +141,10 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds
                 </Typography>
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
                     {FREQUENCY_OPTIONS.map((option) => {
-                        const isActive = selectedFrequency === option;
-                        const color = isActive ? PALETTE.BRAND_TEAL : PALETTE.BRAND_GREY;
+                        const isActive = state.type === option;
+                        const color = isActive
+                            ? PALETTE.BRAND_TEAL
+                            : alpha(PALETTE.BRAND_GREY, 0.6);
                         const backgroundColor = isActive
                             ? alpha(PALETTE.BRAND_TEAL, 0.1)
                             : alpha(PALETTE.BRAND_GREY, 0.1);
@@ -148,8 +157,14 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds
                                     color,
                                     backgroundColor,
                                     border: `1px solid ${isActive ? color : backgroundColor}`,
+                                    textTransform: 'capitalize',
                                 }}
-                                onClick={handleFrequencyChange(option)}
+                                onClick={() =>
+                                    dispatch({
+                                        type: CreateScheduleActionTypes.UpdateFrequency,
+                                        payload: option,
+                                    })
+                                }
                             >
                                 {option}
                             </Button>
@@ -163,10 +178,13 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds
                 </Typography>
                 <TextField
                     type="date"
-                    value={selectedEndDate.format(YEAR_FIRST_DATE_FORMAT)}
-                    onChange={(e) => {
-                        setSelectedEndDate(moment(e.target.value));
-                    }}
+                    value={moment(state.endDate).format(YEAR_FIRST_DATE_FORMAT)}
+                    onChange={(e) =>
+                        dispatch({
+                            type: CreateScheduleActionTypes.UpdateEndDate,
+                            payload: moment(e.target.value).format(YEAR_FIRST_DATE_FORMAT),
+                        })
+                    }
                     slotProps={{
                         htmlInput: {
                             min: moment().format(YEAR_FIRST_DATE_FORMAT),
@@ -178,9 +196,13 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds
                 <Typography variant="h3" fontSize={16}>
                     {t('Daily Intake Times')}
                 </Typography>
-                {selectedTimes.map((time) => {
+                {state.time.map((time) => {
                     return (
-                        <TimeItem key={time.id} time={time} setSelectedTimes={setSelectedTimes} />
+                        <TimeItem
+                            key={time.id}
+                            time={{ ...time, dose: state.dose[time.id] }}
+                            dispatch={dispatch}
+                        />
                     );
                 })}
                 <Button
@@ -190,105 +212,21 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(({ id, meds
                         border: `1px dashed ${PALETTE.BRAND_TEAL}`,
                         backgroundColor: alpha(PALETTE.BRAND_TEAL, 0.1),
                     }}
-                    onClick={handleAddTime}
+                    onClick={() => setAddTimeOpen(true)}
                 >
                     <AddIcon />
                     {t('Add Time')}
                 </Button>
             </Paper>
-            <AddTimeModal
-                open={addTimeOpen}
-                setOpen={setAddTimeOpen}
-                setSelectedTimes={setSelectedTimes}
-            />
-        </Container>
-    );
-});
-
-const AddTimeModal: FC<{
-    open: boolean;
-    setOpen: Dispatch<SetStateAction<boolean>>;
-    setSelectedTimes: Dispatch<SetStateAction<SelectedTime[]>>;
-}> = memo(({ open, setOpen, setSelectedTimes }) => {
-    const handleClose = () => {
-        setOpen((prev) => !prev);
-    };
-
-    const handleSave = (value: string) => {
-        const [hours, minutes] = value.split(':');
-
-        setSelectedTimes((prev) => {
-            return [
-                ...prev,
-                {
-                    id: crypto.randomUUID(),
-                    hours: Number(hours),
-                    minutes: Number(minutes),
-                    dose: '1',
-                },
-            ];
-        });
-
-        handleClose();
-    };
-
-    return (
-        <Modal open={open} onClose={handleClose}>
-            <Box
-                sx={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                }}
+            <Button
+                variant="contained"
+                size="large"
+                disabled={!isValidCreateScheduleBody(state)}
+                onClick={handleCreateSchedule}
             >
-                <TimePicker value="10:00" onSave={handleSave} />
-            </Box>
-        </Modal>
-    );
-});
-
-const TimeItem: FC<{
-    time: SelectedTime;
-    setSelectedTimes: Dispatch<SetStateAction<SelectedTime[]>>;
-}> = memo(({ time, setSelectedTimes }) => {
-    const { id, hours, minutes, dose } = time;
-
-    const handleDeleteTime = () => {
-        setSelectedTimes((prev) => {
-            return prev.filter((time) => time.id !== id);
-        });
-    };
-
-    const handleDoseChange = (dose: string) => {
-        setSelectedTimes((prev) =>
-            prev.map((time) => {
-                if (time.id === id) return { ...time, dose };
-                return time;
-            })
-        );
-    };
-
-    return (
-        <Box sx={{ ...RowBoxStyles, justifyContent: 'space-between' }}>
-            <Typography variant="body1">{formatTime(hours, minutes)}</Typography>
-            <TextField
-                value={dose}
-                type="number"
-                sx={{ maxWidth: 70 }}
-                slotProps={{
-                    input: {
-                        sx: {
-                            height: 40,
-                        },
-                        inputMode: 'decimal',
-                    },
-                }}
-                onChange={(e) => handleDoseChange(e.target.value)}
-            />
-            <IconButton onClick={handleDeleteTime} sx={{ color: PALETTE.ERROR }}>
-                <DeleteOutlinedIcon />
-            </IconButton>
-        </Box>
+                {t('Create Schedule')}
+            </Button>
+            <AddTimeModal open={addTimeOpen} setOpen={setAddTimeOpen} dispatch={dispatch} />
+        </Container>
     );
 });

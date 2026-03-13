@@ -1,6 +1,6 @@
 'use client';
 
-import { type Med, MedStockStatus, type ScheduleItem } from '@/types';
+import { type Med, MedRemainingTime, MedStockStatus, type ScheduleItem } from '@/types';
 import { ColumnBoxStyles } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import {
@@ -67,25 +67,34 @@ export const PharmacyFilterableArea: FC<IPharmacyFilterableAreaProps> = memo(
             setSearchTerm(e.target.value.trim());
         };
 
+        const medsRemainingTime = useMemo(() => {
+            return meds.reduce((acc: { [key: string]: string }, med) => {
+                const medSchedule = schedules?.find((schedule) => schedule.medId === med.id);
+                acc[med.id] = getMedRemainingTime(med, medSchedule);
+
+                return acc;
+            }, {});
+        }, [meds, schedules]);
+
         const filteredMeds = useMemo(() => {
             return meds
                 .filter((med) => {
                     return med.name.toLowerCase().includes(searchTerm.toLowerCase());
                 })
                 .filter((med) => {
-                    const medStockStatus = getMedStockStatus(med.remaining).stockLabel;
-                    const medSchedule = schedules?.find((schedule) => schedule.medId === med.id);
+                    const medStockStatus = getMedStockStatus(
+                        med.remaining,
+                        medsRemainingTime[med.id]
+                    ).stockLabel;
 
-                    const expired =
-                        isDateExpired(med?.expirationDate) ||
-                        medStockStatus === MedStockStatus.Empty;
+                    const expired = isDateExpired(med?.expirationDate) || !med.remaining;
 
                     const needsAttention =
                         !expired &&
                         (medStockStatus === MedStockStatus.Expiring ||
                             isDateExpiring(med?.expirationDate) ||
                             (med.remaining &&
-                                getMedRemainingTime(med, medSchedule) === 'Needs refill'));
+                                medsRemainingTime[med.id] === MedRemainingTime.Refill));
 
                     switch (activeFilter) {
                         case FilterOptions.Expired:
@@ -110,16 +119,7 @@ export const PharmacyFilterableArea: FC<IPharmacyFilterableAreaProps> = memo(
                             return true;
                     }
                 });
-        }, [meds, schedules, searchTerm, activeFilter]);
-
-        const medsRemainingTime = useMemo(() => {
-            return meds.reduce((acc: { [key: string]: string }, med) => {
-                const medSchedule = schedules?.find((schedule) => schedule.medId === med.id);
-                acc[med.id] = getMedRemainingTime(med, medSchedule);
-
-                return acc;
-            }, {});
-        }, [meds, schedules]);
+        }, [meds, medsRemainingTime, searchTerm, activeFilter]);
 
         return (
             <>
@@ -163,11 +163,16 @@ export const PharmacyFilterableArea: FC<IPharmacyFilterableAreaProps> = memo(
                 <Box sx={{ ...ColumnBoxStyles }}>
                     {filteredMeds.length ? (
                         filteredMeds.map((med) => {
+                            const medStock = getMedStockStatus(
+                                med.remaining,
+                                medsRemainingTime[med.id]
+                            );
                             return (
                                 <PharmacyListItem
                                     key={med.id}
                                     med={med}
                                     medRemainingTime={medsRemainingTime[med.id]}
+                                    medStock={medStock}
                                 />
                             );
                         })
