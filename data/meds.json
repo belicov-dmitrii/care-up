@@ -1,7 +1,7 @@
 [
     {
         "id": "c1f9a8e2-4d21-4b9b-9f2a-1a6d7e3b0011",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "name": "Paracetamol",
         "form": "Tablets",
         "strength": 500,
@@ -12,18 +12,18 @@
     },
     {
         "id": "a7b2d5f0-9e44-4c81-8c12-5d9a2b7c0022",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "name": "Vitamin D3",
         "form": "Capsules",
         "strength": 1000,
         "unit": "IU",
         "quantity": 22346,
-        "remaining": 200,
+        "remaining": 100,
         "expirationDate": "2027-03-01"
     },
     {
         "id": "f3c8b1a9-2d55-41ab-9f77-6e2d4c9d0033",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "name": "Ibuprofen",
         "form": "Film-coated tablets",
         "strength": 400,
@@ -34,7 +34,7 @@
     },
     {
         "id": "d9e1c4b7-7a66-4f33-b8e4-3c7d1a5e0044",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "name": "Magnesium",
         "form": "Powders",
         "strength": 300,
@@ -45,7 +45,7 @@
     },
     {
         "id": "b4a6e2d8-3c77-4e99-9a55-2b8f6d0c0055",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "name": "Iron Supplement",
         "form": "Syrups",
         "strength": 10,
@@ -56,7 +56,7 @@
     },
     {
         "id": "a10f7573-3702-43ff-a57e-1cdb33201659",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "name": "sad",
         "form": "Capsules",
         "strength": 156,
@@ -66,7 +66,7 @@
     },
     {
         "id": "3360f112-f8d8-41cf-964b-cf63935e9c55",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "name": "Paracetamol",
         "form": "Powders",
         "strength": 531,
@@ -77,7 +77,7 @@
     },
     {
         "id": "485bf95d-275d-4547-b9df-bcb899c41a4b",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "name": "Melatonin",
         "form": "Tablets",
         "strength": 310,
@@ -87,7 +87,7 @@
     },
     {
         "id": "df786eac-e698-4676-876c-9a175c9897c8",
-        "userId": "1",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
         "name": "Trombolon",
         "form": "OralDrops",
         "strength": 100,
