@@ -2,11 +2,12 @@ import { RowBoxStyles } from '@/utils/consts';
 import { formatTime } from '@/utils/formatData';
 import { PALETTE } from '@/utils/theme/colors';
 import { Box, Typography, TextField, IconButton } from '@mui/material';
-import { type FC, memo, type KeyboardEvent, type Dispatch, type SetStateAction } from 'react';
+import { type FC, memo, type Dispatch, type SetStateAction } from 'react';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import { type ScheduleTime } from '@/types';
 import { CreateScheduleActionTypes, type CreateScheduleDispatch } from './reducer';
 import { type AddTimeModalAction } from './CreateScheduleForm';
+import { handleDecimalNumberKeyDown } from '@/utils/keyDownHandlers';
 
 type SelectedTime = ScheduleTime & { dose: string };
 
@@ -29,35 +30,6 @@ export const TimeItem: FC<{
         setAddTimeOpen({ id, hours, minutes });
     };
 
-    const handleNumberKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-        const allowedControlKeys = [
-            'Backspace',
-            'Delete',
-            'ArrowLeft',
-            'ArrowRight',
-            'Tab',
-            'Home',
-            'End',
-        ];
-
-        if (allowedControlKeys.includes(e.key)) {
-            return;
-        }
-
-        const input = e.currentTarget;
-        const value = input.value;
-        const selectionStart = input.selectionStart ?? 0;
-        const selectionEnd = input.selectionEnd ?? 0;
-
-        const nextValue = value.slice(0, selectionStart) + e.key + value.slice(selectionEnd);
-
-        const validPattern = /^\d*(\.\d{0,2})?$/;
-
-        if (!validPattern.test(nextValue) || nextValue.length > 5) {
-            e.preventDefault();
-        }
-    };
-
     return (
         <Box sx={{ ...RowBoxStyles, justifyContent: 'space-between' }}>
             <Typography variant="body1" onClick={handleUpdateTime}>
@@ -76,7 +48,7 @@ export const TimeItem: FC<{
                         inputMode: 'decimal',
                     },
                     htmlInput: {
-                        onKeyDown: handleNumberKeyDown,
+                        onKeyDown: handleDecimalNumberKeyDown,
                     },
                 }}
                 onChange={(e) => handleDoseChange(e.target.value)}

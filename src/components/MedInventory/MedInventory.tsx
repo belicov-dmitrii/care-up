@@ -19,6 +19,7 @@ import { type Med } from '@/types';
 import { type Dispatch, memo, useState, type FC, type SetStateAction, useCallback } from 'react';
 import { useI18n } from '../I18nProvider';
 import { NetworkRequest } from '@/utils/NetworkRequest';
+import { handleNumberKeyDown } from '@/utils/keyDownHandlers';
 
 interface IPharmacyInventoryProps {
     med: Med;
@@ -160,6 +161,8 @@ const UpdateInventoryModal = ({
                     type="number"
                     value={value}
                     onChange={(e) => handleInventoryChange(e.target.value)}
+                    onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                    onKeyDown={handleNumberKeyDown}
                 />
                 <Button onClick={close(true)}>{t('Save')}</Button>
             </Box>
