@@ -1,0 +1,257 @@
+[
+  {
+    "id": "f010d5f2-33b1-4399-b1d0-0bc4a57ac1fb",
+    "date": "13-03-2026",
+    "status": "completed",
+    "severity": "yellow",
+    "items": [
+      {
+        "title": "Hemoglobin",
+        "value": {
+          "amount": 125,
+          "unit": "g/L"
+        },
+        "referenceRange": {
+          "min": 120,
+          "max": 160,
+          "unit": "g/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "Indicator is within the normal range."
+          }
+        ],
+        "id": "7bb21786-1e58-496e-a8cd-fb808e5235d2"
+      },
+      {
+        "title": "Platelets",
+        "value": {
+          "amount": 275,
+          "unit": "10^9/L"
+        },
+        "referenceRange": {
+          "min": 150,
+          "max": 400,
+          "unit": "10^9/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "Platelet count is stable."
+          }
+        ],
+        "id": "6d86e189-5160-4369-bed7-705dfc2cb17f"
+      },
+      {
+        "title": "Ferritin",
+        "value": {
+          "amount": 13,
+          "unit": "ng/mL"
+        },
+        "referenceRange": {
+          "min": 15,
+          "max": 150,
+          "unit": "ng/mL"
+        },
+        "severity": "attention",
+        "status": "requiresAction",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Discuss iron stores with your doctor."
+          },
+          {
+            "category": "notification",
+            "title": "Repeat ferritin test in 4–8 weeks if advised."
+          }
+        ],
+        "id": "9a198823-cd6d-4988-a5c0-1d8929ea3e2b"
+      },
+      {
+        "title": "ALT",
+        "value": {
+          "amount": 34,
+          "unit": "U/L"
+        },
+        "referenceRange": {
+          "min": 7,
+          "max": 35,
+          "unit": "U/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "ALT is within the normal range."
+          }
+        ],
+        "id": "04cc7078-f23f-4c9c-81b0-b5e5a005b100"
+      }
+    ]
+  },
+  {
+    "id": "analysis_1",
+    "date": "06-08-2025",
+    "status": "completed",
+    "items": [
+      {
+        "id": "analysis_ref_1",
+        "title": "Ferritin",
+        "value": {
+          "amount": 7.35,
+          "unit": "ng/ml"
+        },
+        "referenceRange": {
+          "min": 13,
+          "max": 150,
+          "unit": "ng/ml"
+        },
+        "severity": "critical",
+        "status": "requiresAction",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Consult a doctor regarding low ferritin"
+          },
+          {
+            "category": "medication",
+            "title": "Consider iron supplementation"
+          }
+        ]
+      },
+      {
+        "id": "analysis_ref_2",
+        "title": "Hemoglobin",
+        "value": {
+          "amount": 125,
+          "unit": "g/L"
+        },
+        "referenceRange": {
+          "min": 120,
+          "max": 160,
+          "unit": "g/L"
+        },
+        "severity": "attention",
+        "status": "reviewed",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Monitor hemoglobin level in future blood tests"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "analysis_2",
+    "date": "24-11-2025",
+    "status": "processing",
+    "items": [
+      {
+        "id": "analysis_ref_3",
+        "title": "Vitamin D (25-OH)",
+        "value": {
+          "amount": 35.3,
+          "unit": "ng/ml"
+        },
+        "referenceRange": {
+          "min": 30,
+          "max": 100,
+          "unit": "ng/ml"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "Maintain current vitamin D intake"
+          }
+        ]
+      },
+      {
+        "id": "analysis_ref_3",
+        "title": "Ferritin",
+        "value": {
+          "amount": 28.7,
+          "unit": "ng/ml"
+        },
+        "referenceRange": {
+          "min": 13,
+          "max": 150,
+          "unit": "ng/ml"
+        },
+        "severity": "attention",
+        "status": "reviewed",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Discuss ferritin improvement strategy with a doctor"
+          },
+          {
+            "category": "medication",
+            "title": "Continue iron supplementation if prescribed"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "analysis_3",
+    "date": "10-03-2026",
+    "status": "recognized",
+    "items": [
+      {
+        "id": "analysis_ref_4",
+        "title": "Glucose",
+        "value": {
+          "amount": 5.1,
+          "unit": "mmol/L"
+        },
+        "referenceRange": {
+          "min": 3.9,
+          "max": 5.5,
+          "unit": "mmol/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "Maintain healthy diet and regular monitoring"
+          }
+        ]
+      },
+      {
+        "id": "analysis_ref_5",
+        "title": "AST",
+        "value": {
+          "amount": 48,
+          "unit": "U/L"
+        },
+        "referenceRange": {
+          "min": 10,
+          "max": 40,
+          "unit": "U/L"
+        },
+        "severity": "attention",
+        "status": "requiresAction",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Consult a doctor regarding elevated AST level"
+          },
+          {
+            "category": "notification",
+            "title": "Repeat liver enzyme test in 2–4 weeks"
+          }
+        ]
+      }
+    ]
+  }
+]

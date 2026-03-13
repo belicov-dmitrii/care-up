@@ -18,10 +18,27 @@ export const PhotoPicker: FC<IPhotoPicker> = ({ onUpload }) => {
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const f = e.target.files?.[0] ?? null;
+
+        if (!f) {
+            setFile(null);
+            if (previewUrl) URL.revokeObjectURL(previewUrl);
+            setPreviewUrl(null);
+            return;
+        }
+
+        const allowed = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'application/pdf'];
+
+        if (!allowed.includes(f.type)) {
+            return; // optionally show error
+        }
+
         setFile(f);
 
-        if (previewUrl) URL.revokeObjectURL(previewUrl);
-        setPreviewUrl(f ? URL.createObjectURL(f) : null);
+        if (previewUrl) {
+            URL.revokeObjectURL(previewUrl);
+        }
+
+        setPreviewUrl(URL.createObjectURL(f));
     };
 
     const cancel = () => {
@@ -34,6 +51,8 @@ export const PhotoPicker: FC<IPhotoPicker> = ({ onUpload }) => {
         onUpload(file);
     };
 
+    const isPDF = file?.type === 'application/pdf';
+
     return (
         <Box position="relative">
             {isSubmitting && (
@@ -45,8 +64,19 @@ export const PhotoPicker: FC<IPhotoPicker> = ({ onUpload }) => {
             )}
             {previewUrl ? (
                 <Box>
-                    <Typography mb={1}>{t('Your selected image:')}</Typography>
-                    <img src={previewUrl} alt="preview" style={{ maxWidth: 320 }} />
+                    <Typography mb={1}>
+                        {t(`Your selected ${isPDF ? 'document' : 'image'}`)}:
+                    </Typography>
+                    {isPDF ? (
+                        <iframe
+                            src={previewUrl}
+                            width="100%"
+                            height="500"
+                            style={{ border: 'none' }}
+                        />
+                    ) : (
+                        <img src={previewUrl} alt="preview" style={{ maxWidth: '100%' }} />
+                    )}
                 </Box>
             ) : (
                 <label
@@ -58,7 +88,7 @@ export const PhotoPicker: FC<IPhotoPicker> = ({ onUpload }) => {
                 >
                     <input
                         type="file"
-                        accept="image/*"
+                        accept="image/*,application/pdf"
                         onChange={onChange}
                         style={{ display: 'none' }}
                     />

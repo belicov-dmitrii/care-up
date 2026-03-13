@@ -31,7 +31,7 @@ const MENU_ACTIONS: MenuAction[] = [
     {
         icon: <FolderCopyIcon />,
         label: 'Docs',
-        path: '/',
+        path: '/docs',
     },
 ];
 

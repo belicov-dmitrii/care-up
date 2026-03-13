@@ -138,6 +138,28 @@ export enum MedStockStatus {
     Good = 'Good',
 }
 
+// ===== Types: Pharmacy =====
+
+export type NotificationJob = {
+    id: string;
+    userId: string;
+    medId: string;
+    scheduleId: string;
+    timeId: string;
+    kind: 'intake' | 'restriction-before' | 'restriction-after';
+    title: string;
+    body: string;
+    url: string;
+    sendAtLocal: string; // YYYY-MM-DDTHH:mm:ss
+    sendAtUTC: string; // ISO UTC
+    oneSignalNotificationId: string | null;
+    status: 'pending' | 'scheduled' | 'cancelled' | 'sent' | 'failed';
+    meta?: {
+        restrictionType?: string;
+        restrictionNote?: string;
+        dose?: number;
+    };
+};
 // ===== Types: Intake Events =====
 
 export type SymptomsType = (typeof Symptoms)[number];
@@ -156,4 +178,34 @@ export interface IntakeEvent {
     symptoms: Array<SymptomsType>;
     createdAt: string;
     updatedAt: string | null;
+}
+
+// ===== Types: Intake Events =====
+
+export interface AnalysisItem {
+    id: string;
+    title: string;
+    value: {
+        amount: number;
+        unit: string;
+    };
+    referenceRange: {
+        min: number;
+        max: number;
+        unit: string;
+    };
+    severity: 'normal' | 'attention' | 'critical';
+    status: 'optimal' | 'requiresAction' | 'reviewed' | 'processing';
+    recommendations: Array<{
+        category: 'consult' | 'medication' | 'notification';
+        title: string;
+    }>;
+}
+
+export interface Analysis {
+    id: string;
+    date: string;
+    status: 'completed' | 'processing' | 'recognized';
+    severity: 'green' | 'yellow' | 'red';
+    items: Array<AnalysisItem>;
 }
