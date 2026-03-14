@@ -9,6 +9,7 @@ import { NextIntake } from '@/components/NextIntake/NextIntake';
 import { MedDashboardList } from '@/components/MedDashboardList/MedDashboardList';
 import { getTodaySchedule } from '@/utils/sortAndFilterMeds';
 import { DashboardHeader } from '@/components/DashboardHeader/DashboardHeader';
+import PushNotificationGuard from '@/components/Subscription/EnablePushButton';
 import moment from 'moment';
 import { getTodayEvents } from '@/utils/requests/getTodayEvents';
 import { DATE_FORMAT } from '@/utils/consts';
@@ -27,6 +28,7 @@ export default async function Dashboards() {
 
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', gap: 3, padding: 3 }}>
+            <PushNotificationGuard />
             <DashboardHeader schedulesCount={todaySchedules.length} />
             {!!todaySchedules?.length ? <NextIntake schedule={todaySchedules[0]} /> : ''}
             {hasAlerts && (

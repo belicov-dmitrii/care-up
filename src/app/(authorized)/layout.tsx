@@ -11,6 +11,9 @@ import '@/styles/imports.css';
 import '@/styles/globals.scss';
 import '@/styles/embla.css';
 import { MenuBar } from '@/components/MenuBar/MenuBar';
+import OneSignalInit from '@/components/Subscription/OneSignalInit';
+import OneSignalUserSync from '@/components/Subscription/OneSignalUserSync';
+import { NotificationSync } from '@/components/Subscription/NotificationSync';
 
 const inter = Inter({
     variable: '--font-inter',
@@ -43,6 +46,8 @@ export default async function RootLayout({
             <body className={`${inter.className}`}>
                 <ThemeRegistry>
                     <UserContextProvider>
+                        <OneSignalUserSync />
+                        <NotificationSync />
                         <I18nProvider dict={dict} lang={lang}>
                             <Box className="main-container">
                                 <Header />
@@ -57,6 +62,7 @@ export default async function RootLayout({
                         </I18nProvider>
                     </UserContextProvider>
                 </ThemeRegistry>
+                <OneSignalInit />
             </body>
         </html>
     );

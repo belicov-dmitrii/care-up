@@ -45,6 +45,21 @@ export const UserContextProvider: FC<PropsWithChildren> = memo(({ children }) =>
         })();
     }, []);
 
+    useEffect(() => {
+        if (userData?.id) {
+            return;
+        }
+
+        (async () => {
+            const OneSignal = (
+                window as unknown as Record<string, { login: (id: string) => Promise<void> }>
+            ).OneSignal;
+            if (!OneSignal || !userData?.id) return;
+
+            await OneSignal.login(userData?.id);
+        })();
+    }, [userData?.id]);
+
     const changeUserData = useCallback((userData: ILoginResponse | null) => {
         setUserData(userData);
     }, []);
