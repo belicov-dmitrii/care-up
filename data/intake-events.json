@@ -47,11 +47,7 @@
         "scheduleTimeId": "x3m7z1k8qw",
         "eventDate": "11-03-2026",
         "status": "taken",
-        "symptoms": [
-            "Tingling or numbness (paresthesia)",
-            "Abdominal cramps",
-            "Stomach pain"
-        ],
+        "symptoms": ["Tingling or numbness (paresthesia)", "Abdominal cramps", "Stomach pain"],
         "createdAt": "2026-03-10T22:11:59.020Z",
         "updatedAt": "2026-03-11T20:06:23.589Z"
     },
@@ -96,11 +92,7 @@
         "scheduleTimeId": "a7f3c9e1b2",
         "eventDate": "26-02-2026",
         "status": "taken",
-        "symptoms": [
-            "Chills",
-            "Difficulty concentrating",
-            "Stomach pain"
-        ],
+        "symptoms": ["Chills", "Difficulty concentrating", "Stomach pain"],
         "createdAt": "2026-03-11T19:00:59.082Z",
         "updatedAt": "2026-03-11T19:01:07.524Z"
     },

@@ -10,7 +10,7 @@ export const formatTime = (hours: number, minutes: number) => {
 };
 
 export const formatMedDose = (med: Med) => {
-    return `${med.dose} ${med.form.slice(0, -1)}`.toLowerCase();
+    return `${med?.dose || ''} ${med.form.slice(0, -1)}`.toLowerCase();
 };
 
 export const formatMedExpirationDate = (expirationDate: string | undefined) => {

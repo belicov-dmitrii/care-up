@@ -7,6 +7,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { getServerT } from '@/i18n';
 import { PALETTE } from '@/utils/theme/colors';
 import { InfoBox } from '@/components/InfoBox/InfoBox';
+import { ColumnBoxStyles } from '@/utils/consts';
 import { decodeIdWithDate } from '@/utils/eventsEncoder';
 import { getIntakeEvent } from '@/utils/requests/getIntakeEvent';
 import { EventActions } from '@/components/EventActions/EventActions';
@@ -49,7 +50,7 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
     const { med, hours, minutes, recommendations } = medSchedule;
 
     return (
-        <Container sx={{ textAlign: 'center', display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <Container sx={{ ...ColumnBoxStyles, textAlign: 'center', gap: 6, p: 3 }}>
             <Box>
                 <Typography variant="h1" mb={2}>
                     {med.name}
