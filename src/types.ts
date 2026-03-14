@@ -179,3 +179,33 @@ export interface IntakeEvent {
     createdAt: string;
     updatedAt: string | null;
 }
+
+// ===== Types: Intake Events =====
+
+export interface AnalysisItem {
+    id: string;
+    title: string;
+    value: {
+        amount: number;
+        unit: string;
+    };
+    referenceRange: {
+        min: number;
+        max: number;
+        unit: string;
+    };
+    severity: 'normal' | 'attention' | 'critical';
+    status: 'optimal' | 'requiresAction' | 'reviewed' | 'processing';
+    recommendations: Array<{
+        category: 'consult' | 'medication' | 'notification';
+        title: string;
+    }>;
+}
+
+export interface Analysis {
+    id: string;
+    date: string;
+    status: 'completed' | 'processing' | 'recognized';
+    severity: 'green' | 'yellow' | 'red';
+    items: Array<AnalysisItem>;
+}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import { useUserContext } from '@/context/UserContext';
@@ -12,6 +13,9 @@ export const NotificationSync = memo(() => {
             return;
         }
 
-        NetworkRequest('/notifications/sync', {}, { method: 'POST' });
+        // HINT: UNCOMMENT THIS TO SET NOTIFICATIONS
+        // NetworkRequest('/notifications/sync', {}, { method: 'POST' });
     }, [userData?.id]);
+
+    return null;
 });

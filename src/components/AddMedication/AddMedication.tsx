@@ -37,7 +37,16 @@ export const AddMedication: FC<IAddMedicationProps> = memo(({ open, onClose }) =
     }, [open]);
 
     return (
-        <Drawer anchor="right" open={open} onClose={onClose}>
+        <Drawer
+            anchor="right"
+            open={open}
+            onClose={onClose}
+            slotProps={{
+                paper: {
+                    sx: { width: '100%' },
+                },
+            }}
+        >
             <Box
                 height="100%"
                 bgcolor={PALETTE.BG_PAGE}

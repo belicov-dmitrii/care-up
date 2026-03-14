@@ -16,7 +16,7 @@ const SCHEDULES_FILE = path.join(DATA_DIR, 'schedule.json');
 const NOTIFICATIONS_FILE = path.join(DATA_DIR, 'notifications.json');
 const MEDS_FILE = path.join(DATA_DIR, 'meds.json');
 
-const APP_TIMEZONE_OFFSET = '+02:00';
+export const APP_TIMEZONE_OFFSET = '+02:00';
 const DAYS_AHEAD = 4;
 
 async function readJsonFile<T>(filePath: string, fallback: T): Promise<T> {

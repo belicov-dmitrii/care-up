@@ -4,6 +4,7 @@ import { getMeds } from '@/utils/requests/getMeds';
 import { ColumnBoxStyles } from '@/utils/consts';
 import { PharmacyFilterableArea } from '@/components/ParmacyFilterableArea/PharmacyFilterableArea';
 import { getSchedule } from '@/utils/requests/getSchedule';
+import PharmacyMenu from '@/components/PharmacyMenu/PharmacyMenu';
 
 export default async function Pharmacy() {
     const t = await getServerT();
@@ -17,6 +18,7 @@ export default async function Pharmacy() {
             <Typography variant="h1" fontWeight={600}>
                 {t('Pharmacy')}
             </Typography>
+            <PharmacyMenu />
             <PharmacyFilterableArea meds={meds} schedules={schedules} />
         </Container>
     );

@@ -1,8 +1,9 @@
 'use client';
 
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import { useCallback, useState } from 'react';
 import { AddMedication } from './AddMedication';
+import { AddButton } from '../AddButton';
 
 export const AddMedicationButton = () => {
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -12,8 +13,8 @@ export const AddMedicationButton = () => {
     }, []);
 
     return (
-        <Box>
-            <Button onClick={toggleDrawer}>Add Medication</Button>
+        <Box sx={{ position: 'fixed', right: '10px', bottom: '100px' }}>
+            <AddButton onClick={toggleDrawer} />
             <AddMedication open={openDrawer} onClose={toggleDrawer} />
         </Box>
     );

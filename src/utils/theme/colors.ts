@@ -28,6 +28,12 @@ export const PALETTE = {
     BUTTON_BG_TEAL: '#8fb9a826',
     BUTTON_BG_LAVANDER: '#b8a6c926',
 
+    ICON_CONTAINER_YELLOW: '#d1a75c1a',
+    ICON_CONTAINER_DARK_GREEN: '#2f6a6c0d',
+
+    ICON_DARK_GREEN: '#2f6a6c',
+    ICON_YELLOW: '#d1a75c',
+
     ICON_GREEN: '#588A75',
     ICON_PURPLE: '#8C72A6',
 } as const;
