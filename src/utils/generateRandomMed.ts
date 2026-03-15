@@ -18,6 +18,16 @@ const medNames = [
     'Aspirin',
     'Melatonin',
     'Zinc',
+    'Vitamin C',
+    'Calcium',
+    'Folic Acid',
+    'Vitamin B12',
+    'Omega-3',
+    'Probiotic',
+    'Potassium',
+    'Loratadine',
+    'Cetirizine',
+    'Amoxicillin',
 ];
 
 export function generateRandomMed(): Partial<Omit<Med, 'id'>> & { name: string } {

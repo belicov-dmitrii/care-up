@@ -31,6 +31,6 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json(result, { status: 201 });
     } catch {
-        return NextResponse.json({ error: 'Failed to create med' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to got analysis' }, { status: 500 });
     }
 }

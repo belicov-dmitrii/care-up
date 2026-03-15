@@ -7,9 +7,9 @@ const dataPath = (...p: string[]) => path.join(process.cwd(), 'data', ...p);
 export async function POST() {
     try {
         const file = await fs.readFile(dataPath('schedule.json'), 'utf-8');
-        const meds = JSON.parse(file);
+        const schedules = JSON.parse(file);
 
-        return NextResponse.json(meds);
+        return NextResponse.json(schedules);
     } catch (_) {
         return NextResponse.json({ error: 'Failed to read schedule' }, { status: 500 });
     }

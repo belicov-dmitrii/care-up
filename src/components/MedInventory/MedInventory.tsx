@@ -1,6 +1,6 @@
 'use client';
 
-import { RowBoxStyles, ColumnBoxStyles } from '@/utils/consts';
+import { RowBoxStyles, ColumnBoxStyles, PaperStyles } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import {
     Paper,
@@ -19,17 +19,11 @@ import { type Med } from '@/types';
 import { type Dispatch, memo, useState, type FC, type SetStateAction, useCallback } from 'react';
 import { useI18n } from '../I18nProvider';
 import { NetworkRequest } from '@/utils/NetworkRequest';
+import { handleNumberKeyDown } from '@/utils/keyDownHandlers';
 
 interface IPharmacyInventoryProps {
     med: Med;
 }
-
-const paperStyles: CSSProperties = {
-    ...ColumnBoxStyles,
-    width: '100%',
-    padding: 3,
-    borderRadius: '14px',
-};
 
 const roundedButtonStyles: CSSProperties = {
     width: 52,
@@ -78,7 +72,7 @@ export const MedInventory: FC<IPharmacyInventoryProps> = memo(({ med }) => {
     );
 
     return (
-        <Paper sx={paperStyles}>
+        <Paper sx={PaperStyles}>
             <Typography variant="h3" fontSize={16}>
                 {t('Inventory')}
             </Typography>
@@ -123,17 +117,20 @@ const UpdateInventoryModal = ({
     const { t } = useI18n();
     const [value, setValue] = useState('');
 
-    const close = () => {
-        let newValue = Number(value);
+    const close = (isSave: boolean) => {
+        return () => {
+            if (isSave) {
+                let newValue = Number(value);
 
-        if (!value || Number.isNaN(newValue)) {
-            newValue = 0;
-        }
+                if (!value || Number.isNaN(newValue)) {
+                    newValue = 0;
+                }
 
-        onSave(open, newValue);
-
-        setValue('');
-        setOpen('');
+                onSave(open, newValue);
+            }
+            setValue('');
+            setOpen('');
+        };
     };
 
     const handleInventoryChange = (remaining: string) => {
@@ -143,12 +140,7 @@ const UpdateInventoryModal = ({
     return (
         <Modal
             open={!!open}
-            onClose={(_, reason) => {
-                if (reason === 'backdropClick' || reason === 'escapeKeyDown') {
-                    return;
-                }
-                close();
-            }}
+            onClose={close(false)}
             sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
         >
             <Box
@@ -169,8 +161,10 @@ const UpdateInventoryModal = ({
                     type="number"
                     value={value}
                     onChange={(e) => handleInventoryChange(e.target.value)}
+                    onWheel={(e) => (e.target as HTMLInputElement).blur()}
+                    onKeyDown={handleNumberKeyDown}
                 />
-                <Button onClick={close}>{t('Save')}</Button>
+                <Button onClick={close(true)}>{t('Save')}</Button>
             </Box>
         </Modal>
     );

@@ -5,7 +5,7 @@ import { Box, Container, IconButton, Paper, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { PALETTE } from '@/utils/theme/colors';
 import Link from 'next/link';
-import { AddAnalysis } from '@/components/Docs/Analysis/AddAnalysis';
+import { AddAnalysisOrPrescription } from '@/components/Docs/Analysis/AddAnalysis';
 
 export default async function AnalysisPage() {
     const t = await getServerT();
@@ -15,7 +15,7 @@ export default async function AnalysisPage() {
         <Container>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h1">{t('Analysis')}</Typography>
-                <AddAnalysis />
+                <AddAnalysisOrPrescription type="analysis" />
             </Box>
             <Box mt={3} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 {analysis.map((analysis) => {

@@ -13,7 +13,7 @@ import {
     Typography,
 } from '@mui/material';
 
-import { ColumnBoxStyles, RowBoxStyles } from '@/utils/consts';
+import { ColumnBoxStyles, PaperStyles, RowBoxStyles } from '@/utils/consts';
 import { MedInventory } from '@/components/MedInventory/MedInventory';
 import { getSchedule } from '@/utils/requests/getSchedule';
 import { getScheduleByMedId } from '@/utils/sortAndFilterMeds';
@@ -34,13 +34,6 @@ const actionButtonStyle: CSSProperties = {
     justifyContent: 'space-between',
     textAlign: 'left',
     gap: 0.2,
-};
-
-const paperStyles: CSSProperties = {
-    ...ColumnBoxStyles,
-    width: '100%',
-    padding: 3,
-    borderRadius: '14px',
 };
 
 export default async function PharmacyItemDetail({ params }: IPharmacyItemDetailsProps) {
@@ -94,7 +87,7 @@ export default async function PharmacyItemDetail({ params }: IPharmacyItemDetail
                 </Stack>
             </Box>
             <MedInventory med={med} />
-            <Paper sx={paperStyles}>
+            <Paper sx={PaperStyles}>
                 <Button sx={actionButtonStyle}>
                     <Box sx={{ ...RowBoxStyles, gap: 2 }}>
                         <Box
