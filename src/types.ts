@@ -193,7 +193,7 @@ export interface IntakeEvent {
     updatedAt: string | null;
 }
 
-// ===== Types: Intake Events =====
+// ===== Types: Analysis =====
 
 export interface AnalysisItem {
     id: string;
@@ -221,4 +221,22 @@ export interface Analysis {
     status: 'completed' | 'processing' | 'recognized';
     severity: 'green' | 'yellow' | 'red';
     items: Array<AnalysisItem>;
+}
+
+// ===== Types: Prescriptions =====
+
+export interface PrescriptionItem {
+    id: string;
+    name: string;
+    medId: string | null;
+    medData: Partial<Med>;
+    scheduleData: Partial<ScheduleItem>;
+    scheduleId: string | null;
+}
+
+export interface Prescription {
+    id: string;
+    date: string;
+    status: 'completed' | 'processing' | 'recognized' | 'in_progress';
+    meds: Array<PrescriptionItem>;
 }

@@ -1,18 +1,18 @@
 import { after, type NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { type AnalysisItem, type Analysis } from '@/types';
-import { AnalysisItemPool } from '@/utils/mocks/analysis';
+import { type Prescription } from '@/types';
 import { sleep } from '@/utils/sleep';
 import moment from 'moment';
 import { DATE_FORMAT } from '@/utils/consts';
+import { generatePrescriptionItems } from '@/utils/mocks/prescription';
 import { getUserDataByToken } from '@/utils/getUserDataByToken';
 import { AUTH_COOKIE_NAME } from '../../login/route';
 
 export const dynamic = 'force-dynamic';
 
 const DATA_DIR = path.join(process.cwd(), 'data');
-const ANALYSIS_FILE = path.join(DATA_DIR, 'analysis.json');
+const PRESCRIPTIONS_FILE = path.join(DATA_DIR, 'prescriptions.json');
 
 const ALLOWED_MIME_TYPES = new Set([
     'application/pdf',
@@ -26,17 +26,17 @@ async function ensureDataFile(): Promise<void> {
     await fs.mkdir(DATA_DIR, { recursive: true });
 
     try {
-        await fs.access(ANALYSIS_FILE);
+        await fs.access(PRESCRIPTIONS_FILE);
     } catch {
-        await fs.writeFile(ANALYSIS_FILE, '[]', 'utf-8');
+        await fs.writeFile(PRESCRIPTIONS_FILE, '[]', 'utf-8');
     }
 }
 
-async function readAnalysisFile(): Promise<Array<Analysis>> {
+export async function readPrescriptionsFile(): Promise<Array<Prescription>> {
     await ensureDataFile();
 
     try {
-        const raw = await fs.readFile(ANALYSIS_FILE, 'utf-8');
+        const raw = await fs.readFile(PRESCRIPTIONS_FILE, 'utf-8');
         const parsed = JSON.parse(raw);
 
         return Array.isArray(parsed) ? parsed : [];
@@ -45,54 +45,31 @@ async function readAnalysisFile(): Promise<Array<Analysis>> {
     }
 }
 
-async function writeAnalysisFile(data: Array<Analysis>): Promise<void> {
+export async function writePrescriptionsFile(data: Array<Prescription>): Promise<void> {
     await ensureDataFile();
-    await fs.writeFile(ANALYSIS_FILE, JSON.stringify(data, null, 2), 'utf-8');
+    await fs.writeFile(PRESCRIPTIONS_FILE, JSON.stringify(data, null, 2), 'utf-8');
 }
 
-function getFakeAnalysisItems(): Array<AnalysisItem> {
-    const shuffled = [...AnalysisItemPool].sort(() => Math.random() - 0.5);
-    const count = Math.floor(Math.random() * 3) + 3; // 3..5 items
-    const selected = shuffled.slice(0, count);
-
-    return selected.map((item) => ({
-        ...item,
-        id: crypto.randomUUID(),
-    }));
-}
-
-function getAnalysisSeverity(items: Array<AnalysisItem>): Analysis['severity'] {
-    if (items.some((item) => item.severity === 'critical')) {
-        return 'red';
-    }
-
-    if (items.some((item) => item.severity === 'attention')) {
-        return 'yellow';
-    }
-
-    return 'green';
-}
-
-async function finalizeAnalysis(analysisId: string): Promise<void> {
+async function finalizePrescription(prescriptionId: string): Promise<void> {
     await sleep(60 * 1000);
 
-    const items = getFakeAnalysisItems();
-    const analysisList = await readAnalysisFile();
+    const meds = generatePrescriptionItems();
 
-    const nextList = analysisList.map((analysis) => {
-        if (analysis.id !== analysisId) {
-            return analysis;
+    const prescriptionsList = await readPrescriptionsFile();
+
+    const nextList = prescriptionsList.map((prescription) => {
+        if (prescription.id !== prescriptionId) {
+            return prescription;
         }
 
         return {
-            ...analysis,
-            status: 'completed' as const,
-            severity: getAnalysisSeverity(items),
-            items,
+            ...prescription,
+            status: 'recognized' as const,
+            meds,
         };
     });
 
-    await writeAnalysisFile(nextList);
+    await writePrescriptionsFile(nextList);
 }
 
 export async function POST(req: NextRequest) {
@@ -120,38 +97,37 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        const newAnalysis: Analysis & { userId: string } = {
+        const newPrescription: Prescription & { userId: string } = {
             id: crypto.randomUUID(),
             userId,
             date: moment().format(DATE_FORMAT),
             status: 'processing',
-            severity: 'yellow',
-            items: [],
+            meds: [],
         };
 
-        const analysisList = await readAnalysisFile();
-        analysisList.unshift(newAnalysis);
-        await writeAnalysisFile(analysisList);
+        const prescriptionsList = await readPrescriptionsFile();
+        prescriptionsList.unshift(newPrescription);
+        await writePrescriptionsFile(prescriptionsList);
 
         after(async () => {
             try {
-                await finalizeAnalysis(newAnalysis.id);
+                await finalizePrescription(newPrescription.id);
             } catch (error) {
-                console.error('Failed to finalize analysis:', error);
+                console.error('Failed to finalize prescription:', error);
             }
         });
 
         return Response.json({
             ok: true,
-            data: newAnalysis,
+            data: newPrescription,
         });
     } catch (error) {
-        console.error('Failed to create analysis:', error);
+        console.error('Failed to create prescription:', error);
 
         return Response.json(
             {
                 ok: false,
-                message: 'Failed to create analysis.',
+                message: 'Failed to create prescription.',
             },
             { status: 500 }
         );

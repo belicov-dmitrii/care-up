@@ -1,4 +1,4 @@
-import { formatMedDose, formatTime } from '@/utils/formatData';
+import { formatTime } from '@/utils/formatData';
 import { getMeds } from '@/utils/requests/getMeds';
 import { getSchedule } from '@/utils/requests/getSchedule';
 import { getMedScheduleByScheduleId } from '@/utils/sortAndFilterMeds';
@@ -13,6 +13,7 @@ import { getIntakeEvent } from '@/utils/requests/getIntakeEvent';
 import { EventActions } from '@/components/EventActions/EventActions';
 import { RecommendationCategory } from '@/types';
 import Link from 'next/link';
+import { getMedFormToDoseUnit } from '@/utils/getMedFormToDoseUnit';
 
 interface IMedScheduleDetailsProps {
     params: {
@@ -78,7 +79,7 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
                     </Typography>
                 </Stack>
                 <Typography variant="body1" fontWeight={500}>
-                    {formatMedDose(med)}
+                    {getMedFormToDoseUnit(med.form)}
                 </Typography>
             </Box>
             <Box>

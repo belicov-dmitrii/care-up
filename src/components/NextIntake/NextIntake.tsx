@@ -4,12 +4,13 @@ import { type FC, memo } from 'react';
 import { Paper, Stack, Chip, Typography, Button, IconButton } from '@mui/material';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { formatMedDose, formatTime } from '@/utils/formatData';
+import { formatTime } from '@/utils/formatData';
 import { DOT } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
 import { type Med } from '@/types';
 import { type DashboardItemWithMedType } from '@/utils/sortAndFilterMeds';
+import { getMedFormToDoseUnit } from '@/utils/getMedFormToDoseUnit';
 
 interface INextIntakeProps {
     schedule: DashboardItemWithMedType;
@@ -18,6 +19,8 @@ interface INextIntakeProps {
 export const NextIntake: FC<INextIntakeProps> = memo(({ schedule }) => {
     const { t } = useI18n();
     const { med, hours, minutes } = schedule;
+
+    const dose = schedule.dose[schedule['timeId']] || 0;
 
     return (
         <Paper
@@ -43,7 +46,7 @@ export const NextIntake: FC<INextIntakeProps> = memo(({ schedule }) => {
                 >
                     {med.name}
                 </Typography>
-                <Typography variant="body2">{getNextDose(med)}</Typography>
+                <Typography variant="body2">{getNextDose(med, dose)}</Typography>
             </Stack>
             <Chip
                 sx={{ alignSelf: 'flex-start' }}
@@ -71,6 +74,6 @@ export const NextIntake: FC<INextIntakeProps> = memo(({ schedule }) => {
     );
 });
 
-const getNextDose = (med: Med) => {
-    return `${med.strength} ${med.unit} ${DOT} ${formatMedDose(med)}`;
+const getNextDose = (med: Med, dose: number) => {
+    return `${med.strength} ${med.unit} ${DOT} ${dose} ${getMedFormToDoseUnit(med.form, dose)}`;
 };

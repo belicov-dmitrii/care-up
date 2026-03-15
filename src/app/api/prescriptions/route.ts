@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { AUTH_COOKIE_NAME } from '../login/route';
 import { promises as fs } from 'fs';
 import path from 'path';
-import { type Analysis } from '@/types';
+import { type Prescription } from '@/types';
 
 const dataPath = (...p: string[]) => path.join(process.cwd(), 'data', ...p);
 
@@ -17,20 +17,20 @@ export async function POST(req: NextRequest) {
 
         const { id } = await req.json();
 
-        const filePath = dataPath('analysis.json');
+        const filePath = dataPath('prescriptions.json');
 
         const file = await fs.readFile(filePath, 'utf-8');
 
-        const analysis: Analysis[] = JSON.parse(file);
+        const prescriptions: Prescription[] = JSON.parse(file);
 
-        let result: Analysis | Analysis[] | undefined = analysis;
+        let result: Prescription | Prescription[] | undefined = prescriptions;
 
         if (id) {
-            result = analysis.find(({ id: analysisId }) => analysisId === id);
+            result = prescriptions.find(({ id: prescriptionId }) => prescriptionId === id);
         }
 
         return NextResponse.json(result, { status: 201 });
     } catch {
-        return NextResponse.json({ error: 'Failed to got analysis' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to got prescriptions' }, { status: 500 });
     }
 }

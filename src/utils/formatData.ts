@@ -1,4 +1,3 @@
-import { type Med } from '@/types';
 import moment from 'moment';
 
 export const addTrailingZero = (num: number) => {
@@ -7,10 +6,6 @@ export const addTrailingZero = (num: number) => {
 
 export const formatTime = (hours: number, minutes: number) => {
     return `${addTrailingZero(hours)}:${addTrailingZero(minutes)}`;
-};
-
-export const formatMedDose = (med: Med) => {
-    return `${med?.dose || ''} ${med.form.slice(0, -1)}`.toLowerCase();
 };
 
 export const formatMedExpirationDate = (expirationDate: string | undefined) => {

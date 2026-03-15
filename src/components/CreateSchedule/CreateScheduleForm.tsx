@@ -1,6 +1,12 @@
 'use client';
 
-import { type CreateScheduleBody, ScheduleType, type Med, type ScheduleTime } from '@/types';
+import {
+    type CreateScheduleBody,
+    ScheduleType,
+    type Med,
+    type ScheduleTime,
+    type ScheduleItem,
+} from '@/types';
 import { ColumnBoxStyles, PaperStyles, RowBoxStyles, YEAR_FIRST_DATE_FORMAT } from '@/utils/consts';
 import {
     alpha,
@@ -24,7 +30,11 @@ import AddIcon from '@mui/icons-material/Add';
 import moment from 'moment';
 import { TimeItem } from './TimeItem';
 import { AddTimeModal } from './AddTimeModal';
-import { CreateScheduleActionTypes, createScheduleReducer } from './reducer';
+import {
+    CreateScheduleActionTypes,
+    type CreateScheduleFormBody,
+    createScheduleReducer,
+} from './reducer';
 import { isValidCreateScheduleBody } from '@/utils/typeGuards';
 import { NetworkRequest } from '@/utils/NetworkRequest';
 
@@ -32,6 +42,9 @@ interface ICreateScheduleFormProps {
     id?: string;
     meds: Med[];
     closeDrawer: () => void;
+    scheduleData?: Partial<ScheduleItem>;
+    submitCallback?: (scheduleId: string) => Promise<void>;
+    noMedChoose?: boolean;
 }
 
 const MedsMenuProps = {
@@ -65,13 +78,14 @@ const FREQUENCY_OPTIONS: ScheduleType[] = [
 export type AddTimeModalAction = 'add' | ScheduleTime | null;
 
 export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(
-    ({ id, meds, closeDrawer }) => {
+    ({ id, meds, noMedChoose, scheduleData, submitCallback, closeDrawer }) => {
         const [state, dispatch] = useReducer(createScheduleReducer, {
             medId: id || meds[0].id,
             type: FREQUENCY_OPTIONS[0],
             time: [],
             dose: {},
-            endDate: moment().format(YEAR_FIRST_DATE_FORMAT),
+            endDate: '',
+            ...((scheduleData as Partial<CreateScheduleFormBody>) ?? {}),
         });
         const [addTimeOpen, setAddTimeOpen] = useState<AddTimeModalAction>(null);
         const { t } = useI18n();
@@ -83,7 +97,7 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(
                 doseCopy[id] = Number(state.dose[id]);
             }
 
-            const { ok } = await NetworkRequest(
+            const { data, ok } = await NetworkRequest<ScheduleItem>(
                 '/create-schedule',
                 { ...state, dose: doseCopy },
                 { method: 'POST' }
@@ -91,8 +105,14 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(
 
             if (!ok) return;
 
-            closeDrawer();
+            if (submitCallback) {
+                submitCallback(data.id);
+            } else {
+                closeDrawer();
+            }
         };
+
+        const medForm = meds.find(({ id }) => id === state['medId'])?.form;
 
         return (
             <Container sx={{ ...ColumnBoxStyles, padding: 0 }}>
@@ -101,6 +121,7 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(
                         {t('Medication')}
                     </Typography>
                     <Select
+                        disabled={noMedChoose}
                         value={state.medId}
                         variant="standard"
                         disableUnderline
@@ -187,7 +208,11 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(
                     </Typography>
                     <TextField
                         type="date"
-                        value={moment(state.endDate).format(YEAR_FIRST_DATE_FORMAT)}
+                        value={
+                            state.endDate
+                                ? moment(state.endDate).format(YEAR_FIRST_DATE_FORMAT)
+                                : ''
+                        }
                         onChange={(e) =>
                             dispatch({
                                 type: CreateScheduleActionTypes.UpdateEndDate,
@@ -210,6 +235,7 @@ export const CreateScheduleForm: FC<ICreateScheduleFormProps> = memo(
                             <TimeItem
                                 key={time.id}
                                 time={{ ...time, dose: state.dose[time.id] }}
+                                medForm={medForm}
                                 dispatch={dispatch}
                                 setAddTimeOpen={setAddTimeOpen}
                             />

@@ -5,7 +5,7 @@ import { PhotoPicker } from '../PhotoPicker/PhotoPicker';
 import { logError } from '@/utils/logError';
 import { NetworkRequest } from '@/utils/NetworkRequest';
 import { type Med } from '@/types';
-import { AddMedicationStepChooser } from './utils/steps';
+import { AddMedicationStepChooser } from './utils/types';
 
 export const AddMedicationByPhoto: FC<IAddMedicationChildProps> = ({ changeMedData, setStep }) => {
     const onUpload = useCallback(

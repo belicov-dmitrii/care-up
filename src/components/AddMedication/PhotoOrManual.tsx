@@ -3,7 +3,7 @@ import { Box, Paper, Typography } from '@mui/material';
 import { useI18n } from '../I18nProvider';
 import { type IAddMedicationChildProps } from './utils/types';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import { AddMedicationStepChooser } from './utils/steps';
+import { AddMedicationStepChooser } from './utils/types';
 import { PALETTE } from '@/utils/theme/colors';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';

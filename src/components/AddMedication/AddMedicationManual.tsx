@@ -1,4 +1,4 @@
-import { MedForm, MedUnit } from '@/types';
+import { type Med, MedForm, MedUnit } from '@/types';
 import { useFormik } from 'formik';
 import moment from 'moment';
 import { type FC, memo, useMemo, useState } from 'react';
@@ -8,6 +8,7 @@ import { useI18n } from '../I18nProvider';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FormElement } from '../Forms/FormElement';
 import { addMedicationManualSteps, addMedicationManualStepsTitles } from './utils/steps';
+import { AddMedicationStepChooser } from './utils/types';
 import { ExpirationDateChooser } from './ExpirationDateChooser';
 import { NetworkRequest } from '@/utils/NetworkRequest';
 import * as Yup from 'yup';
@@ -32,182 +33,193 @@ const validationSchema = Yup.object({
     remaining: Yup.number().typeError('Must be a number').min(0).required('Required'),
 });
 
-export const AddMedicationManual: FC<IAddMedicationChildProps> = memo(({ medData }) => {
-    const [currentStep, setCurrentStep] = useState(0);
-    const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
+export const AddMedicationManual: FC<IAddMedicationChildProps> = memo(
+    ({ medData, changeMedData, setStep }) => {
+        const [currentStep, setCurrentStep] = useState(0);
+        const [direction, setDirection] = useState<'forward' | 'backward'>('forward');
 
-    const { expirationDate, id, userId, name: medDateName, ...medDateToFill } = medData;
+        const { expirationDate, id, userId, name: medDateName, ...medDateToFill } = medData;
 
-    const formik = useFormik<NewMedType>({
-        initialValues: {
-            ...EMPTY_MED,
-            ...medDateToFill,
-            medName: medDateName ?? '',
-        },
-        onSubmit: async (values) => {
-            const castedValues = validationSchema.cast(values);
-            await NetworkRequest(
-                '/add-med',
-                {
-                    ...castedValues,
-                    expirationDate: values.expirationDate?.format('YYYY-MM-DD'),
-                    name: values.medName,
-                },
-                { method: 'POST' }
-            );
-        },
-        validationSchema,
-    });
+        const formik = useFormik<NewMedType>({
+            initialValues: {
+                ...EMPTY_MED,
+                ...medDateToFill,
+                medName: medDateName ?? '',
+            },
+            onSubmit: async (values) => {
+                const castedValues = validationSchema.cast(values);
+                const { data, ok } = await NetworkRequest<Med>(
+                    '/add-med',
+                    {
+                        ...castedValues,
+                        expirationDate: values.expirationDate?.format('YYYY-MM-DD'),
+                        name: values.medName,
+                    },
+                    { method: 'POST' }
+                );
 
-    const { t } = useI18n();
+                if (!ok) {
+                    return;
+                }
 
-    const changeStep = (type: 'forward' | 'backward') => {
-        if (type === 'forward') {
-            setDirection('forward');
-            setCurrentStep((prev) => prev + 1);
+                changeMedData(data);
+                setStep(AddMedicationStepChooser.CreateSchedule);
+            },
+            validationSchema,
+        });
 
-            return;
-        }
+        const { t } = useI18n();
 
-        setDirection('backward');
-        setCurrentStep((prev) => prev - 1);
-    };
+        const changeStep = (type: 'forward' | 'backward') => {
+            if (type === 'forward') {
+                setDirection('forward');
+                setCurrentStep((prev) => prev + 1);
 
-    const { handleSubmit, handleChange, getFieldHelpers, values } = formik;
+                return;
+            }
 
-    const customElements = useMemo(() => {
-        return {
-            expirationDate: (
-                <ExpirationDateChooser
-                    key="expiration-date"
-                    value={values.expirationDate}
-                    setValue={getFieldHelpers('expirationDate').setValue}
-                />
-            ),
+            setDirection('backward');
+            setCurrentStep((prev) => prev - 1);
         };
-    }, [getFieldHelpers, values.expirationDate]);
 
-    return (
-        <Box height="100%">
-            <form
-                onSubmit={handleSubmit}
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    height: '100%',
-                }}
-            >
-                <Box>
-                    <Box textAlign="center">
-                        <Typography variant="h3" fontSize="18px" mb={1}>
-                            {t('Add Medication')}
-                        </Typography>
-                        <Typography fontSize="13px" color="text.secondary">
-                            {t('addMedicationHelper')}
-                        </Typography>
-                    </Box>
-                    <Divider sx={{ my: 3 }} />
-                    <AnimatePresence mode="wait" custom={direction}>
-                        <motion.div
-                            key={currentStep}
-                            custom={direction}
-                            variants={formFloatingAnimation}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            transition={{ duration: 0.35 }}
-                        >
-                            <Paper sx={{ p: '20px', borderRadius: '14px', minHeight: '200px' }}>
-                                <Box>
-                                    <Typography variant="h3" fontSize="18px" mb={3}>
-                                        {t(addMedicationManualStepsTitles[currentStep])}
-                                    </Typography>
-                                </Box>
-                                <Box
-                                    style={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        justifyContent: 'center',
-                                        height: '100%',
-                                        minHeight: '200px',
-                                    }}
-                                >
+        const { handleSubmit, handleChange, getFieldHelpers, values } = formik;
+
+        const customElements = useMemo(() => {
+            return {
+                expirationDate: (
+                    <ExpirationDateChooser
+                        key="expiration-date"
+                        value={values.expirationDate}
+                        setValue={getFieldHelpers('expirationDate').setValue}
+                    />
+                ),
+            };
+        }, [getFieldHelpers, values.expirationDate]);
+
+        return (
+            <Box height="100%">
+                <form
+                    onSubmit={handleSubmit}
+                    style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        height: '100%',
+                    }}
+                >
+                    <Box>
+                        <Box textAlign="center">
+                            <Typography variant="h3" fontSize="18px" mb={1}>
+                                {t('Add Medication')}
+                            </Typography>
+                            <Typography fontSize="13px" color="text.secondary">
+                                {t('addMedicationHelper')}
+                            </Typography>
+                        </Box>
+                        <Divider sx={{ my: 3 }} />
+                        <AnimatePresence mode="wait" custom={direction}>
+                            <motion.div
+                                key={currentStep}
+                                custom={direction}
+                                variants={formFloatingAnimation}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                transition={{ duration: 0.35 }}
+                            >
+                                <Paper sx={{ p: '20px', borderRadius: '14px', minHeight: '200px' }}>
+                                    <Box>
+                                        <Typography variant="h3" fontSize="18px" mb={3}>
+                                            {t(addMedicationManualStepsTitles[currentStep])}
+                                        </Typography>
+                                    </Box>
                                     <Box
-                                        sx={{
+                                        style={{
                                             display: 'flex',
-                                            gap: 2,
-                                            alignItems: 'center',
                                             flexDirection: 'column',
+                                            justifyContent: 'center',
+                                            height: '100%',
+                                            minHeight: '200px',
                                         }}
                                     >
-                                        <FormElement
-                                            values={values}
-                                            formikChange={handleChange}
-                                            currentFields={addMedicationManualSteps[currentStep]}
-                                            customElements={customElements}
-                                        />
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                gap: 2,
+                                                alignItems: 'center',
+                                                flexDirection: 'column',
+                                            }}
+                                        >
+                                            <FormElement
+                                                values={values}
+                                                formikChange={handleChange}
+                                                currentFields={
+                                                    addMedicationManualSteps[currentStep]
+                                                }
+                                                customElements={customElements}
+                                            />
+                                        </Box>
                                     </Box>
-                                </Box>
-                            </Paper>
-                        </motion.div>
-                    </AnimatePresence>
+                                </Paper>
+                            </motion.div>
+                        </AnimatePresence>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                mt: 2,
+                                gap: 2,
+                                borderRadius: '14px',
+                                '& button': {
+                                    flex: '1 1',
+                                },
+                            }}
+                        >
+                            {!!currentStep && (
+                                <Button
+                                    type="button"
+                                    onClick={() => changeStep('backward')}
+                                    variant="contained"
+                                >
+                                    {t('Prev')}
+                                </Button>
+                            )}
+
+                            {currentStep === addMedicationManualSteps.length - 1 ? (
+                                <Button type="submit" variant="contained">
+                                    {t('Submit')}
+                                </Button>
+                            ) : (
+                                <Button
+                                    type="button"
+                                    onClick={() => changeStep('forward')}
+                                    variant="contained"
+                                >
+                                    {t('Next')}
+                                </Button>
+                            )}
+                        </Box>
+                    </Box>
                     <Box
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'space-between',
-                            mt: 2,
-                            gap: 2,
-                            borderRadius: '14px',
-                            '& button': {
-                                flex: '1 1',
-                            },
+                            justifyContent: 'center',
+                            gap: 1,
+                            pt: 4,
+                            pb: 2,
+                            fontSize: '13px',
+                            color: PALETTE.BRAND_TEAL_DARK_PALE,
                         }}
                     >
-                        {!!currentStep && (
-                            <Button
-                                type="button"
-                                onClick={() => changeStep('backward')}
-                                variant="contained"
-                            >
-                                {t('Prev')}
-                            </Button>
-                        )}
-
-                        {currentStep === addMedicationManualSteps.length - 1 ? (
-                            <Button type="submit" variant="contained">
-                                {t('Submit')}
-                            </Button>
-                        ) : (
-                            <Button
-                                type="button"
-                                onClick={() => changeStep('forward')}
-                                variant="contained"
-                            >
-                                {t('Next')}
-                            </Button>
-                        )}
+                        <Box fontSize="16px">
+                            <VerifiedUserOutlinedIcon fontSize="inherit" />
+                        </Box>
+                        {t('Your data stays private.')}
                     </Box>
-                </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: 1,
-                        pt: 4,
-                        pb: 2,
-                        fontSize: '13px',
-                        color: PALETTE.BRAND_TEAL_DARK_PALE,
-                    }}
-                >
-                    <Box fontSize="16px">
-                        <VerifiedUserOutlinedIcon fontSize="inherit" />
-                    </Box>
-                    {t('Your data stays private.')}
-                </Box>
-            </form>
-        </Box>
-    );
-});
+                </form>
+            </Box>
+        );
+    }
+);

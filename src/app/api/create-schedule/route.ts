@@ -5,7 +5,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 import path from 'path';
 import { AUTH_COOKIE_NAME } from '../login/route';
 import moment from 'moment';
-import { DATE_FORMAT } from '@/utils/consts';
+import { YEAR_FIRST_DATE_FORMAT } from '@/utils/consts';
 import { isValidCreateScheduleBody as isValidBody } from '@/utils/typeGuards';
 
 const dataPath = (...p: string[]) => path.join(process.cwd(), 'data', ...p);
@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
             type: body.type,
             dose: body.dose,
             time: body.time,
-            startDate: moment().format(DATE_FORMAT),
+            startDate: moment().format(YEAR_FIRST_DATE_FORMAT),
             endDate: body.endDate,
             recommendations: [],
             restriction: [],

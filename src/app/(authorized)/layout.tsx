@@ -3,10 +3,10 @@ import ThemeRegistry from '@/components/ThemeRegistry';
 import { defaultLocale, getDict, type Locale, locales } from '@/i18n';
 import { Box, Typography } from '@mui/material';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Roboto_Mono } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { UserContextProvider } from '@/context/UserContext';
-import { Header } from '@/components/Header/Header';
+// import { Header } from '@/components/Header/Header';
 import '@/styles/imports.css';
 import '@/styles/globals.scss';
 import '@/styles/embla.css';
@@ -17,7 +17,13 @@ import { NotificationSync } from '@/components/Subscription/NotificationSync';
 
 const inter = Inter({
     variable: '--font-inter',
-    subsets: ['latin-ext', 'cyrillic'],
+    subsets: ['latin', 'latin-ext', 'cyrillic'],
+});
+
+const plexMono = Roboto_Mono({
+    variable: '--font-mono',
+    subsets: ['latin', 'cyrillic'],
+    weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -43,14 +49,16 @@ export default async function RootLayout({
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
                 <link rel="manifest" href="/site.webmanifest"></link>
             </head>
-            <body className={`${inter.className}`}>
+            <body
+                className={`${inter.className} ${inter.variable} ${plexMono.className} ${plexMono.variable}`}
+            >
                 <ThemeRegistry>
                     <UserContextProvider>
                         <OneSignalUserSync />
                         <NotificationSync />
                         <I18nProvider dict={dict} lang={lang}>
                             <Box className="main-container">
-                                <Header />
+                                {/* <Header /> */}
                                 {children}
                             </Box>
                             <Box color="text.secondary" className="footer" component="footer">
