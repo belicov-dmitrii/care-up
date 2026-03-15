@@ -6,6 +6,7 @@ import { Box, Typography } from '@mui/material';
 import { AddButton } from '../AddButton';
 import { useI18n } from '../I18nProvider';
 import { AddMedication } from '../AddMedication/AddMedication';
+import { CreateSchedule } from '../CreateSchedule/CreateSchedule';
 
 const menuVariants = {
     hidden: {
@@ -74,8 +75,8 @@ export default function PharmacyMenu() {
     const [addMedicationIsMounted, setAddMedicationIsMounted] = useState(false);
     const [addMedicationIsOpen, setAddMedicationIsOpen] = useState(false);
 
-    // const [addScheduleIsMouted, setAddScheduleIsMounted] = useState(false);
-    // const [addScheduleIsOpen, setAddScheduleIsOpen] = useState(false);
+    const [addScheduleIsMounted, setAddScheduleIsMounted] = useState(false);
+    const [addScheduleIsOpen, setAddScheduleIsOpen] = useState(false);
 
     const { t } = useI18n();
 
@@ -83,16 +84,32 @@ export default function PharmacyMenu() {
         if (addMedicationIsMounted) {
             setTimeout(() => {
                 setAddMedicationIsOpen(true);
-            }, 400);
+            }, 200);
         }
     }, [addMedicationIsMounted]);
+
+    useEffect(() => {
+        if (addScheduleIsMounted) {
+            setTimeout(() => {
+                setAddScheduleIsOpen(true);
+            }, 200);
+        }
+    }, [addScheduleIsMounted]);
 
     const toggleAddMedicationDrawer = useCallback(() => {
         setAddMedicationIsOpen(false);
 
         setTimeout(() => {
             setAddMedicationIsMounted(false);
-        }, 400);
+        }, 200);
+    }, []);
+
+    const toggleAddScheduleDrawer = useCallback(() => {
+        setAddScheduleIsOpen(false);
+
+        setTimeout(() => {
+            setAddScheduleIsMounted(false);
+        }, 200);
     }, []);
 
     return (
@@ -151,8 +168,8 @@ export default function PharmacyMenu() {
                                 variants={itemVariants}
                                 style={menuItemStyle}
                                 onClick={() => {
-                                    console.log('Second item');
                                     setMenuOpen(false);
+                                    setAddScheduleIsMounted(true);
                                 }}
                             >
                                 <Typography>{t('Add Schedule')}</Typography>
@@ -164,6 +181,9 @@ export default function PharmacyMenu() {
             </Box>
             {addMedicationIsMounted && (
                 <AddMedication open={addMedicationIsOpen} onClose={toggleAddMedicationDrawer} />
+            )}
+            {addScheduleIsMounted && (
+                <CreateSchedule open={addScheduleIsOpen} onClose={toggleAddScheduleDrawer} />
             )}
         </Box>
     );

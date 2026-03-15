@@ -3,7 +3,8 @@
 import { type Med } from '@/types';
 import { Box, Drawer, IconButton } from '@mui/material';
 import { type FC, memo, useCallback, useEffect, useState } from 'react';
-import { AddMedicationStepChooser, AddMedicationSteps } from './utils/steps';
+import { AddMedicationSteps } from './utils/AddMedicationSteps';
+import { AddMedicationStepChooser } from './utils/types';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { PALETTE } from '@/utils/theme/colors';
 
@@ -59,7 +60,12 @@ export const AddMedication: FC<IAddMedicationProps> = memo(({ open, onClose }) =
                     </IconButton>
                 </Box>
                 <Box sx={{ flex: '1 1' }}>
-                    <Component setStep={setStep} medData={medData} changeMedData={changeMedData} />
+                    <Component
+                        setStep={setStep}
+                        medData={medData}
+                        changeMedData={changeMedData}
+                        closeMedicationDrawer={onClose}
+                    />
                 </Box>
             </Box>
         </Drawer>

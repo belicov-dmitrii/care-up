@@ -113,6 +113,13 @@ export type ScheduleItem = {
     recommendations: ScheduleRecommendation[];
 };
 
+export type CreateScheduleBody = Omit<
+    ScheduleItem,
+    'id' | 'userId' | 'restriction' | 'recommendations' | 'startDate'
+>;
+
+// ===== Types: User =====
+
 export type UserData = {
     id: string;
     name: string;
@@ -132,10 +139,16 @@ export type UserData = {
 // ===== Types: Pharmacy =====
 
 export enum MedStockStatus {
-    Empty = 'Empty',
+    Expired = 'Expired',
     Expiring = 'Expiring',
     Low = 'Low stock',
     Good = 'Good',
+}
+
+export enum MedRemainingTime {
+    Refill = 'Needs refill',
+    Expired = 'Expired',
+    AsNeeded = 'As needed',
 }
 
 // ===== Types: Pharmacy =====
@@ -180,7 +193,7 @@ export interface IntakeEvent {
     updatedAt: string | null;
 }
 
-// ===== Types: Intake Events =====
+// ===== Types: Analysis =====
 
 export interface AnalysisItem {
     id: string;
@@ -208,4 +221,22 @@ export interface Analysis {
     status: 'completed' | 'processing' | 'recognized';
     severity: 'green' | 'yellow' | 'red';
     items: Array<AnalysisItem>;
+}
+
+// ===== Types: Prescriptions =====
+
+export interface PrescriptionItem {
+    id: string;
+    name: string;
+    medId: string | null;
+    medData: Partial<Med>;
+    scheduleData: Partial<ScheduleItem>;
+    scheduleId: string | null;
+}
+
+export interface Prescription {
+    id: string;
+    date: string;
+    status: 'completed' | 'processing' | 'recognized' | 'in_progress';
+    meds: Array<PrescriptionItem>;
 }

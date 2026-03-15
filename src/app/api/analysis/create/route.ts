@@ -1,4 +1,4 @@
-import { after } from 'next/server';
+import { after, type NextRequest, NextResponse } from 'next/server';
 import { promises as fs } from 'fs';
 import path from 'path';
 import { type AnalysisItem, type Analysis } from '@/types';
@@ -6,6 +6,8 @@ import { AnalysisItemPool } from '@/utils/mocks/analysis';
 import { sleep } from '@/utils/sleep';
 import moment from 'moment';
 import { DATE_FORMAT } from '@/utils/consts';
+import { getUserDataByToken } from '@/utils/getUserDataByToken';
+import { AUTH_COOKIE_NAME } from '../../login/route';
 
 export const dynamic = 'force-dynamic';
 
@@ -93,8 +95,14 @@ async function finalizeAnalysis(analysisId: string): Promise<void> {
     await writeAnalysisFile(nextList);
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try {
+        const userId = (await getUserDataByToken(req.cookies.get(AUTH_COOKIE_NAME)?.value))?.id;
+
+        if (!userId) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
         const formData = await req.formData();
         const file = formData.get('file');
 
@@ -112,8 +120,9 @@ export async function POST(req: Request) {
             );
         }
 
-        const newAnalysis: Analysis = {
+        const newAnalysis: Analysis & { userId: string } = {
             id: crypto.randomUUID(),
+            userId,
             date: moment().format(DATE_FORMAT),
             status: 'processing',
             severity: 'yellow',

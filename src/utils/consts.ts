@@ -27,6 +27,13 @@ export const RowBoxStyles: CSSProperties = {
     gap: 1,
 };
 
+export const PaperStyles: CSSProperties = {
+    ...ColumnBoxStyles,
+    width: '100%',
+    padding: 3,
+    borderRadius: '14px',
+};
+
 export const SymptomsOptions = [
     { grouping: 'General', title: 'Fatigue' },
     { grouping: 'General', title: 'Weakness' },

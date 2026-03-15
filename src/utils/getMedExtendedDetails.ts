@@ -1,14 +1,22 @@
-import { type Med, MedStockStatus, type ScheduleItem, ScheduleType } from '@/types';
+import {
+    type Med,
+    MedRemainingTime,
+    MedStockStatus,
+    type ScheduleItem,
+    ScheduleType,
+} from '@/types';
 import { PALETTE } from './theme/colors';
 import { DOT } from './consts';
 import moment from 'moment';
 
 export const getMedStockStatus = (
-    remaining: number
+    remaining: number,
+    remainingTime: string | MedRemainingTime
 ): { stockLabel: string; stockColor: string } => {
-    if (!remaining) return { stockLabel: MedStockStatus.Empty, stockColor: PALETTE.ERROR };
+    if (!remaining || remainingTime === MedRemainingTime.Expired)
+        return { stockLabel: MedStockStatus.Expired, stockColor: PALETTE.ERROR };
 
-    if (remaining <= 20) {
+    if (remaining <= 20 || remainingTime === MedRemainingTime.Refill) {
         return { stockLabel: MedStockStatus.Expiring, stockColor: PALETTE.ERROR };
     } else if (remaining <= 40) {
         return { stockLabel: MedStockStatus.Low, stockColor: PALETTE.WARNING };
@@ -23,8 +31,10 @@ export const getMedUnitDetails = (med: Med, includeDose = true) => {
 
 export const isDateExpired = (date: string | undefined) =>
     date ? moment(date).diff(moment(), 'days') < 0 : false;
-export const isDateExpiring = (date: string | undefined) =>
-    date ? moment(date).diff(moment(), 'days') <= 20 : false;
+export const isDateExpiring = (date: string | undefined) => {
+    const diff = moment(date).diff(moment(), 'days');
+    return date ? diff <= 30 && diff > 0 : false;
+};
 
 const daysIncrement = {
     [ScheduleType.EveryDay]: 1,
@@ -33,15 +43,15 @@ const daysIncrement = {
     [ScheduleType.EveryMonth]: 30,
 };
 
-export const getMedRemainingTime = (med: Med, schedule: ScheduleItem | undefined) => {
-    if (!med.remaining && !isDateExpired(schedule?.endDate)) return 'Needs refill';
-    if (isDateExpired(med?.expirationDate)) return 'Expired';
+export function getMedRemainingTime(med: Med, schedule: ScheduleItem | undefined) {
+    if (!med.remaining && !isDateExpired(schedule?.endDate)) return MedRemainingTime.Refill;
+    if (isDateExpired(med?.expirationDate)) return MedRemainingTime.Expired;
     if (
         schedule?.type === ScheduleType.SpecificDate ||
         isDateExpired(schedule?.endDate) ||
         !Array.isArray(schedule?.time)
     )
-        return 'As needed';
+        return MedRemainingTime.AsNeeded;
 
     let remaining = med.remaining;
     let daysLeft = 0;
@@ -58,7 +68,7 @@ export const getMedRemainingTime = (med: Med, schedule: ScheduleItem | undefined
 
     daysLeft = daysLeft / schedule.time.length;
 
-    if (daysLeft <= 7) return 'Needs refill';
+    if (daysLeft <= 7) return MedRemainingTime.Refill;
 
     return `~${moment.duration(daysLeft, 'days').humanize()}`;
-};
+}

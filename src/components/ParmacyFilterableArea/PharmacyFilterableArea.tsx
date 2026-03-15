@@ -1,6 +1,6 @@
 'use client';
 
-import { type Med, MedStockStatus, type ScheduleItem } from '@/types';
+import { type Med, MedRemainingTime, MedStockStatus, type ScheduleItem } from '@/types';
 import { ColumnBoxStyles } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import {
@@ -16,20 +16,27 @@ import { PharmacyListItem } from '../PharmacyListItem/PharmacyListItem';
 import SearchIcon from '@mui/icons-material/Search';
 import { memo, useState, type FC, type ChangeEvent, useMemo } from 'react';
 import { useI18n } from '../I18nProvider';
-import { getMedRemainingTime, getMedStockStatus } from '@/utils/getMedExtendedDetails';
+import {
+    getMedRemainingTime,
+    getMedStockStatus,
+    isDateExpired,
+    isDateExpiring,
+} from '@/utils/getMedExtendedDetails';
+import { enumToOptions } from '../Forms/utils/enumToOptions';
 
 interface IPharmacyFilterableAreaProps {
     meds: Med[];
     schedules: ScheduleItem[];
 }
 
-const FILTER_OPTIONS = [
-    'All items',
-    MedStockStatus.Empty,
-    MedStockStatus.Expiring,
-    MedStockStatus.Low,
-    MedStockStatus.Good,
-];
+enum FilterOptions {
+    All = 'All Items',
+    Attention = 'Needs Attention',
+    Expired = 'Expired',
+    LowStock = 'Low Stock',
+    InStock = 'In Stock',
+}
+const FILTER_OPTIONS = enumToOptions(FilterOptions).map((option) => option.display);
 
 const tabStyles: CSSProperties = {
     backgroundColor: PALETTE.BRAND_WHITE,
@@ -60,19 +67,6 @@ export const PharmacyFilterableArea: FC<IPharmacyFilterableAreaProps> = memo(
             setSearchTerm(e.target.value.trim());
         };
 
-        const filteredMeds = useMemo(() => {
-            return meds
-                .filter((med) => {
-                    return med.name.toLowerCase().includes(searchTerm.toLowerCase());
-                })
-                .filter((med) => {
-                    if (activeFilter === FILTER_OPTIONS[0]) return true;
-
-                    const medStockStatus = getMedStockStatus(med.remaining).stockLabel;
-                    return medStockStatus === activeFilter;
-                });
-        }, [meds, searchTerm, activeFilter]);
-
         const medsRemainingTime = useMemo(() => {
             return meds.reduce((acc: { [key: string]: string }, med) => {
                 const medSchedule = schedules?.find((schedule) => schedule.medId === med.id);
@@ -81,6 +75,51 @@ export const PharmacyFilterableArea: FC<IPharmacyFilterableAreaProps> = memo(
                 return acc;
             }, {});
         }, [meds, schedules]);
+
+        const filteredMeds = useMemo(() => {
+            return meds
+                .filter((med) => {
+                    return med.name.toLowerCase().includes(searchTerm.toLowerCase());
+                })
+                .filter((med) => {
+                    const medStockStatus = getMedStockStatus(
+                        med.remaining,
+                        medsRemainingTime[med.id]
+                    ).stockLabel;
+
+                    const expired = isDateExpired(med?.expirationDate) || !med.remaining;
+
+                    const needsAttention =
+                        !expired &&
+                        (medStockStatus === MedStockStatus.Expiring ||
+                            isDateExpiring(med?.expirationDate) ||
+                            (med.remaining &&
+                                medsRemainingTime[med.id] === MedRemainingTime.Refill));
+
+                    switch (activeFilter) {
+                        case FilterOptions.Expired:
+                            return expired;
+
+                        case FilterOptions.Attention:
+                            return needsAttention;
+
+                        case FilterOptions.LowStock:
+                            return (
+                                !expired && !needsAttention && medStockStatus === MedStockStatus.Low
+                            );
+
+                        case FilterOptions.InStock:
+                            return (
+                                !expired &&
+                                !needsAttention &&
+                                medStockStatus === MedStockStatus.Good
+                            );
+
+                        default:
+                            return true;
+                    }
+                });
+        }, [meds, medsRemainingTime, searchTerm, activeFilter]);
 
         return (
             <>
@@ -124,11 +163,16 @@ export const PharmacyFilterableArea: FC<IPharmacyFilterableAreaProps> = memo(
                 <Box sx={{ ...ColumnBoxStyles }}>
                     {filteredMeds.length ? (
                         filteredMeds.map((med) => {
+                            const medStock = getMedStockStatus(
+                                med.remaining,
+                                medsRemainingTime[med.id]
+                            );
                             return (
                                 <PharmacyListItem
                                     key={med.id}
                                     med={med}
                                     medRemainingTime={medsRemainingTime[med.id]}
+                                    medStock={medStock}
                                 />
                             );
                         })

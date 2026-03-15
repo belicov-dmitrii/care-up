@@ -1,5 +1,5 @@
 import { type IntakeEvent, type Med } from '@/types';
-import { addTrailingZero } from '@/utils/formatData';
+import { formatTime } from '@/utils/formatData';
 import { Box, IconButton, Paper, Typography } from '@mui/material';
 import { type FC } from 'react';
 import { type DayMedsSchedule } from './ScheduleTabs';
@@ -168,7 +168,7 @@ const MedItem = ({
             }}
             onClick={goToItem}
         >
-            <Box p={4}>{`${addTrailingZero(hours)}:${addTrailingZero(minutes)}`}</Box>
+            <Box p={4}>{`${formatTime(hours, minutes)}`}</Box>
             <Box sx={{ flex: '1' }}>
                 <Typography>{med.name}</Typography>
                 <Typography>{`${med.strength} ${med.unit}`}</Typography>

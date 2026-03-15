@@ -3,7 +3,9 @@ import { PALETTE } from '@/utils/theme/colors';
 import { alpha, Box } from '@mui/material';
 import { type FC, memo } from 'react';
 
-const DOC_STATUS: Record<Analysis['status'], Record<'text' | 'container' | 'title', string>> = {
+type StatusType = Analysis['status'] | 'in_progress';
+
+const DOC_STATUS: Record<StatusType, Record<'text' | 'container' | 'title', string>> = {
     completed: {
         text: PALETTE.SUCCESS,
         container: alpha(PALETTE.SUCCESS, 0.15),
@@ -19,9 +21,14 @@ const DOC_STATUS: Record<Analysis['status'], Record<'text' | 'container' | 'titl
         container: PALETTE.ICON_CONTAINER_YELLOW,
         title: 'Recognized',
     },
+    in_progress: {
+        text: PALETTE.ICON_DARK_GREEN,
+        container: PALETTE.ICON_CONTAINER_DARK_GREEN,
+        title: 'In Progress',
+    },
 };
 
-export const DocsStatus: FC<{ status: Analysis['status'] }> = memo(({ status }) => {
+export const DocsStatus: FC<{ status: StatusType }> = memo(({ status }) => {
     const statusProps = DOC_STATUS[status];
 
     return (
