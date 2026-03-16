@@ -1,7 +1,7 @@
 import { type FormFields } from '@/components/Forms/FormElement';
 import { type NewUserDataType } from './types';
 
-const SEX_OPTIONS = [
+export const SEX_OPTIONS = [
     {
         value: 'M',
         display: 'Man',

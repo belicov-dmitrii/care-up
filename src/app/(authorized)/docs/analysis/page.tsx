@@ -12,7 +12,7 @@ export default async function AnalysisPage() {
     const analysis = await getAnalysis();
 
     return (
-        <Container>
+        <Container sx={{ p: 3, pt: 4 }}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="h1">{t('Analysis')}</Typography>
                 <AddAnalysisOrPrescription type="analysis" />

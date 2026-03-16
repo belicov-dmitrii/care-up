@@ -14,8 +14,8 @@ export default async function Pharmacy() {
     if (!meds?.length) return <div>No meds</div>;
 
     return (
-        <Container sx={{ ...ColumnBoxStyles, padding: 3 }}>
-            <Typography variant="h1" fontWeight={600}>
+        <Container sx={{ ...ColumnBoxStyles, padding: 3, pt: 4 }}>
+            <Typography variant="h1" fontWeight={600} mb={2}>
                 {t('Pharmacy')}
             </Typography>
             <PharmacyMenu />

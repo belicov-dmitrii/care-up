@@ -152,7 +152,10 @@ export default function RegistrationPage() {
         >
             <Box textAlign="center">
                 <Typography variant="h3" fontSize="14px" color="text.secondary" mb={1}>
-                    { t('Step {step} of {steps}', { step: currentStep + 1, steps: registrationSteps.length }) }
+                    {t('Step {step} of {steps}', {
+                        step: currentStep + 1,
+                        steps: registrationSteps.length,
+                    })}
                 </Typography>
                 <LinearProgress
                     variant="determinate"

@@ -11,7 +11,7 @@ import { registrationValidationSchema } from '@/components/Registration/utils/re
 const dataPath = (...parts: string[]) => path.join(process.cwd(), 'data', ...parts);
 const usersFilePath = dataPath('users.json');
 
-const ensureDataFileExists = async () => {
+export const ensureDataFileExists = async () => {
     await fs.mkdir(dataPath(), { recursive: true });
 
     try {
@@ -21,7 +21,7 @@ const ensureDataFileExists = async () => {
     }
 };
 
-const readUsers = async (): Promise<UserData[]> => {
+export const readUsers = async (): Promise<UserData[]> => {
     await ensureDataFileExists();
 
     const file = await fs.readFile(usersFilePath, 'utf-8');
@@ -34,11 +34,11 @@ const readUsers = async (): Promise<UserData[]> => {
     }
 };
 
-const writeUsers = async (users: UserData[]) => {
+export const writeUsers = async (users: UserData[]) => {
     await fs.writeFile(usersFilePath, JSON.stringify(users, null, 4), 'utf-8');
 };
 
-const hashPassword = (password: string): string => {
+export const hashPassword = (password: string): string => {
     const salt = randomUUID();
     const hash = scryptSync(password, salt, 64).toString('hex');
     return `${salt}:${hash}`;

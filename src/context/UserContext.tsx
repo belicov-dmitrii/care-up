@@ -1,6 +1,6 @@
 'use client';
 
-import { type ILoginResponse } from '@/components/LoginForm/utils/types';
+import { type UserData } from '@/types';
 import { NetworkRequest } from '@/utils/NetworkRequest';
 import { noop } from '@/utils/noop';
 import { redirect } from 'next/navigation';
@@ -17,8 +17,8 @@ import {
 } from 'react';
 
 interface IUserContext {
-    userData: ILoginResponse | null;
-    changeUserData: (userData: ILoginResponse | null) => void;
+    userData: UserData | null;
+    changeUserData: (userData: UserData | null) => void;
     logout: () => void;
 }
 
@@ -31,11 +31,11 @@ const defaultValue: IUserContext = {
 const UserContext = createContext<IUserContext>(defaultValue);
 
 export const UserContextProvider: FC<PropsWithChildren> = memo(({ children }) => {
-    const [userData, setUserData] = useState<ILoginResponse | null>(null);
+    const [userData, setUserData] = useState<UserData | null>(null);
 
     useEffect(() => {
         (async () => {
-            const { data, ok } = await NetworkRequest<ILoginResponse>('/token');
+            const { data, ok } = await NetworkRequest<UserData>('/token');
 
             if (!ok) {
                 return;
@@ -60,7 +60,7 @@ export const UserContextProvider: FC<PropsWithChildren> = memo(({ children }) =>
         })();
     }, [userData?.id]);
 
-    const changeUserData = useCallback((userData: ILoginResponse | null) => {
+    const changeUserData = useCallback((userData: UserData | null) => {
         setUserData(userData);
     }, []);
 

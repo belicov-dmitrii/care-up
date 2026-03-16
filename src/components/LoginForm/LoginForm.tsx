@@ -14,9 +14,9 @@ import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { logError } from '@/utils/logError';
 import { NetworkRequest } from '@/utils/NetworkRequest';
-import { type ILoginResponse } from './utils/types';
 import { useUserContext } from '@/context/UserContext';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { type UserData } from '@/types';
 
 export const LoginForm = memo(() => {
     const router = useRouter();
@@ -38,7 +38,7 @@ export const LoginForm = memo(() => {
                 return;
             }
 
-            const { data, ok } = await NetworkRequest<ILoginResponse>(
+            const { data, ok } = await NetworkRequest<UserData>(
                 '/login',
                 {
                     email,

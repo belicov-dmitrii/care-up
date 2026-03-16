@@ -6,7 +6,7 @@ import type { Metadata } from 'next';
 import { Inter, Roboto_Mono } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { UserContextProvider } from '@/context/UserContext';
-// import { Header } from '@/components/Header/Header';
+import { Header } from '@/components/Header/Header';
 import '@/styles/imports.css';
 import '@/styles/globals.scss';
 import '@/styles/embla.css';
@@ -58,7 +58,7 @@ export default async function RootLayout({
                         <NotificationSync />
                         <I18nProvider dict={dict} lang={lang}>
                             <Box className="main-container">
-                                {/* <Header /> */}
+                                <Header />
                                 {children}
                             </Box>
                             <Box color="text.secondary" className="footer" component="footer">
