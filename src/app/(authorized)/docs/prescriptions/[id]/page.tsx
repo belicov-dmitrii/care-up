@@ -20,7 +20,7 @@ export default async function PrescriptionItemPage({
 
     if (!prescription) {
         return (
-            <Container>
+            <Container sx={{ p: 3, pt: 4 }}>
                 <Link href="/docs/analysis">
                     <IconButton
                         sx={{
@@ -47,7 +47,7 @@ export default async function PrescriptionItemPage({
     );
 
     return (
-        <Container>
+        <Container sx={{ p: 3, pt: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <Link href="/docs/prescriptions">
                     <IconButton

@@ -27,7 +27,7 @@ export default async function Dashboards() {
     const todaySchedules = getTodaySchedule(meds, schedules, todayEvents);
 
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', gap: 3, padding: 3 }}>
+        <Container sx={{ display: 'flex', flexDirection: 'column', gap: 3, padding: 3, pt: 4 }}>
             <PushNotificationGuard />
             <DashboardHeader schedulesCount={todaySchedules.length} />
             {!!todaySchedules?.length ? <NextIntake schedule={todaySchedules[0]} /> : ''}

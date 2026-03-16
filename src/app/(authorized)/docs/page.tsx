@@ -27,7 +27,7 @@ export default async function DocsPage() {
     const t = await getServerT();
 
     return (
-        <Container sx={{ display: 'flex', flexDirection: 'column', gap: 3, padding: 3 }}>
+        <Container sx={{ display: 'flex', flexDirection: 'column', gap: 3, padding: 3, pt: 4 }}>
             <Stack textAlign="center">
                 <Typography variant="h1" mb={2}>
                     {t('Medication Plan')}

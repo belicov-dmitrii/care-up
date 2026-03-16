@@ -26,7 +26,7 @@ export default async function AnalysisItemPage({ params }: AnalysisItemPageProps
 
     if (!analysis || !itemId || !selectedItem) {
         return (
-            <Container>
+            <Container sx={{ p: 3, pt: 4 }}>
                 <Link href="/docs/analysis">
                     <IconButton
                         sx={{
@@ -46,7 +46,7 @@ export default async function AnalysisItemPage({ params }: AnalysisItemPageProps
     }
 
     return (
-        <Container>
+        <Container sx={{ p: 3, pt: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
                 <Link href={`/docs/analysis/${analysis.id}`}>
                     <IconButton

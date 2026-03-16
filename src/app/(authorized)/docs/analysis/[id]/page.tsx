@@ -16,7 +16,7 @@ export default async function AnalysisPage({ params }: { params: Promise<{ id: s
 
     if (!analysis) {
         return (
-            <Container>
+            <Container sx={{ p: 3, pt: 4 }}>
                 <Link href="/docs/analysis">
                     <IconButton
                         sx={{
@@ -36,7 +36,7 @@ export default async function AnalysisPage({ params }: { params: Promise<{ id: s
     }
 
     return (
-        <Container>
+        <Container sx={{ p: 3, pt: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
                 <Link href="/docs/analysis">
                     <IconButton

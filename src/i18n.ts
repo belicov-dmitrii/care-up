@@ -9,7 +9,14 @@ export async function getDict(locale: Locale) {
 
     return {
         dict: mod.default,
-        t: (str: string) => mod.default[str] ?? str,
+        t: (key: string, vars?: Record<string, unknown>) => {
+            let s = mod.default[key] ?? key;
+
+            if (vars)
+                for (const [k, v] of Object.entries(vars))
+                    s = s.replace(new RegExp(`{${k}}`, 'g'), String(v));
+            return s;
+        },
     };
 }
 
