@@ -1,23 +1,24 @@
 'use client';
 
-import { ILoginResponse } from '@/components/LoginForm/utils/types';
-import { NetworkRequest } from '@/utils.ts/NetworkRequest';
-import { noop } from '@/utils.ts/noop';
+import { type UserData } from '@/types';
+import { NetworkRequest } from '@/utils/NetworkRequest';
+import { noop } from '@/utils/noop';
 import { redirect } from 'next/navigation';
 import {
     createContext,
-    FC,
+    type FC,
     memo,
-    PropsWithChildren,
+    type PropsWithChildren,
     useCallback,
     useContext,
+    useEffect,
     useMemo,
     useState,
 } from 'react';
 
 interface IUserContext {
-    userData: ILoginResponse | null;
-    changeUserData: (userData: ILoginResponse | null) => void;
+    userData: UserData | null;
+    changeUserData: (userData: UserData | null) => void;
     logout: () => void;
 }
 
@@ -30,9 +31,36 @@ const defaultValue: IUserContext = {
 const UserContext = createContext<IUserContext>(defaultValue);
 
 export const UserContextProvider: FC<PropsWithChildren> = memo(({ children }) => {
-    const [userData, setUserData] = useState<ILoginResponse | null>(null);
+    const [userData, setUserData] = useState<UserData | null>(null);
 
-    const changeUserData = useCallback((userData: ILoginResponse | null) => {
+    useEffect(() => {
+        (async () => {
+            const { data, ok } = await NetworkRequest<UserData>('/token');
+
+            if (!ok) {
+                return;
+            }
+
+            setUserData(data);
+        })();
+    }, []);
+
+    useEffect(() => {
+        if (userData?.id) {
+            return;
+        }
+
+        (async () => {
+            const OneSignal = (
+                window as unknown as Record<string, { login: (id: string) => Promise<void> }>
+            ).OneSignal;
+            if (!OneSignal || !userData?.id) return;
+
+            await OneSignal.login(userData?.id);
+        })();
+    }, [userData?.id]);
+
+    const changeUserData = useCallback((userData: UserData | null) => {
         setUserData(userData);
     }, []);
 

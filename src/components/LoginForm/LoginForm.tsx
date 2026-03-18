@@ -12,14 +12,15 @@ import {
 } from '@mui/material';
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { logError } from '@/utils.ts/logError';
-import { NetworkRequest } from '@/utils.ts/NetworkRequest';
-import { ILoginResponse } from './utils/types';
+import { logError } from '@/utils/logError';
+import { NetworkRequest } from '@/utils/NetworkRequest';
 import { useUserContext } from '@/context/UserContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { type UserData } from '@/types';
 
 export const LoginForm = memo(() => {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -37,7 +38,7 @@ export const LoginForm = memo(() => {
                 return;
             }
 
-            const { data, ok } = await NetworkRequest<ILoginResponse>(
+            const { data, ok } = await NetworkRequest<UserData>(
                 '/login',
                 {
                     email,
@@ -51,13 +52,13 @@ export const LoginForm = memo(() => {
             }
 
             changeUserData(data);
-            router.replace('/dashboard');
+            router.replace(searchParams.get('next') ?? '/dashboard');
         } catch (error) {
             logError(error);
         } finally {
             setIsSubmitting(false);
         }
-    }, [changeUserData, email, password, router]);
+    }, [changeUserData, email, password, router, searchParams]);
 
     return (
         <Box position="relative">
@@ -107,11 +108,8 @@ export const LoginForm = memo(() => {
                 color="primary"
                 fullWidth
                 disabled={!email || !password}
-                sx={{
-                    mt: 1,
-                    minHeight: 56,
-                    fontSize: 16,
-                }}
+                sx={{ mt: 2 }}
+                size="large"
                 onClick={submit}
             >
                 Continue

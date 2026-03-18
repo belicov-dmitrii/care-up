@@ -1,0 +1,39 @@
+export const PALETTE = {
+    BRAND_TEAL: '#2F6B66',
+    BRAND_TEAL_DARK: '#245652',
+    BRAND_TEAL_LIGHT: '#eaefef',
+    BRAND_TEAL_DARK_PALE: '#9AA6A6',
+    BRAND_WHITE: '#FFFFFF',
+    BRAND_BLACK: '#1c1f1f',
+    BRAND_GREY: '#5F6a6a',
+
+    BG_PAGE: '#F5F7F6',
+    BG_SURFACE: '#FFFFFF',
+
+    TEXT_PRIMARY: '#1c1f1f',
+    TEXT_SECONDARY: '#5F6a6a',
+    TEXT_SUCCESS: '#6DAA7B',
+
+    NEUTRAL_SLATE_400: '#94A3B8',
+    WARM_WHITE: '#f2f1ea',
+
+    BROWN: '#5C4A26',
+
+    WARNING: '#9D7531',
+    SUCCESS: '#4A7D56',
+    ERROR: '#9A4D4D',
+
+    SHADOW_BASE_RGB: '15, 23, 42',
+
+    BUTTON_BG_TEAL: '#8fb9a826',
+    BUTTON_BG_LAVANDER: '#b8a6c926',
+
+    ICON_CONTAINER_YELLOW: '#d1a75c1a',
+    ICON_CONTAINER_DARK_GREEN: '#2f6a6c0d',
+
+    ICON_DARK_GREEN: '#2f6a6c',
+    ICON_YELLOW: '#d1a75c',
+
+    ICON_GREEN: '#588A75',
+    ICON_PURPLE: '#8C72A6',
+} as const;

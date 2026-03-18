@@ -1,0 +1,26 @@
+[
+    {
+        "id": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+        "token": "eb0ce288-cdc7-41cb-9915-950aa27bd831",
+        "name": "Дмитрий",
+        "email": "test@test.com",
+        "password": "0bccb2cb-d4ef-4594-aaef-0d2a36e50459:0898c555ef5bb983734319ae154178cc9f3a3413a04e2471ca61bd9d5a7a4c36aa1abfc597944a96494f571a044efaf80fd1af57649fefd402eda5b93216f605",
+        "sex": "M",
+        "age": 29,
+        "height": 196,
+        "weight": 80,
+        "pregnant": false,
+        "breastfeeding": false,
+        "smoking": true,
+        "drinking": false,
+        "allergies": [
+            "fools",
+            "Black Panther"
+        ],
+        "diseases": [
+            "Spider-Main"
+        ],
+        "createdAt": "2026-03-09T22:36:47.766Z",
+        "updatedAt": "2026-03-09T22:36:47.766Z"
+    }
+]
