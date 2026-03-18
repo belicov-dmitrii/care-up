@@ -6,7 +6,7 @@ export const getServerAPI = async (url: string) => {
     const cookie = await cookies();
 
     const host = h.get('host');
-    const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'https';
+    const protocol = process.env.NODE_ENV === 'development' ? 'http' : 'http';
 
     return {
         link: `${protocol}://${host}/api/${url}`,

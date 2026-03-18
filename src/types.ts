@@ -48,7 +48,6 @@ export type Med = {
     dose: number;
     remaining: number;
     expirationDate: string | undefined;
-    quantity: number;
 };
 // ===== Enums: Schedule =====
 
