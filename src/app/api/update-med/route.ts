@@ -12,7 +12,6 @@ type UpdateMedBody = Partial<Omit<Med, 'userId'>> & { id: string };
 const allowedKeys: (keyof UpdateMedBody)[] = [
     'id',
     'remaining',
-    'quantity',
     'unit',
     'dose',
     'expirationDate',
@@ -28,7 +27,6 @@ const UpdateMedValueTypes: Record<keyof UpdateMedBody, 'string' | 'number' | Med
     unit: 'string' as MedUnit,
     form: 'string' as MedForm,
     expirationDate: 'string',
-    quantity: 'number',
     remaining: 'number',
     strength: 'number',
 };

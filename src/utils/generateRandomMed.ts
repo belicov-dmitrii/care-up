@@ -38,7 +38,6 @@ export function generateRandomMed(): Partial<Omit<Med, 'id'>> & { name: string }
         unit: randomFromArray(Object.values(MedUnit)),
         dose: randomNumber(1, 5),
         remaining: randomNumber(0, 100),
-        quantity: randomNumber(10, 500),
     };
 
     const optionalKeys: (keyof Omit<Med, 'id' | 'name' | 'userId' | 'expirationDate'>)[] = [
@@ -47,7 +46,6 @@ export function generateRandomMed(): Partial<Omit<Med, 'id'>> & { name: string }
         'unit',
         'dose',
         'remaining',
-        'quantity',
     ];
 
     const count = randomNumber(3, optionalKeys.length);

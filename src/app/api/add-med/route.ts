@@ -54,7 +54,6 @@ export async function POST(req: NextRequest) {
             unit: body.unit,
             dose: body.dose,
             remaining: body.remaining,
-            quantity: body.quantity,
             expirationDate: body.expirationDate,
         };
 
