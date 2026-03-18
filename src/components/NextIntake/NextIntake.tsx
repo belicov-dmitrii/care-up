@@ -5,12 +5,17 @@ import { Paper, Stack, Chip, Typography, Button, IconButton } from '@mui/materia
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { formatTime } from '@/utils/formatData';
-import { DOT } from '@/utils/consts';
+import { DATE_FORMAT, DOT } from '@/utils/consts';
 import { PALETTE } from '@/utils/theme/colors';
 import { useI18n } from '../I18nProvider';
-import { type Med } from '@/types';
+import { type IntakeEvent, type Med } from '@/types';
 import { type DashboardItemWithMedType } from '@/utils/sortAndFilterMeds';
 import { getMedFormToDoseUnit } from '@/utils/getMedFormToDoseUnit';
+import { useRouter } from 'next/navigation';
+import { NetworkRequest } from '@/utils/NetworkRequest';
+import moment from 'moment';
+import { encodeIdWithDate } from '@/utils/eventsEncoder';
+import Link from 'next/link';
 
 interface INextIntakeProps {
     schedule: DashboardItemWithMedType;
@@ -19,8 +24,35 @@ interface INextIntakeProps {
 export const NextIntake: FC<INextIntakeProps> = memo(({ schedule }) => {
     const { t } = useI18n();
     const { med, hours, minutes } = schedule;
+    const router = useRouter();
 
     const dose = schedule.dose[schedule['timeId']] || 0;
+
+    const id = encodeIdWithDate(schedule.scheduleByTimeId, moment().format(DATE_FORMAT));
+
+    const submitEvent = async () => {
+        const newEvent: Omit<IntakeEvent, 'userId'> = {
+            id,
+            status: 'taken',
+            medId: schedule.medId,
+            medName: med.name,
+            time: formatTime(schedule.hours, schedule.minutes),
+            medStrenght: `${med.strength} ${med.unit}`,
+            scheduleId: schedule.id,
+            scheduleTimeId: schedule.timeId,
+            eventDate: moment().format(DATE_FORMAT),
+            symptoms: [],
+            createdAt: new Date().toISOString(),
+            updatedAt: null,
+        };
+
+        const { ok } = await NetworkRequest('/intake-event', { ...newEvent }, { method: 'POST' });
+
+        if (!ok) {
+            return;
+        }
+        router.refresh();
+    };
 
     return (
         <Paper
@@ -55,20 +87,24 @@ export const NextIntake: FC<INextIntakeProps> = memo(({ schedule }) => {
                 size="small"
             />
             <Stack direction="row" gap={1} marginTop={2}>
-                <Button variant="contained" fullWidth>
+                <Button variant="contained" fullWidth onClick={submitEvent}>
                     {t('Mark as taken')}
                 </Button>
-                <IconButton
-                    size="small"
-                    sx={{
-                        width: 48,
-                        height: 48,
-                        backgroundColor: PALETTE.BRAND_WHITE,
-                        color: PALETTE.BRAND_BLACK,
-                    }}
+                <Link
+                    href={`/dashboard/${encodeIdWithDate(schedule.scheduleByTimeId, moment().format(DATE_FORMAT))}`}
                 >
-                    <ArrowForwardIosIcon />
-                </IconButton>
+                    <IconButton
+                        size="small"
+                        sx={{
+                            width: 48,
+                            height: 48,
+                            backgroundColor: PALETTE.BRAND_WHITE,
+                            color: PALETTE.BRAND_BLACK,
+                        }}
+                    >
+                        <ArrowForwardIosIcon />
+                    </IconButton>
+                </Link>
             </Stack>
         </Paper>
     );

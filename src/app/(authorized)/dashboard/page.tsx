@@ -13,6 +13,7 @@ import PushNotificationGuard from '@/components/Subscription/EnablePushButton';
 import moment from 'moment';
 import { getTodayEvents } from '@/utils/requests/getTodayEvents';
 import { DATE_FORMAT } from '@/utils/consts';
+import { getNextIntake } from '@/utils/getNextIntake';
 
 const hasAlerts = true;
 
@@ -26,11 +27,13 @@ export default async function Dashboards() {
     );
     const todaySchedules = getTodaySchedule(meds, schedules, todayEvents);
 
+    const nextIntake = getNextIntake(todaySchedules, todayEvents);
+
     return (
         <Container sx={{ display: 'flex', flexDirection: 'column', gap: 3, padding: 3, pt: 4 }}>
             <PushNotificationGuard />
             <DashboardHeader schedulesCount={todaySchedules.length} />
-            {!!todaySchedules?.length ? <NextIntake schedule={todaySchedules[0]} /> : ''}
+            {nextIntake && <NextIntake schedule={nextIntake} />}
             {hasAlerts && (
                 <Alert
                     sx={{
