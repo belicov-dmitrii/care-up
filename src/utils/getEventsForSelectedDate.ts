@@ -99,7 +99,7 @@ export function getEventsForSelectedDate(
 
         if (!scheduleOccursOnDate(schedule, selected)) continue;
 
-        events = splitScheduleByTime(schedule);
+        events = [...events, ...splitScheduleByTime(schedule)];
     }
 
     events = events.map((event) => {

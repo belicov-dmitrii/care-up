@@ -7,6 +7,7 @@ import { AddMedicationSteps } from './utils/AddMedicationSteps';
 import { AddMedicationStepChooser } from './utils/types';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { PALETTE } from '@/utils/theme/colors';
+import { useRouter } from 'next/navigation';
 
 interface IAddMedicationProps {
     open: boolean;
@@ -16,6 +17,7 @@ interface IAddMedicationProps {
 export const AddMedication: FC<IAddMedicationProps> = memo(({ open, onClose }) => {
     const [step, setStep] = useState(AddMedicationStepChooser.AddMedication);
     const [medData, setMedData] = useState<Partial<Med>>({});
+    const router = useRouter();
 
     const Component = AddMedicationSteps[step].content;
 
@@ -37,11 +39,16 @@ export const AddMedication: FC<IAddMedicationProps> = memo(({ open, onClose }) =
         }
     }, [open]);
 
+    const onCloseAndRefresh = useCallback(() => {
+        onClose();
+        router.refresh();
+    }, [onClose, router]);
+
     return (
         <Drawer
             anchor="right"
             open={open}
-            onClose={onClose}
+            onClose={onCloseAndRefresh}
             slotProps={{
                 paper: {
                     sx: { width: '100%' },
@@ -55,7 +62,7 @@ export const AddMedication: FC<IAddMedicationProps> = memo(({ open, onClose }) =
                 sx={{ display: 'flex', flexDirection: 'column' }}
             >
                 <Box mb={3}>
-                    <IconButton onClick={onClose} sx={{ padding: 0, color: '#000' }}>
+                    <IconButton onClick={onCloseAndRefresh} sx={{ padding: 0, color: '#000' }}>
                         <ArrowBackIcon />
                     </IconButton>
                 </Box>
@@ -64,7 +71,7 @@ export const AddMedication: FC<IAddMedicationProps> = memo(({ open, onClose }) =
                         setStep={setStep}
                         medData={medData}
                         changeMedData={changeMedData}
-                        closeMedicationDrawer={onClose}
+                        closeMedicationDrawer={onCloseAndRefresh}
                     />
                 </Box>
             </Box>

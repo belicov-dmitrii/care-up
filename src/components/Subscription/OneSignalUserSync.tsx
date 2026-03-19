@@ -18,7 +18,7 @@ export default function OneSignalUserSync() {
 
         window.OneSignalDeferred = window.OneSignalDeferred || [];
         window.OneSignalDeferred.push(async (OneSignal) => {
-            await OneSignal.login(userData?.id);
+            await OneSignal?.login(userData?.id);
         });
     }, [userData?.id]);
 

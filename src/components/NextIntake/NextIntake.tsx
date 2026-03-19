@@ -51,6 +51,7 @@ export const NextIntake: FC<INextIntakeProps> = memo(({ schedule }) => {
         if (!ok) {
             return;
         }
+
         router.refresh();
     };
 

@@ -186,5 +186,104 @@
         "dose": 1,
         "remaining": 20,
         "expirationDate": "2027-03-15"
+    },
+    {
+        "id": "fdea4fd6-e186-4480-88c2-a43dd0c93edf",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Vitamin D3",
+        "form": "Capsules",
+        "strength": 5000,
+        "unit": "IU",
+        "dose": 1,
+        "remaining": 100,
+        "expirationDate": "2026-03-28"
+    },
+    {
+        "id": "1cdef504-efc0-461e-a981-af4cce9e5658",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Omega 3",
+        "form": "Tablets",
+        "strength": 840,
+        "unit": "Mg",
+        "dose": 1,
+        "remaining": 70,
+        "expirationDate": "2026-04-15"
+    },
+    {
+        "id": "53963555-0856-4a61-891f-ccbc8f3961b0",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Selenium",
+        "form": "Tablets",
+        "strength": 100,
+        "unit": "Mcg",
+        "dose": 1,
+        "remaining": 30,
+        "expirationDate": "2026-03-19"
+    },
+    {
+        "id": "44b31a81-a07e-460b-b08b-240975f430fe",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Iron",
+        "form": "Tablets",
+        "strength": 36,
+        "unit": "Mg",
+        "dose": 1,
+        "remaining": 30,
+        "expirationDate": "2026-08-04"
+    },
+    {
+        "id": "2151285f-27a9-4b90-a107-4b7850829f51",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Vitamin C",
+        "form": "FilmCoatedTablets",
+        "strength": 1000,
+        "unit": "Mg",
+        "dose": 1,
+        "remaining": 200,
+        "expirationDate": "2028-09-01"
+    },
+    {
+        "id": "099a4d17-5264-4dcd-bcdd-6cd31b4909a5",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Collagen",
+        "form": "Powders",
+        "strength": 60,
+        "unit": "Mg",
+        "dose": 1,
+        "remaining": 41,
+        "expirationDate": "2028-09-10"
+    },
+    {
+        "id": "c0aec57e-0986-44e0-9b5d-0a7774668b90",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Folic Acid",
+        "form": "Tablets",
+        "strength": 5,
+        "unit": "Mg",
+        "dose": 5,
+        "remaining": 30,
+        "expirationDate": "2026-03-19"
+    },
+    {
+        "id": "af701800-2a58-4b80-82da-4388cc653254",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Amoxicillin",
+        "form": "Caplets",
+        "strength": 3,
+        "unit": "Drops",
+        "dose": 3,
+        "remaining": 2,
+        "expirationDate": "2026-03-20"
+    },
+    {
+        "id": "a2549b74-d354-4109-a9e8-8f5a60caf453",
+        "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+        "name": "Cetirizine",
+        "form": "Tablets",
+        "strength": 500,
+        "unit": "Mcg",
+        "dose": 5,
+        "remaining": 32,
+        "expirationDate": "2027-05-06"
     }
 ]

@@ -3,6 +3,7 @@ import { Box, Paper, Typography, Stack, Avatar, Container, Button } from '@mui/m
 import { Spa } from '@mui/icons-material';
 import { LoginForm } from '@/components/LoginForm/LoginForm';
 import Link from 'next/link';
+import { VideoPlayback } from '@/components/VideoPlayback/VideoPlayback';
 
 export default function AuthLoginPage() {
     return (
@@ -31,21 +32,7 @@ export default function AuthLoginPage() {
                     overflow: 'hidden',
                 }}
             >
-                <video
-                    src="/image_login-gif.mp4"
-                    muted
-                    loop
-                    autoPlay
-                    style={{
-                        position: 'absolute',
-                        top: '0',
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        objectPosition: 'center',
-                    }}
-                />
+                <VideoPlayback />
             </Box>
             <Paper
                 sx={{

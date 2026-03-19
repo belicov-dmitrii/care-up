@@ -29,13 +29,27 @@ export const AnalysisItemAction: FC<IProps> = ({ styles, analysisItem }) => {
                     await NetworkRequest('notifications/create', {
                         text: `Repeat the ${analysisItem.title} test`,
                         url: pathName,
-                        date: moment().add(2, 'weeks').utc().toISOString(),
+                        date: moment()
+                            .add(2, 'weeks')
+                            .set({
+                                hour: 15,
+                                minute: 0,
+                            })
+                            .utc()
+                            .toISOString(),
                     });
                 case 'notificationDoctor':
                     await NetworkRequest('notifications/create', {
                         text: `Repeat the ${analysisItem.title} test`,
                         url: pathName,
-                        date: moment().add(2, 'days').utc().toISOString(),
+                        date: moment()
+                            .add(2, 'days')
+                            .set({
+                                hour: 15,
+                                minute: 0,
+                            })
+                            .utc()
+                            .toISOString(),
                     });
             }
         } catch (_) {}

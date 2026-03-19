@@ -22,5 +22,49 @@
         ],
         "createdAt": "2026-03-09T22:36:47.766Z",
         "updatedAt": "2026-03-09T22:36:47.766Z"
+    },
+    {
+        "id": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "token": "6372a271-95c5-4461-a996-1fb7868ea508",
+        "name": "Patient #0",
+        "email": "test@test.test",
+        "password": "71b5a052-e554-43b4-8ab7-e6e4f4298dda:e649b9ab06a755b48af60a35cc637fa3a995eac0235452eeb5552d389749f697493551d29892a203b771e62d8d9845f2870d5fa472c47943a19abaff1198ac67",
+        "sex": "F",
+        "age": 29,
+        "height": 175,
+        "weight": 58,
+        "pregnant": false,
+        "breastfeeding": false,
+        "smoking": true,
+        "drinking": false,
+        "allergies": [
+            "Sun"
+        ],
+        "diseases": [
+            "Iron Defecite Anemy"
+        ],
+        "createdAt": "2026-03-18T20:51:10.595Z",
+        "updatedAt": "2026-03-18T20:51:10.595Z"
+    },
+    {
+        "id": "5e4ca920-342a-4db2-a83b-e2aa9b042f68",
+        "token": "7e8ede47-3aee-4849-bf4c-077a29e84764",
+        "name": "Дмитрий",
+        "email": "test1@test.com",
+        "password": "98db0844-b445-46f3-96f7-1a52cf6be968:fc4cd0942bfadee1c120fece1140c4e7e3f7f4ef9ad4c2cb5d99e7f649228e3a28945e4918b6eed7f880db332fe731328f25a62c3999ffb0a78a3b2b6ca59882",
+        "sex": "M",
+        "age": 23,
+        "height": 198,
+        "weight": 90,
+        "pregnant": false,
+        "breastfeeding": false,
+        "smoking": true,
+        "drinking": false,
+        "allergies": [
+            "Flowers"
+        ],
+        "diseases": [],
+        "createdAt": "2026-03-19T17:51:24.903Z",
+        "updatedAt": "2026-03-19T17:51:24.903Z"
     }
 ]

@@ -1,5 +1,5 @@
 'use client';
-import { type Med } from '@/types';
+import { MedRemainingTime, type Med } from '@/types';
 import { ColumnBoxStyles, RowBoxStyles } from '@/utils/consts';
 import { Box, alpha, Paper, Typography, Chip, Button } from '@mui/material';
 import LayersIcon from '@mui/icons-material/Layers';
@@ -78,7 +78,7 @@ export const PharmacyListItem: FC<IPharmacyListItemProps> = memo(
                             >{`${med.remaining} ${t('remaining')}`}</Typography>
                         </Box>
                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                            {medRemainingTime}
+                            {medRemainingTime === MedRemainingTime.Expired ? '' : medRemainingTime}
                         </Typography>
                     </Box>
                     <Box

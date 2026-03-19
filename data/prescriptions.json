@@ -1,5 +1,312 @@
 [
   {
+    "id": "f0cd7716-928a-4d10-a145-e21ffd62b375",
+    "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+    "date": "19-03-2026",
+    "status": "recognized",
+    "meds": [
+      {
+        "medData": {
+          "name": "Potassium",
+          "dose": 3,
+          "strength": 656,
+          "unit": "IU",
+          "remaining": 34
+        },
+        "id": "d228d117-dc79-41e9-89bd-8ebf4ad58bc2",
+        "name": "Potassium",
+        "medId": null,
+        "scheduleId": null,
+        "scheduleData": {
+          "time": [
+            {
+              "id": "ee031913-2bda-480a-910e-35524733409b",
+              "hours": 8,
+              "minutes": 0
+            },
+            {
+              "id": "a5da1a26-4047-4bec-9fb4-fdedbd08b5c0",
+              "hours": 23,
+              "minutes": 11
+            }
+          ],
+          "dose": {
+            "ee031913-2bda-480a-910e-35524733409b": 1,
+            "a5da1a26-4047-4bec-9fb4-fdedbd08b5c0": 10
+          },
+          "restriction": [
+            {
+              "type": "Food & Drink Timing",
+              "note": "Avoid coffee before intake",
+              "before": 120,
+              "after": null,
+              "enabled": true
+            }
+          ],
+          "recommendations": [
+            {
+              "id": "a9F3kLm8QxT2vR7zBn4P-1",
+              "category": "Activity Restrictions",
+              "title": "Avoid driving if dizziness occurs",
+              "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
+            }
+          ]
+        }
+      },
+      {
+        "medData": {
+          "name": "Vitamin C",
+          "form": "Syrups",
+          "strength": 251,
+          "remaining": 30,
+          "unit": "units",
+          "dose": 1
+        },
+        "id": "1eb1220d-3819-4912-9a94-4534edc5b00b",
+        "name": "Vitamin C",
+        "medId": null,
+        "scheduleId": null,
+        "scheduleData": {
+          "time": [
+            {
+              "id": "3a999562-f7c0-43a6-8233-979dc9bc4e8a",
+              "hours": 3,
+              "minutes": 43
+            },
+            {
+              "id": "ca512656-086d-490d-aeb1-f417d43e4df5",
+              "hours": 22,
+              "minutes": 29
+            }
+          ],
+          "dose": {
+            "3a999562-f7c0-43a6-8233-979dc9bc4e8a": 2,
+            "ca512656-086d-490d-aeb1-f417d43e4df5": 5
+          },
+          "restriction": [
+            {
+              "type": "Food & Drink Timing",
+              "note": "Avoid coffee before intake",
+              "before": 120,
+              "after": null,
+              "enabled": true
+            }
+          ],
+          "recommendations": [
+            {
+              "id": "a9F3kLm8QxT2vR7zBn4P-1",
+              "category": "Activity Restrictions",
+              "title": "Avoid driving if dizziness occurs",
+              "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
+            }
+          ]
+        }
+      },
+      {
+        "medData": {
+          "name": "Melatonin",
+          "dose": 4,
+          "unit": "IU",
+          "remaining": 35
+        },
+        "id": "093aa207-df9f-4bf2-bb22-fa175fa5a898",
+        "name": "Melatonin",
+        "medId": null,
+        "scheduleId": null,
+        "scheduleData": {
+          "time": [
+            {
+              "id": "a84b87db-c070-4651-bb56-263ddfa10286",
+              "hours": 11,
+              "minutes": 29
+            },
+            {
+              "id": "eeb65d7c-4bec-4b87-9c72-54cbe9b8f37b",
+              "hours": 17,
+              "minutes": 22
+            }
+          ],
+          "dose": {
+            "a84b87db-c070-4651-bb56-263ddfa10286": 3,
+            "eeb65d7c-4bec-4b87-9c72-54cbe9b8f37b": 1
+          },
+          "restriction": [
+            {
+              "type": "Food & Drink Timing",
+              "note": "Avoid coffee before intake",
+              "before": 120,
+              "after": null,
+              "enabled": true
+            }
+          ],
+          "recommendations": [
+            {
+              "id": "a9F3kLm8QxT2vR7zBn4P-1",
+              "category": "Activity Restrictions",
+              "title": "Avoid driving if dizziness occurs",
+              "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
+            }
+          ]
+        }
+      },
+      {
+        "medData": {
+          "name": "Omega-3",
+          "form": "Tablets",
+          "remaining": 61,
+          "strength": 773,
+          "unit": "Tablespoon",
+          "dose": 3
+        },
+        "id": "fbcb5be3-a1c4-4b1e-9c92-57b5a6efc6d5",
+        "name": "Omega-3",
+        "medId": null,
+        "scheduleId": null,
+        "scheduleData": {
+          "time": [
+            {
+              "id": "e05c73c7-bc68-463e-b7b8-f303712563ce",
+              "hours": 8,
+              "minutes": 46
+            },
+            {
+              "id": "1250de08-eb4b-4270-b2eb-cc5088d4ced5",
+              "hours": 23,
+              "minutes": 53
+            }
+          ],
+          "dose": {
+            "e05c73c7-bc68-463e-b7b8-f303712563ce": 1,
+            "1250de08-eb4b-4270-b2eb-cc5088d4ced5": 10
+          },
+          "restriction": [
+            {
+              "type": "Food & Drink Timing",
+              "note": "Avoid coffee before intake",
+              "before": 120,
+              "after": null,
+              "enabled": true
+            }
+          ],
+          "recommendations": [
+            {
+              "id": "a9F3kLm8QxT2vR7zBn4P-1",
+              "category": "Activity Restrictions",
+              "title": "Avoid driving if dizziness occurs",
+              "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "312cecd1-2282-48ee-b31f-5470b3401cd5",
+    "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+    "date": "19-03-2026",
+    "status": "in_progress",
+    "meds": [
+      {
+        "medData": {},
+        "id": "72d6e68a-0108-411a-a4c6-1246761581ac",
+        "name": "Amoxicillin",
+        "medId": "af701800-2a58-4b80-82da-4388cc653254",
+        "scheduleId": null,
+        "scheduleData": {
+          "time": [
+            {
+              "id": "eb372674-a801-4bc2-8f3e-5d16cbb25dcd",
+              "hours": 7,
+              "minutes": 1
+            },
+            {
+              "id": "77d05ca5-2329-4541-ae35-d7a292c381d7",
+              "hours": 15,
+              "minutes": 59
+            }
+          ],
+          "dose": {
+            "eb372674-a801-4bc2-8f3e-5d16cbb25dcd": 1,
+            "77d05ca5-2329-4541-ae35-d7a292c381d7": 6
+          },
+          "restriction": [
+            {
+              "type": "Food & Drink Timing",
+              "note": "Avoid coffee before intake",
+              "before": 120,
+              "after": null,
+              "enabled": true
+            }
+          ],
+          "recommendations": [
+            {
+              "id": "a9F3kLm8QxT2vR7zBn4P-1",
+              "category": "Activity Restrictions",
+              "title": "Avoid driving if dizziness occurs",
+              "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
+            }
+          ]
+        }
+      },
+      {
+        "medData": {},
+        "id": "871f24a1-86cd-4edf-b309-c54afc2f1424",
+        "name": "Folic Acid",
+        "medId": "c0aec57e-0986-44e0-9b5d-0a7774668b90",
+        "scheduleId": "0b347ee4-5259-4ccc-8315-c4b3cb4c1ceb",
+        "scheduleData": {}
+      },
+      {
+        "medData": {
+          "name": "Cetirizine",
+          "unit": "mL",
+          "strength": 123,
+          "remaining": 73,
+          "dose": 3
+        },
+        "id": "01f36089-a7f1-4301-8822-754f0293b2f0",
+        "name": "Cetirizine",
+        "medId": null,
+        "scheduleId": null,
+        "scheduleData": {
+          "time": [
+            {
+              "id": "0f1a7937-a621-4cba-a2ec-c4bffad40d86",
+              "hours": 4,
+              "minutes": 59
+            },
+            {
+              "id": "9d145032-6ad5-4e3e-b5d0-c7544cc75b0c",
+              "hours": 19,
+              "minutes": 46
+            }
+          ],
+          "dose": {
+            "0f1a7937-a621-4cba-a2ec-c4bffad40d86": 1,
+            "9d145032-6ad5-4e3e-b5d0-c7544cc75b0c": 1
+          },
+          "restriction": [
+            {
+              "type": "Food & Drink Timing",
+              "note": "Avoid coffee before intake",
+              "before": 120,
+              "after": null,
+              "enabled": true
+            }
+          ],
+          "recommendations": [
+            {
+              "id": "a9F3kLm8QxT2vR7zBn4P-1",
+              "category": "Activity Restrictions",
+              "title": "Avoid driving if dizziness occurs",
+              "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
     "id": "8ecc8b6f-5c8b-461f-8774-836511659ed3",
     "date": "14-03-2026",
     "status": "completed",

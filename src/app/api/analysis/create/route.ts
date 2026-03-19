@@ -8,6 +8,7 @@ import moment from 'moment';
 import { DATE_FORMAT } from '@/utils/consts';
 import { getUserDataByToken } from '@/utils/getUserDataByToken';
 import { AUTH_COOKIE_NAME } from '../../login/route';
+import { sendNotification } from '@/utils/requests/sendNotification';
 
 export const dynamic = 'force-dynamic';
 
@@ -73,7 +74,7 @@ function getAnalysisSeverity(items: Array<AnalysisItem>): Analysis['severity'] {
     return 'green';
 }
 
-async function finalizeAnalysis(analysisId: string): Promise<void> {
+async function finalizeAnalysis(analysisId: string, userId: string): Promise<void> {
     await sleep(60 * 1000);
 
     const items = getFakeAnalysisItems();
@@ -93,6 +94,11 @@ async function finalizeAnalysis(analysisId: string): Promise<void> {
     });
 
     await writeAnalysisFile(nextList);
+    await sendNotification(userId, {
+        heading: 'Your analysis is ready to check',
+        url: `/docs/analysis/${analysisId}`,
+        text: 'Click here to check it',
+    });
 }
 
 export async function POST(req: NextRequest) {
@@ -135,7 +141,7 @@ export async function POST(req: NextRequest) {
 
         after(async () => {
             try {
-                await finalizeAnalysis(newAnalysis.id);
+                await finalizeAnalysis(newAnalysis.id, userId);
             } catch (error) {
                 console.error('Failed to finalize analysis:', error);
             }
