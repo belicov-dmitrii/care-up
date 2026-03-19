@@ -63,7 +63,7 @@ export const AddAnalysisOrPrescription: FC<{ type: 'analysis' | 'prescriptions' 
         );
 
         return (
-            <Box sx={{ position: 'fixed', right: '20px', bottom: '100px' }}>
+            <Box sx={{ position: 'fixed', right: '20px', bottom: '100px', zIndex: 99 }}>
                 <AddButton onClick={toggleDrawer} />
                 <Drawer
                     anchor="right"

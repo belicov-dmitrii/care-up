@@ -1,4 +1,5 @@
 import { type ScheduleTime, type CreateScheduleBody } from '@/types';
+import { makeCryptoId } from '@/utils/cryptoId';
 import { type ActionDispatch } from 'react';
 
 export type CreateScheduleFormBody = Omit<CreateScheduleBody, 'dose'> & {
@@ -72,7 +73,7 @@ export function createScheduleReducer(
 
         case CreateScheduleActionTypes.AddTime: {
             const [hours, minutes] = payload.split(':');
-            const id = crypto.randomUUID();
+            const id = makeCryptoId();
 
             return {
                 ...state,

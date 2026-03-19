@@ -40,7 +40,7 @@ export const MenuBar = memo(() => {
     const parentPath = '/' + pathName.split('/')[1];
 
     return (
-        <Box>
+        <Box sx={{ position: 'relative', zIndex: 99 }}>
             <BottomNavigation
                 showLabels
                 value={pathName}

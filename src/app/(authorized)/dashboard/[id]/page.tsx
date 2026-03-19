@@ -50,6 +50,8 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
 
     const { med, hours, minutes, recommendations } = medSchedule;
 
+    const dose = medSchedule.dose[medSchedule.timeId];
+
     return (
         <Container sx={{ ...ColumnBoxStyles, textAlign: 'center', gap: 6, p: 3 }}>
             <Box>
@@ -79,7 +81,7 @@ export default async function MedScheduleDetails({ params }: IMedScheduleDetails
                     </Typography>
                 </Stack>
                 <Typography variant="body1" fontWeight={500}>
-                    {getMedFormToDoseUnit(med.form)}
+                    {dose} {getMedFormToDoseUnit(med.form, dose)}
                 </Typography>
             </Box>
             <Box>

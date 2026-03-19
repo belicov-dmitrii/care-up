@@ -1,5 +1,123 @@
 [
   {
+    "id": "1cfbb022-2245-4568-808b-0f92fc92f615",
+    "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
+    "date": "19-03-2026",
+    "status": "completed",
+    "severity": "red",
+    "items": [
+      {
+        "title": "Ferritin",
+        "value": {
+          "amount": 13,
+          "unit": "ng/mL"
+        },
+        "referenceRange": {
+          "min": 15,
+          "max": 150,
+          "unit": "ng/mL"
+        },
+        "severity": "attention",
+        "status": "requiresAction",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Discuss iron stores with your doctor."
+          },
+          {
+            "category": "notification",
+            "title": "Repeat ferritin test in 4–8 weeks if advised."
+          }
+        ],
+        "id": "b2c15fb6-7be0-4723-8bd0-89e9c66d4f12"
+      },
+      {
+        "title": "Hemoglobin",
+        "value": {
+          "amount": 125,
+          "unit": "g/L"
+        },
+        "referenceRange": {
+          "min": 120,
+          "max": 160,
+          "unit": "g/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "Indicator is within the normal range."
+          }
+        ],
+        "id": "1fe994fc-300e-4c1c-909e-373420c2956a"
+      },
+      {
+        "title": "AST",
+        "value": {
+          "amount": 52,
+          "unit": "U/L"
+        },
+        "referenceRange": {
+          "min": 10,
+          "max": 40,
+          "unit": "U/L"
+        },
+        "severity": "critical",
+        "status": "requiresAction",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Consult a doctor to review elevated AST."
+          }
+        ],
+        "id": "99196978-ccd2-4a36-b241-48f37e016553"
+      },
+      {
+        "title": "Vitamin D (25-OH)",
+        "value": {
+          "amount": 21,
+          "unit": "ng/mL"
+        },
+        "referenceRange": {
+          "min": 30,
+          "max": 100,
+          "unit": "ng/mL"
+        },
+        "severity": "attention",
+        "status": "requiresAction",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Consult a specialist about vitamin D correction."
+          }
+        ],
+        "id": "c3708f66-7885-4797-b468-e5e04e3affb5"
+      },
+      {
+        "title": "Platelets",
+        "value": {
+          "amount": 275,
+          "unit": "10^9/L"
+        },
+        "referenceRange": {
+          "min": 150,
+          "max": 400,
+          "unit": "10^9/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "Platelet count is stable."
+          }
+        ],
+        "id": "ddbcc25f-7b3f-4426-ba9b-eb5f59c53c17"
+      }
+    ]
+  },
+  {
     "id": "f010d5f2-33b1-4399-b1d0-0bc4a57ac1fb",
     "date": "13-03-2026",
     "status": "completed",

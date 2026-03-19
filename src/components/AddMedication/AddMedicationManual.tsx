@@ -187,7 +187,7 @@ export const AddMedicationManual: FC<IAddMedicationChildProps> = memo(
                             )}
 
                             {currentStep === addMedicationManualSteps.length - 1 ? (
-                                <Button type="submit" variant="contained">
+                                <Button type="submit" variant="contained" key="submit">
                                     {t('Submit')}
                                 </Button>
                             ) : (
@@ -195,6 +195,7 @@ export const AddMedicationManual: FC<IAddMedicationChildProps> = memo(
                                     type="button"
                                     onClick={() => changeStep('forward')}
                                     variant="contained"
+                                    key="next"
                                 >
                                     {t('Next')}
                                 </Button>

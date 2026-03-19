@@ -8,6 +8,7 @@ import { DATE_FORMAT } from '@/utils/consts';
 import { generatePrescriptionItems } from '@/utils/mocks/prescription';
 import { getUserDataByToken } from '@/utils/getUserDataByToken';
 import { AUTH_COOKIE_NAME } from '../../login/route';
+import { sendNotification } from '@/utils/requests/sendNotification';
 
 export const dynamic = 'force-dynamic';
 
@@ -50,7 +51,7 @@ export async function writePrescriptionsFile(data: Array<Prescription>): Promise
     await fs.writeFile(PRESCRIPTIONS_FILE, JSON.stringify(data, null, 2), 'utf-8');
 }
 
-async function finalizePrescription(prescriptionId: string): Promise<void> {
+async function finalizePrescription(prescriptionId: string, userId: string): Promise<void> {
     await sleep(60 * 1000);
 
     const meds = generatePrescriptionItems();
@@ -70,6 +71,11 @@ async function finalizePrescription(prescriptionId: string): Promise<void> {
     });
 
     await writePrescriptionsFile(nextList);
+    await sendNotification(userId, {
+        heading: 'Your analysis is ready to check',
+        url: `/docs/prescriptions/${prescriptionId}`,
+        text: 'Click here to check it',
+    });
 }
 
 export async function POST(req: NextRequest) {
@@ -111,7 +117,7 @@ export async function POST(req: NextRequest) {
 
         after(async () => {
             try {
-                await finalizePrescription(newPrescription.id);
+                await finalizePrescription(newPrescription.id, userId);
             } catch (error) {
                 console.error('Failed to finalize prescription:', error);
             }

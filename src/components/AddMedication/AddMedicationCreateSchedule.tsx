@@ -32,7 +32,7 @@ export const AddMedicationCreateSchedule: FC<IAddMedicationChildProps> = memo(
                 <Typography variant="h2" textAlign="center">
                     {t('Do you want to create a schedule for {med}?', { med: medData.name ?? '' })}
                 </Typography>
-                <Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                     <Box
                         sx={{
                             p: 10,

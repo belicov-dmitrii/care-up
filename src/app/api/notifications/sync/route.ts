@@ -8,6 +8,7 @@ import { type ScheduleTime, type NotificationJob, type ScheduleItem, type Med } 
 import { addMedsToScheduleItems } from '@/utils/addMedsToScheduleItems';
 import { DATE_FORMAT } from '@/utils/consts';
 import { encodeIdWithDate } from '@/utils/eventsEncoder';
+import { headers } from 'next/headers';
 
 type ScheduleItemWithMed = ScheduleItem & { med: Med };
 
@@ -318,6 +319,14 @@ async function sendNotificationGroupToOneSignal(group: NotificationGroup) {
 
     const payload = buildGroupedNotificationPayload(group);
 
+    const headersList = await headers();
+    const host = headersList.get('host');
+    const protocol = headersList.get('x-forwarded-proto') || 'http';
+
+    const origin = `${protocol}://${host}`;
+
+    const fullUrl = payload.url?.startsWith('http') ? payload.url : `${origin}${payload.url}`;
+
     const response = await fetch('https://api.onesignal.com/notifications?c=push', {
         method: 'POST',
         headers: {
@@ -336,8 +345,7 @@ async function sendNotificationGroupToOneSignal(group: NotificationGroup) {
             contents: {
                 en: payload.body,
             },
-            url: payload.url,
-            web_url: payload.url,
+            web_url: fullUrl,
             send_after: group.sendAtUTC,
             data: payload.data,
         }),

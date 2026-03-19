@@ -47,8 +47,23 @@ export default async function AnalysisItemPage({ params }: AnalysisItemPageProps
 
     return (
         <Container sx={{ p: 3, pt: 4 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Link href={`/docs/analysis/${analysis.id}`}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'relative',
+                }}
+            >
+                <Link
+                    href={`/docs/analysis/${analysis.id}`}
+                    style={{
+                        position: 'absolute',
+                        top: '0',
+                        left: '25px',
+                        transform: 'translateY(50%)',
+                    }}
+                >
                     <IconButton
                         sx={{
                             width: '40px',
@@ -61,7 +76,7 @@ export default async function AnalysisItemPage({ params }: AnalysisItemPageProps
                         <ArrowBack fontSize="inherit" />
                     </IconButton>
                 </Link>
-                <Box sx={{ flex: '2 2' }} textAlign="center">
+                <Box textAlign="center">
                     <Typography variant="h2" fontSize="22px" mb={1}>
                         {selectedItem.title}
                     </Typography>

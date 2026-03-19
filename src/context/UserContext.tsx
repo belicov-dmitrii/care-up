@@ -56,7 +56,7 @@ export const UserContextProvider: FC<PropsWithChildren> = memo(({ children }) =>
             ).OneSignal;
             if (!OneSignal || !userData?.id) return;
 
-            await OneSignal.login(userData?.id);
+            await OneSignal?.login(userData?.id);
         })();
     }, [userData?.id]);
 

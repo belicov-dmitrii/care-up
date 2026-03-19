@@ -83,6 +83,7 @@ export default function PushNotificationGuard() {
 
     const handleEnable = async () => {
         try {
+            setLoading(true);
             const oneSignal = (window as Window & { OneSignal?: any }).OneSignal;
             if (!oneSignal || !('Notification' in window)) return;
 
@@ -102,6 +103,8 @@ export default function PushNotificationGuard() {
             }
         } catch (error) {
             console.error('Failed to enable notifications', error);
+        } finally {
+            setLoading(false);
         }
     };
 

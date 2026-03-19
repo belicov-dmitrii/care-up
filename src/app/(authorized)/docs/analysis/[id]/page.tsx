@@ -37,8 +37,23 @@ export default async function AnalysisPage({ params }: { params: Promise<{ id: s
 
     return (
         <Container sx={{ p: 3, pt: 4 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                <Link href="/docs/analysis">
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'relative',
+                }}
+            >
+                <Link
+                    href="/docs/analysis"
+                    style={{
+                        position: 'absolute',
+                        top: '0',
+                        left: '0px',
+                        transform: 'translateY(50%)',
+                    }}
+                >
                     <IconButton
                         sx={{
                             width: '40px',
