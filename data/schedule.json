@@ -525,5 +525,85 @@
         "endDate": "2026-04-16",
         "recommendations": [],
         "restriction": []
+    },
+    {
+        "id": "ada8a078-be11-419b-a4da-7d656c3de80c",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "medId": "2bc49b61-dea3-49eb-a60d-9a6c39b96b11",
+        "type": "every other day",
+        "dose": {
+            "ee031913-2bda-480a-910e-35524733409b": 1
+        },
+        "time": [
+            {
+                "id": "ee031913-2bda-480a-910e-35524733409b",
+                "hours": 8,
+                "minutes": 0
+            }
+        ],
+        "startDate": "2026-03-20",
+        "endDate": "2026-04-01",
+        "recommendations": [],
+        "restriction": []
+    },
+    {
+        "id": "67629179-2635-4390-887c-7bbd5e9f92d4",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "medId": "d201d409-9fbd-4182-b7b8-cfc244b5d993",
+        "type": "specific date",
+        "dose": {
+            "77aadc13-8f56-4bd4-9102-84b580bf8f12": 1
+        },
+        "time": [
+            {
+                "id": "77aadc13-8f56-4bd4-9102-84b580bf8f12",
+                "hours": 6,
+                "minutes": 53
+            }
+        ],
+        "startDate": "2026-03-20",
+        "endDate": "2026-03-28",
+        "recommendations": [],
+        "restriction": []
+    },
+    {
+        "id": "07f2b604-5866-4a36-a5db-f77b2a8807fc",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "medId": "e3c42841-ef42-442f-aeee-f49dcd3d723e",
+        "type": "every day",
+        "dose": {
+            "c0bf6bab-84b5-48bf-a1a3-9e76cee81d28": 1
+        },
+        "time": [
+            {
+                "id": "c0bf6bab-84b5-48bf-a1a3-9e76cee81d28",
+                "hours": 9,
+                "minutes": 0
+            }
+        ],
+        "startDate": "2026-03-20",
+        "endDate": "2026-05-01",
+        "recommendations": [],
+        "restriction": []
+    },
+    {
+        "id": "b172b360-7e3b-4749-9cdb-891b225cade4",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "medId": "87456e48-1007-4313-88d6-e26fcd5fe5aa",
+        "type": "every other day",
+        "dose": {
+            "35af7e7f-73a3-4258-bdbb-3a42c19ed2fe": 0.1
+        },
+        "time": [
+            {
+                "id": "35af7e7f-73a3-4258-bdbb-3a42c19ed2fe",
+                "hours": 8,
+                "minutes": 0
+            }
+        ],
+        "startDate": "2026-03-20",
+        "endDate": "",
+        "recommendations": [],
+        "restriction": []
     }
 ]

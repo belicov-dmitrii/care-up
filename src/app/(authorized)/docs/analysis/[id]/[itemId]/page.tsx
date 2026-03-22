@@ -112,7 +112,7 @@ export default async function AnalysisItemPage({ params }: AnalysisItemPageProps
                 {t('Recommendations')}
             </Typography>
             <Box>
-                {selectedItem.recommendations.map((recommendation) => {
+                {selectedItem.recommendations.map((recommendation, index) => {
                     const styles = ANALYSIS_ITEM_RECOMMENDATIONS_STYLES[recommendation.category];
 
                     return (
@@ -139,7 +139,13 @@ export default async function AnalysisItemPage({ params }: AnalysisItemPageProps
                                 <Typography fontSize="16px" fontWeight={500} mb={2}>
                                     {recommendation.title}
                                 </Typography>
-                                <AnalysisItemAction styles={styles} analysisItem={selectedItem} />
+                                <AnalysisItemAction
+                                    analysisId={analysis.id}
+                                    styles={styles}
+                                    analysisItem={selectedItem}
+                                    status={recommendation.status || 'review'}
+                                    recommendationIndex={index}
+                                />
                             </Stack>
                         </Paper>
                     );

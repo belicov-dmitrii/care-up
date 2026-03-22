@@ -72,7 +72,7 @@ async function finalizePrescription(prescriptionId: string, userId: string): Pro
 
     await writePrescriptionsFile(nextList);
     await sendNotification(userId, {
-        heading: 'Your analysis is ready to check',
+        heading: 'Your prescription is ready to check',
         url: `/docs/prescriptions/${prescriptionId}`,
         text: 'Click here to check it',
     });

@@ -46,7 +46,7 @@ async function readAnalysisFile(): Promise<Array<Analysis>> {
     }
 }
 
-async function writeAnalysisFile(data: Array<Analysis>): Promise<void> {
+export async function writeAnalysisFile(data: Array<Analysis>): Promise<void> {
     await ensureDataFile();
     await fs.writeFile(ANALYSIS_FILE, JSON.stringify(data, null, 2), 'utf-8');
 }

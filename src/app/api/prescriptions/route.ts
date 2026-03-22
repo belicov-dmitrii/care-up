@@ -22,11 +22,14 @@ export async function POST(req: NextRequest) {
         const file = await fs.readFile(filePath, 'utf-8');
 
         const prescriptions: Prescription[] = JSON.parse(file);
+        const userPrescriptions: Prescription[] = prescriptions.filter(
+            (prescription) => prescription.userId === userId
+        );
 
-        let result: Prescription | Prescription[] | undefined = prescriptions;
+        let result: Prescription | Prescription[] | undefined = userPrescriptions;
 
         if (id) {
-            result = prescriptions.find(({ id: prescriptionId }) => prescriptionId === id);
+            result = userPrescriptions.find(({ id: prescriptionId }) => prescriptionId === id);
         }
 
         return NextResponse.json(result, { status: 201 });

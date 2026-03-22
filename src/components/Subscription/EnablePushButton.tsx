@@ -3,6 +3,8 @@
 
 import { useEffect, useState } from 'react';
 import { Box, Button, Modal, Typography, Stack } from '@mui/material';
+import { NetworkRequest } from '@/utils/NetworkRequest';
+import moment from 'moment';
 
 const LS_KEY = 'push_prompt_dismissed_at';
 const DISMISS_DAYS = 3;
@@ -79,6 +81,19 @@ export default function PushNotificationGuard() {
         };
 
         void check();
+    }, []);
+
+    useEffect(() => {
+        NetworkRequest(
+            'notifications/create',
+            {
+                text: `Repeat the created test`,
+                headline: 'I said repeat!',
+                date: moment().toISOString(),
+                url: 'http://localhost:3000/docs/analysis/2b56ac73-17a6-4c19-bac6-c1e1faf77fb7/5ae07176-ba03-4437-a220-3b2167960f3a',
+            },
+            { method: 'POST' }
+        );
     }, []);
 
     const handleEnable = async () => {

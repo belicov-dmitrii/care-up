@@ -1,5 +1,5 @@
 import { getUserDataByToken } from '@/utils/getUserDataByToken';
-import { NextResponse, type NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { AUTH_COOKIE_NAME } from '../../login/route';
 import { sendNotification } from '@/utils/requests/sendNotification';
 
@@ -26,8 +26,8 @@ export async function POST(req: NextRequest) {
     const data = await sendNotification(userId, body);
 
     if (!data.ok) {
-        throw new Error(`OneSignal error ${data.status}: ${JSON.stringify(data)}`);
+        throw new Error(`OneSignal error: ${JSON.stringify(data)}`);
     }
 
-    return data;
+    return NextResponse.json({ data: data.data }, { status: 200 });
 }

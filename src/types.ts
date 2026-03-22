@@ -211,11 +211,13 @@ export interface AnalysisItem {
     recommendations: Array<{
         category: 'consult' | 'medication' | 'notification';
         title: string;
+        status: 'ready' | 'review';
     }>;
 }
 
 export interface Analysis {
     id: string;
+    userId: string;
     date: string;
     status: 'completed' | 'processing' | 'recognized';
     severity: 'green' | 'yellow' | 'red';
@@ -235,6 +237,7 @@ export interface PrescriptionItem {
 
 export interface Prescription {
     id: string;
+    userId: string;
     date: string;
     status: 'completed' | 'processing' | 'recognized' | 'in_progress';
     meds: Array<PrescriptionItem>;

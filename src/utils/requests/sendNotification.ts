@@ -33,11 +33,11 @@ export const sendNotification = async (
             contents: {
                 en: body.text,
             },
-            web_url: fullUrl,
+            url: fullUrl,
             send_after: body.date,
         }),
     });
     const responseBody = await response.json();
 
-    return responseBody;
+    return { data: responseBody, ok: response.ok };
 };

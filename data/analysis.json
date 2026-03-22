@@ -1,5 +1,202 @@
 [
   {
+    "id": "2b56ac73-17a6-4c19-bac6-c1e1faf77fb7",
+    "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+    "date": "20-03-2026",
+    "status": "completed",
+    "severity": "yellow",
+    "items": [
+      {
+        "title": "Hemoglobin",
+        "value": {
+          "amount": 125,
+          "unit": "g/L"
+        },
+        "referenceRange": {
+          "min": 120,
+          "max": 160,
+          "unit": "g/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "Indicator is within the normal range."
+          }
+        ],
+        "id": "5ae07176-ba03-4437-a220-3b2167960f3a"
+      },
+      {
+        "title": "Ferritin",
+        "value": {
+          "amount": 13,
+          "unit": "ng/mL"
+        },
+        "referenceRange": {
+          "min": 15,
+          "max": 150,
+          "unit": "ng/mL"
+        },
+        "severity": "attention",
+        "status": "reviewed",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Discuss iron stores with your doctor.",
+            "status": "ready"
+          },
+          {
+            "category": "notification",
+            "title": "Repeat ferritin test in 4–8 weeks if advised.",
+            "status": "ready"
+          }
+        ],
+        "id": "9e0e06ed-b31a-41db-85df-4a40515ba7ec"
+      },
+      {
+        "title": "ALT",
+        "value": {
+          "amount": 34,
+          "unit": "U/L"
+        },
+        "referenceRange": {
+          "min": 7,
+          "max": 35,
+          "unit": "U/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "ALT is within the normal range."
+          }
+        ],
+        "id": "d6b82ee9-59d0-42fb-84ac-f89dd30448fb"
+      },
+      {
+        "title": "Vitamin D (25-OH)",
+        "value": {
+          "amount": 21,
+          "unit": "ng/mL"
+        },
+        "referenceRange": {
+          "min": 30,
+          "max": 100,
+          "unit": "ng/mL"
+        },
+        "severity": "attention",
+        "status": "reviewed",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Consult a specialist about vitamin D correction.",
+            "status": "ready"
+          }
+        ],
+        "id": "0223e7e9-c62b-4142-831d-f05429e8f0f0"
+      }
+    ]
+  },
+  {
+    "id": "7c704064-2573-4b48-8282-07a20728f573",
+    "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+    "date": "20-03-2026",
+    "status": "completed",
+    "severity": "yellow",
+    "items": [
+      {
+        "title": "Glucose",
+        "value": {
+          "amount": 5.2,
+          "unit": "mmol/L"
+        },
+        "referenceRange": {
+          "min": 3.9,
+          "max": 5.5,
+          "unit": "mmol/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "Glucose is within the normal range."
+          }
+        ],
+        "id": "c51c35ad-be8a-48ab-be63-5c737e71acbe"
+      },
+      {
+        "title": "ALT",
+        "value": {
+          "amount": 34,
+          "unit": "U/L"
+        },
+        "referenceRange": {
+          "min": 7,
+          "max": 35,
+          "unit": "U/L"
+        },
+        "severity": "normal",
+        "status": "optimal",
+        "recommendations": [
+          {
+            "category": "notification",
+            "title": "ALT is within the normal range."
+          }
+        ],
+        "id": "8392b6e4-ff13-43d9-9f09-599607aec3f8"
+      },
+      {
+        "title": "Vitamin D (25-OH)",
+        "value": {
+          "amount": 21,
+          "unit": "ng/mL"
+        },
+        "referenceRange": {
+          "min": 30,
+          "max": 100,
+          "unit": "ng/mL"
+        },
+        "severity": "attention",
+        "status": "requiresAction",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Consult a specialist about vitamin D correction."
+          }
+        ],
+        "id": "cb184a5d-4dbc-4d62-aa7a-b42d2a3f1c2e"
+      },
+      {
+        "title": "Ferritin",
+        "value": {
+          "amount": 13,
+          "unit": "ng/mL"
+        },
+        "referenceRange": {
+          "min": 15,
+          "max": 150,
+          "unit": "ng/mL"
+        },
+        "severity": "attention",
+        "status": "requiresAction",
+        "recommendations": [
+          {
+            "category": "consult",
+            "title": "Discuss iron stores with your doctor."
+          },
+          {
+            "category": "notification",
+            "title": "Repeat ferritin test in 4–8 weeks if advised."
+          }
+        ],
+        "id": "2dc28d04-6f92-4395-bd78-75c8c65bc777"
+      }
+    ]
+  },
+  {
     "id": "1cfbb022-2245-4568-808b-0f92fc92f615",
     "userId": "80da2b9e-4582-44f1-9c6f-cf8b3bb479d8",
     "date": "19-03-2026",

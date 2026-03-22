@@ -195,7 +195,7 @@
         "strength": 5000,
         "unit": "IU",
         "dose": 1,
-        "remaining": 100,
+        "remaining": 83,
         "expirationDate": "2026-03-28"
     },
     {
@@ -285,5 +285,49 @@
         "dose": 5,
         "remaining": 32,
         "expirationDate": "2027-05-06"
+    },
+    {
+        "id": "2bc49b61-dea3-49eb-a60d-9a6c39b96b11",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Potassium",
+        "form": "Capsules",
+        "strength": 65,
+        "unit": "IU",
+        "dose": 3,
+        "remaining": 34,
+        "expirationDate": "2028-04-01"
+    },
+    {
+        "id": "d201d409-9fbd-4182-b7b8-cfc244b5d993",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Aspirin",
+        "form": "Tablets",
+        "strength": 1000,
+        "unit": "Mg",
+        "dose": 1,
+        "remaining": 78,
+        "expirationDate": "2027-10-23"
+    },
+    {
+        "id": "e3c42841-ef42-442f-aeee-f49dcd3d723e",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Magnesium",
+        "form": "Capsules",
+        "strength": 53,
+        "unit": "IU",
+        "dose": 5,
+        "remaining": 90,
+        "expirationDate": "2027-03-31"
+    },
+    {
+        "id": "87456e48-1007-4313-88d6-e26fcd5fe5aa",
+        "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+        "name": "Iron",
+        "form": "Syrups",
+        "strength": 36,
+        "unit": "Mg",
+        "dose": 3,
+        "remaining": 20,
+        "expirationDate": "2027-03-20"
     }
 ]

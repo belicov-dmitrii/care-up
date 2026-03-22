@@ -1,57 +1,49 @@
 [
   {
+    "id": "da19aaf9-9148-4d72-bbb2-bf2db9accbc4",
+    "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
+    "date": "20-03-2026",
+    "status": "completed",
+    "meds": [
+      {
+        "medData": {},
+        "id": "cd1e9bd5-8968-4aac-838b-944d5d58cf7d",
+        "name": "Aspirin",
+        "medId": "d201d409-9fbd-4182-b7b8-cfc244b5d993",
+        "scheduleId": "67629179-2635-4390-887c-7bbd5e9f92d4",
+        "scheduleData": {}
+      },
+      {
+        "medData": {},
+        "id": "dbfe9548-e3b1-45ec-bd09-db781af557c3",
+        "name": "Iron",
+        "medId": "87456e48-1007-4313-88d6-e26fcd5fe5aa",
+        "scheduleId": "b172b360-7e3b-4749-9cdb-891b225cade4",
+        "scheduleData": {}
+      },
+      {
+        "medData": {},
+        "id": "9ffb9675-691c-4af5-ae9d-0284064efede",
+        "name": "Magnesium",
+        "medId": "e3c42841-ef42-442f-aeee-f49dcd3d723e",
+        "scheduleId": "07f2b604-5866-4a36-a5db-f77b2a8807fc",
+        "scheduleData": {}
+      }
+    ]
+  },
+  {
     "id": "f0cd7716-928a-4d10-a145-e21ffd62b375",
     "userId": "62223a6a-febe-4108-8392-7e4377ee5f71",
     "date": "19-03-2026",
-    "status": "recognized",
+    "status": "in_progress",
     "meds": [
       {
-        "medData": {
-          "name": "Potassium",
-          "dose": 3,
-          "strength": 656,
-          "unit": "IU",
-          "remaining": 34
-        },
+        "medData": {},
         "id": "d228d117-dc79-41e9-89bd-8ebf4ad58bc2",
         "name": "Potassium",
-        "medId": null,
-        "scheduleId": null,
-        "scheduleData": {
-          "time": [
-            {
-              "id": "ee031913-2bda-480a-910e-35524733409b",
-              "hours": 8,
-              "minutes": 0
-            },
-            {
-              "id": "a5da1a26-4047-4bec-9fb4-fdedbd08b5c0",
-              "hours": 23,
-              "minutes": 11
-            }
-          ],
-          "dose": {
-            "ee031913-2bda-480a-910e-35524733409b": 1,
-            "a5da1a26-4047-4bec-9fb4-fdedbd08b5c0": 10
-          },
-          "restriction": [
-            {
-              "type": "Food & Drink Timing",
-              "note": "Avoid coffee before intake",
-              "before": 120,
-              "after": null,
-              "enabled": true
-            }
-          ],
-          "recommendations": [
-            {
-              "id": "a9F3kLm8QxT2vR7zBn4P-1",
-              "category": "Activity Restrictions",
-              "title": "Avoid driving if dizziness occurs",
-              "note": "Taking with a meal increases absorption and helps prevent any stomach discomfort."
-            }
-          ]
-        }
+        "medId": "2bc49b61-dea3-49eb-a60d-9a6c39b96b11",
+        "scheduleId": "ada8a078-be11-419b-a4da-7d656c3de80c",
+        "scheduleData": {}
       },
       {
         "medData": {

@@ -345,7 +345,7 @@ async function sendNotificationGroupToOneSignal(group: NotificationGroup) {
             contents: {
                 en: payload.body,
             },
-            web_url: fullUrl,
+            url: fullUrl,
             send_after: group.sendAtUTC,
             data: payload.data,
         }),
